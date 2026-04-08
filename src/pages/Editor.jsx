@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useInvitation } from '../context/InvitationContext';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import { API_URL } from '../config';
 import TemplateManager from '../components/TemplateManager';
 import {
   Save,
@@ -102,7 +103,7 @@ const Editor = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8100/api/orders', {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -135,7 +136,7 @@ const Editor = () => {
   const handlePayment = async () => {
     setPaymentLoading(true);
     try {
-      const response = await fetch(`http://localhost:8100/api/orders/${orderId}/pay`, {
+      const response = await fetch(`${API_URL}/api/orders/${orderId}/pay`, {
         method: 'POST'
       });
       const data = await response.json();

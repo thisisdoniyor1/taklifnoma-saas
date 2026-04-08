@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { API_URL } from '../config';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -31,7 +32,7 @@ const Dashboard = () => {
     const fetchMyInvites = async () => {
       const token = localStorage.getItem('taklifnoma_token');
       try {
-        const res = await fetch('http://localhost:8100/api/my-invitations', {
+        const res = await fetch(`${API_URL}/api/my-invitations`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await res.json();

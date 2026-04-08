@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 import TemplateManager from '../components/TemplateManager';
 import { Sparkles, Eye, Check, Star, ArrowUpRight, Trophy, Gem, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -16,7 +17,7 @@ const Templates = () => {
   const [dbTemplates, setDbTemplates] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8100/api/templates')
+    fetch(`${API_URL}/api/templates`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { API_URL } from '../config';
 import TemplateManager from '../components/TemplateManager';
 import confetti from 'canvas-confetti';
 
@@ -12,7 +13,7 @@ const InvitationView = () => {
   useEffect(() => {
     const fetchInvitation = async () => {
       try {
-        const res = await fetch(`http://localhost:8100/api/orders/${id}`);
+        const res = await fetch(`${API_URL}/api/orders/${id}`);
         if (!res.ok) {
           throw new Error("Taklifnoma topilmadi yoki to'lanmagan");
         }

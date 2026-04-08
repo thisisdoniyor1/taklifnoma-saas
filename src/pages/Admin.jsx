@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Admin = () => {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ const Admin = () => {
   const fetchStats = async () => {
     const token = localStorage.getItem('taklifnoma_token');
     try {
-      const res = await fetch('http://localhost:8100/api/admin/stats', {
+      const res = await fetch(`${API_URL}/api/admin/stats`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
