@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-emerald-950:   #022C22; /* Deepest Forest Green */
+  --color-emerald-900:   #064E3B;
+  --color-emerald-800:   #065F46;
+  --color-emerald-100:   #D1FAE5;
+  --color-emerald-50:    #ECFDF5;
+  --color-gold-500:      #C5A017; /* Deep Luxury Gold */
+  --color-gold-400:      #E5C05E;
+  --color-sage-100:      #D1FAE5;
+  --color-sage-50:       #F0FDF4; /* Noticeable Light Green */
+  
+  --font-serif: "Inter", system-ui, sans-serif;
+  --font-sans:  "Outfit", system-ui, sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-15px); }
+  }
+}
+
+@layer base {
+  :root {
+    --primary-accent: #D4AF37;
+    --bg-main:       #F0FDF4; /* Global green tint */
+    --text-main:     #022C22;
+    --text-muted:    #6B7280;
+    --glass-bg:      rgba(255, 255, 255, 0.85);
+    --glass-border:  rgba(6, 78, 59, 0.12); /* Emerald border focus */
+    --radius-lg:     24px;
+    --radius-md:     16px;
+  }
+
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Outfit", sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Outfit", sans-serif;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .luxury-button {
+    @apply h-12 px-8 flex items-center justify-center bg-emerald-950 text-white rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-2xl shadow-emerald-950/20 border border-transparent hover:border-gold-500 hover:shadow-[0_0_20px_rgba(197,160,23,0.4)] transition-all duration-500 active:scale-95;
+  }
+
+  .ghost-button {
+    @apply h-12 px-8 flex items-center justify-center border border-emerald-900/10 text-emerald-900 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-emerald-50 transition-all duration-300;
+  }
+
+  .grid-bg {
+    background-image: 
+      linear-gradient(to right, rgba(6, 78, 59, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(6, 78, 59, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .mobile-mockup {
+    @apply w-[300px] h-[600px] bg-emerald-950 rounded-[50px] border-8 border-emerald-900 shadow-2xl relative;
+  }
+
+  .mockup-inner {
+    @apply absolute inset-2 bg-white rounded-[40px] overflow-hidden;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-3xl border border-white/20 rounded-[32px] shadow-[0_40px_100px_-20px_rgba(6,78,59,0.12)];
+  }
+}
+
+/* ── Layout Utilities ── */
+.section-padding { @apply py-24 px-6; }
+.container-max { @apply max-w-7xl mx-auto; }
+
+/* ── Custom Animations ── */
+.reveal {
+  @apply opacity-0 translate-y-10 transition-all duration-1000 ease-out;
+}
+.reveal.active {
+  @apply opacity-100 translate-y-0;
+}
