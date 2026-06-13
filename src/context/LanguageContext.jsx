@@ -2,10 +2,26 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../locales/translations';
 
 const LanguageContext = createContext();
+const defaultLanguage = 'en';
+
+const resolveTranslation = (locale, key) => {
+  const dictionary = translations[locale];
+  if (!dictionary) {
+    return undefined;
+  }
+
+  return key.split('.').reduce((value, segment) => {
+    if (value && Object.prototype.hasOwnProperty.call(value, segment)) {
+      return value[segment];
+    }
+    return undefined;
+  }, dictionary);
+};
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('taklifnoma_lang') || 'en';
+    const savedLanguage = localStorage.getItem('taklifnoma_lang');
+    return translations[savedLanguage] ? savedLanguage : defaultLanguage;
   });
 
   useEffect(() => {
@@ -14,16 +30,13 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   const t = (key) => {
-    const keys = key.split('.');
-    let value = translations[language];
-    for (const k of keys) {
-      if (value[k]) {
-        value = value[k];
-      } else {
-        return key; // return key if not found
-      }
+    const localizedValue = resolveTranslation(language, key);
+    if (localizedValue !== undefined) {
+      return localizedValue;
     }
-    return value;
+
+    const fallbackValue = resolveTranslation(defaultLanguage, key);
+    return fallbackValue !== undefined ? fallbackValue : key;
   };
 
   return (

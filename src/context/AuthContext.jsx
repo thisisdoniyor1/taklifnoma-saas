@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { API_URL } from '../config';
+import { db } from '../lib/db';
 
 const AuthContext = createContext();
 
@@ -11,6 +11,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const applySession = (data) => {
+    setUser(data.user);
+    localStorage.setItem('taklifnoma_user', JSON.stringify(data.user));
+    localStorage.setItem('taklifnoma_token', data.token);
+  };
+
   useEffect(() => {
     const savedUser = localStorage.getItem('taklifnoma_user');
     const token = localStorage.getItem('taklifnoma_token');
@@ -21,43 +27,24 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
-    // TEMPORARY BYPASS FOR ADMIN
-    if (email === 'admin@admin.com' && password === 'admin') {
-      const mockUser = { id: 999, email: 'admin@admin.com', isAdmin: true };
-      setUser(mockUser);
-      localStorage.setItem('taklifnoma_user', JSON.stringify(mockUser));
-      localStorage.setItem('taklifnoma_token', 'mock-admin-token');
-      return { success: true };
-    }
-
+  const login = async (email, password, adminLoginAttempt = false) => {
     try {
-      const res = await fetch(`${API_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Login failed');
-      
-      setUser(data.user);
-      localStorage.setItem('taklifnoma_user', JSON.stringify(data.user));
-      localStorage.setItem('taklifnoma_token', data.token);
-      return { success: true };
+      const data = await db.login(email, password, adminLoginAttempt);
+
+      if (adminLoginAttempt && !data.user?.isAdmin) {
+        throw new Error('Incorrect password');
+      }
+
+      applySession(data);
+      return { success: true, user: data.user };
     } catch (err) {
       return { success: false, error: err.message };
     }
   };
 
-  const signup = async (email, password) => {
+  const signup = async (email, password, displayName) => {
     try {
-      const res = await fetch(`${API_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Signup failed');
+      await db.signup(email, password, displayName);
       return { success: true };
     } catch (err) {
       return { success: false, error: err.message };
@@ -71,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading, applySession }}>
       {children}
     </AuthContext.Provider>
   );

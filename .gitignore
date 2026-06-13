@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -13,16 +13,14 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
+dist/
 /build
 
 # misc
 .DS_Store
 *.pem
+vite.config.js.timestamp-*.mjs
 
 # debug
 npm-debug.log*
@@ -41,3 +39,26 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+server/data/
+
+# Temporary / testing scripts and logs
+server.log
+*.log
+scratch.js
+scratch.mjs
+check_page.mjs
+make_transparent.py
+patch_translations*
+rename_imports.cjs
+rewrite-navbar.js
+update-translations.cjs
+test-admin*
+test.js
+test.cjs
+
+# Media & Build folders
+.next/
+video_frames/
+*.MP4
+*.mp4
+

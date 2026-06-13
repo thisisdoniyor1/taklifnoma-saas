@@ -1,0 +1,24 @@
+{
+  "users": [],
+  "orders": [
+    {
+      "id": 4,
+      "template_id": "luxury-gold",
+      "groom_name": "Ismoil",
+      "bride_name": "ugiloy",
+      "wedding_date": "123456",
+      "wedding_time": "1234",
+      "location_name": "inoyat",
+      "welcome_text": "Bizning baxtli kunimizga xush kelibsiz!",
+      "music_url": "",
+      "invite_uuid": "80c8d936-a0bf-4849-984f-9330b30f9abd",
+      "payment_status": "paid",
+      "user_id": 999,
+      "slug": "ismoil-ugiloy",
+      "views_count": 3155,
+      "rsvp_count": 0,
+      "created_at": "2026-04-11T13:07:23.159Z"
+    }
+  ],
+  "rsvps": []
+}

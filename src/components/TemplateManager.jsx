@@ -1,17 +1,58 @@
-import React from 'react';
-import Template1 from '../templates/Template1';
-import Template2 from '../templates/Template2';
+import React, { Suspense } from 'react';
+import { getTemplateConfig } from '../lib/templates';
 
-const TemplateManager = ({ templateId, data }) => {
-  const templates = {
-    'luxury-gold': Template1,
-    'classic-minimalist': Template2,
-    // Add more templates as needed
-  };
+const templateLoaders = {
+  'envelope-classic': () => import('../templates/RoyalIvoryGatesTemplate'),
+  'classic-gold-white': () => import('../templates/BlushRoseEleganceTemplate'),
+  'jeweled-mandala': () => import('../templates/JeweledMandalaTemplate'),
+  'golden-plumes': () => import('../templates/GoldenPlumesTemplate'),
+  'minimal-floral': () => import('../templates/MinimalFloralTemplate'),
+  'royal-navy-shield': () => import('../templates/ImperialNavyShieldTemplate'),
+  'tuscany-finca': () => import('../templates/WatercolorTuscanVillaTemplate'),
+  'chandelier-palm': () => import('../templates/ChandelierGardenDinnerTemplate'),
+  'emerald-elegance': () => import('../templates/EmeraldEleganceTemplate'),
+  'luxury-gold': () => import('../templates/LuxuryGoldTemplate'),
+  'classic-minimalist': () => import('../templates/ClassicMinimalistTemplate'),
+};
 
-  const SelectedTemplate = templates[templateId] || Template1;
+const premiumTemplateLoader = () => import('../templates/PremiumTemplate');
+const lazyTemplateCache = new Map();
 
-  return <SelectedTemplate data={data} />;
+const DefaultTemplateFallback = () => (
+  <div className="min-h-screen w-full flex items-center justify-center bg-white">
+    <div className="h-10 w-10 rounded-full border-[3px] border-emerald-900/15 border-t-emerald-900 animate-spin" />
+  </div>
+);
+
+const getTemplateLoader = (templateId) => templateLoaders[templateId] || premiumTemplateLoader;
+
+const getLazyTemplate = (templateId) => {
+  if (!lazyTemplateCache.has(templateId)) {
+    lazyTemplateCache.set(templateId, React.lazy(getTemplateLoader(templateId)));
+  }
+
+  return lazyTemplateCache.get(templateId);
+};
+
+export const preloadTemplate = (templateId) => {
+  const resolvedTemplateId = getTemplateConfig(templateId).id;
+  return getTemplateLoader(resolvedTemplateId)();
+};
+
+export const preloadTemplates = (templateIds) => {
+  const uniqueTemplateIds = [...new Set(templateIds)];
+  return Promise.allSettled(uniqueTemplateIds.map((templateId) => preloadTemplate(templateId)));
+};
+
+const TemplateManager = ({ templateId, data, fallback, isThumbnail = false }) => {
+  const resolvedTemplateId = getTemplateConfig(templateId).id;
+  const SelectedTemplate = getLazyTemplate(resolvedTemplateId);
+
+  return (
+    <Suspense fallback={fallback ?? <DefaultTemplateFallback />}>
+      <SelectedTemplate data={data} templateId={resolvedTemplateId} isThumbnail={isThumbnail} />
+    </Suspense>
+  );
 };
 
 export default TemplateManager;

@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 const InvitationContext = createContext();
+const DEFAULT_WELCOME_TEXT = 'We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.';
 
 export const useInvitation = () => {
   const context = useContext(InvitationContext);
@@ -11,8 +12,9 @@ export const useInvitation = () => {
 };
 
 export const InvitationProvider = ({ children }) => {
+  const [activeStep, setActiveStep] = useState(1);
   const [invitationData, setInvitationData] = useState({
-    templateId: 'luxury-gold',
+    templateId: 'royal-gold',
     groomName: '',
     brideName: '',
     date: '',
@@ -20,18 +22,46 @@ export const InvitationProvider = ({ children }) => {
     location: '',
     locationUrl: '',
     musicUrl: '',
+    image_url: '',
     images: [],
-    welcomeText: 'Bizning baxtli kunimizga xush kelibsiz!',
+    welcomeText: '',
     rsvpStatus: false,
     phone: '',
   });
 
-  const updateInvitation = (newData) => {
+  const updateInvitation = useCallback((newData) => {
     setInvitationData((prev) => ({ ...prev, ...newData }));
-  };
+  }, []);
+
+  const resetInvitation = useCallback(() => {
+    setActiveStep(1);
+    setInvitationData({
+      templateId: 'royal-gold',
+      groomName: '',
+      brideName: '',
+      date: '',
+      time: '',
+      location: '',
+      locationUrl: '',
+      musicUrl: '',
+      image_url: '',
+      images: [],
+      welcomeText: '',
+      rsvpStatus: false,
+      phone: '',
+    });
+  }, []);
+
+  const value = useMemo(() => ({
+    invitationData,
+    updateInvitation,
+    activeStep,
+    setActiveStep,
+    resetInvitation,
+  }), [activeStep, invitationData, resetInvitation, updateInvitation]);
 
   return (
-    <InvitationContext.Provider value={{ invitationData, updateInvitation }}>
+    <InvitationContext.Provider value={value}>
       {children}
     </InvitationContext.Provider>
   );
