@@ -23,6 +23,11 @@ const Intro = ({ data, isThumbnail }) => {
 
   const getFontFamily = (lang) => (lang === 'uz_cyrl' || lang === 'tj') ? 'Georgia, serif' : "'Playfair Display', serif";
 
+  const maxLen = Math.max(groomName.length, brideName.length);
+  const nameFontSize = isThumbnail
+    ? (maxLen > 10 ? `${1.5 * Math.max(0.6, 10 / maxLen)}rem` : '1.5rem')
+    : (maxLen > 10 ? `${2.4 * Math.max(0.6, 10 / maxLen)}rem` : '2.4rem');
+
   return (
     <motion.div
       key={language}
@@ -159,7 +164,7 @@ const Intro = ({ data, isThumbnail }) => {
             <h1 style={{ 
               fontFamily: getFontFamily(language), 
               fontStyle: 'italic',
-              fontSize: isThumbnail ? '1.5rem' : '2.4rem',
+              fontSize: nameFontSize,
               margin: 0,
               fontWeight: 400,
               letterSpacing: '0.1em',
@@ -184,7 +189,7 @@ const Intro = ({ data, isThumbnail }) => {
             <h1 style={{ 
               fontFamily: getFontFamily(language), 
               fontStyle: 'italic',
-              fontSize: isThumbnail ? '1.5rem' : '2.4rem',
+              fontSize: nameFontSize,
               margin: 0,
               fontWeight: 400,
               letterSpacing: '0.1em',

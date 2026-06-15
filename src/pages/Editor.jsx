@@ -669,7 +669,7 @@ const Editor = () => {
                 />
               </div>
 
-              <div className="block">
+              <div className="block md:col-span-2">
                 <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
                   {copyText('editor.fields.photoMusicSection', 'Music')}
                 </span>
@@ -721,6 +721,96 @@ const Editor = () => {
                       }}
                     />
                   )}
+
+                  <AnimatePresence>
+                    {showMusicList && (
+                      <motion.div
+                        key="music-list"
+                        initial={{ opacity: 0, y: -10, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -10, height: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="overflow-hidden mt-2 rounded-[20px] border-2 border-emerald-900/10 bg-white shadow-lg w-full"
+                      >
+                        <div className="border-b border-emerald-900/10 bg-[#F8FAF9] px-5 py-4 rounded-t-[18px]">
+                          <p className="text-[10px] font-black uppercase tracking-[3px] text-emerald-900/50">
+                            {copyText('editor.fields.photoMusicSection', 'Music Selection')}
+                          </p>
+                        </div>
+                        <div className="p-4 space-y-2">
+                          {MUSIC_OPTIONS.map((option) => {
+                            const isSelected = invitationData.musicUrl === option.url;
+                            const isPlaying = previewUrl === option.url;
+                            const label = option.name[language] || option.name.en;
+
+                            return (
+                              <div
+                                key={option.id}
+                                onClick={() => {
+                                  updateInvitation({ musicUrl: option.url });
+                                  setPreviewUrl(option.url);
+                                }}
+                                className={`flex items-center justify-between rounded-2xl border-[1.5px] p-3 transition-all cursor-pointer ${
+                                  isSelected
+                                    ? 'border-emerald-800 bg-emerald-50 text-emerald-950 shadow-sm'
+                                    : 'border-emerald-900/10 bg-white text-emerald-900/80 hover:border-emerald-900/30 hover:bg-emerald-50/30'
+                                }`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${isSelected ? 'bg-emerald-900 text-white' : 'bg-emerald-100/50 text-emerald-800'}`}>
+                                    <Music4 size={14} strokeWidth={3} />
+                                  </div>
+                                  <span className="text-sm font-extrabold">{label}</span>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (isPlaying) {
+                                      setPreviewUrl(null);
+                                    } else {
+                                      updateInvitation({ musicUrl: option.url });
+                                      setPreviewUrl(option.url);
+                                    }
+                                  }}
+                                  className={`flex h-8 w-8 items-center justify-center rounded-full transition-all border-2 ${
+                                    isPlaying
+                                      ? 'border-emerald-800 bg-emerald-900 text-white'
+                                      : 'border-emerald-900/20 bg-white text-emerald-800 hover:bg-emerald-50'
+                                  }`}
+                                >
+                                  {isPlaying ? (
+                                    <div className="flex gap-[2px] items-end justify-center h-3 w-3">
+                                      <span className="w-[2px] bg-current eq-bar-1 h-3" />
+                                      <span className="w-[2px] bg-current eq-bar-2 h-2" />
+                                      <span className="w-[2px] bg-current eq-bar-3 h-3.5" />
+                                    </div>
+                                  ) : (
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 ml-[2px]">
+                                      <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                  )}
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="p-4 border-t border-emerald-900/10 bg-[#F8FAF9]">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setShowMusicList(false);
+                              setPreviewUrl(null);
+                            }}
+                            className="w-full flex h-12 items-center justify-center rounded-2xl bg-emerald-900 px-4 font-bold uppercase tracking-[2px] text-white shadow-sm transition-all hover:bg-emerald-800 text-[11px]"
+                          >
+                            {copyText('editor.upload.closeBtn', 'Close')}
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
@@ -754,97 +844,6 @@ const Editor = () => {
           </div>
         </div>
       </motion.section>
-
-      {/* ── Separate Music List Section ── */}
-      <AnimatePresence>
-        {showMusicList && (
-          <motion.div
-            key="music-list"
-            initial={{ opacity: 0, y: -10, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden mt-6 rounded-[30px] border-[3px] border-emerald-900/10 bg-white shadow-[0_30px_80px_-50px_rgba(6,78,59,0.34)] w-full"
-          >
-            <div className="border-b border-emerald-900/10 bg-[#F8FAF9] px-5 py-4 rounded-t-[27px]">
-              <p className="text-[10px] font-black uppercase tracking-[3px] text-emerald-900/50">
-                {copyText('editor.fields.photoMusicSection', 'Music Selection')}
-              </p>
-            </div>
-            <div className="p-4 space-y-2">
-              {MUSIC_OPTIONS.map((option) => {
-                const isSelected = invitationData.musicUrl === option.url;
-                const isPlaying = previewUrl === option.url;
-                const label = option.name[language] || option.name.en;
-
-                return (
-                  <div
-                    key={option.id}
-                    onClick={() => {
-                      updateInvitation({ musicUrl: option.url });
-                      setPreviewUrl(option.url);
-                    }}
-                    className={`flex items-center justify-between rounded-2xl border-[1.5px] p-3 transition-all cursor-pointer ${
-                      isSelected
-                        ? 'border-emerald-800 bg-emerald-50 text-emerald-950 shadow-sm'
-                        : 'border-emerald-900/10 bg-white text-emerald-900/80 hover:border-emerald-900/30 hover:bg-emerald-50/30'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${isSelected ? 'bg-emerald-900 text-white' : 'bg-emerald-100/50 text-emerald-800'}`}>
-                        <Music4 size={14} strokeWidth={3} />
-                      </div>
-                      <span className="text-sm font-extrabold">{label}</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (isPlaying) {
-                          setPreviewUrl(null);
-                        } else {
-                          updateInvitation({ musicUrl: option.url });
-                          setPreviewUrl(option.url);
-                        }
-                      }}
-                      className={`flex h-8 w-8 items-center justify-center rounded-full transition-all border-2 ${
-                        isPlaying
-                          ? 'border-emerald-800 bg-emerald-900 text-white'
-                          : 'border-emerald-900/20 bg-white text-emerald-800 hover:bg-emerald-50'
-                      }`}
-                    >
-                      {isPlaying ? (
-                        <div className="flex gap-[2px] items-end justify-center h-3 w-3">
-                          <span className="w-[2px] bg-current eq-bar-1 h-3" />
-                          <span className="w-[2px] bg-current eq-bar-2 h-2" />
-                          <span className="w-[2px] bg-current eq-bar-3 h-3.5" />
-                        </div>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 ml-[2px]">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="p-4 border-t border-emerald-900/10 bg-[#F8FAF9]">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowMusicList(false);
-                  setPreviewUrl(null);
-                }}
-                className="w-full flex h-12 items-center justify-center rounded-2xl bg-emerald-900 px-4 font-bold uppercase tracking-[2px] text-white shadow-sm transition-all hover:bg-emerald-800 text-[11px]"
-              >
-                {copyText('editor.payment.continue', 'Confirm & Continue')}
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </EditorShell>
   );
 };
