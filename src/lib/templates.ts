@@ -38,14 +38,15 @@ const createTheme = (overrides = {}) => ({
 const templateCatalog = {
   'envelope-classic': {
     id: 'envelope-classic',
-    name: 'Royal Ivory',
+    name: 'Golden Palace',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#D4AF37', '#FFFAF0'],
     priceKey: 'templates.price_somoni',
     priceKeyOld: 'templates.price_somoni_old',
     summary: 'Regal ivory and gold digital card with an elegant, cinematic opening gate animation.',
-    description: 'Welcome your guests with a majestic opening gate animation. Features a premium ivory-and-gold frame centerpiece, hand-drawn palace sketches, and interactive RSVP response tracking.',
+    description: 'Welcome your guests with a majestic opening gate animation. Features a premium ivory-and-gold frame centerpiece, hand-drawn palace sketches, and guests wishes.',
+    welcomeText: 'we invite you to share in the joy of our wedding day. your presence will make our celebration complete as we begin our new life together.',
 
     theme: createTheme({
       designKey: 'envelope-classic',
@@ -80,7 +81,8 @@ const templateCatalog = {
     priceKey: 'templates.price_somoni',
     priceKeyOld: 'templates.price_somoni_old',
     summary: 'Elegant blush pink invitation cover with a realistic wax-sealed envelope opening.',
-    description: 'A premium pink and rose gold invitation that opens with a realistic animated wax seal. Features a custom palace sketch, a dynamic guest wishes wall, and direct map navigation.',
+    description: 'A premium pink and rose gold invitation that opens with a realistic animated wax seal. Features a custom palace sketch, dynamic guest wishes, and direct map navigation.',
+    welcomeText: 'Welcome to Blush Elegance. This romantic invitation opens with a realistic animated wax seal, showcasing soft pink rose aesthetics, a custom palace sketch, dynamic guest wishes, and direct map navigation.',
 
     theme: createTheme({
       designKey: 'classic-gold-white',
@@ -109,7 +111,8 @@ const templateCatalog = {
     priceKey: 'templates.price_somoni',
     priceKeyOld: 'templates.price_somoni_old',
     summary: 'Luxurious deep navy blue and gold design with stately architectural sketches.',
-    description: 'An exquisite classical design in deep royal blue with gold-leaf accents. Features an elegant imperial shield ornament, refined calligraphy typography, and interactive venue navigation.',
+    description: 'An exquisite classical design in deep royal blue with gold-leaf accents. Features an elegant imperial shield ornament, refined calligraphy typography, interactive venue navigation, and guests wishes.',
+    welcomeText: 'Welcome to Imperial Navy. An exquisite classical design in deep royal blue with gold-leaf accents, featuring an elegant imperial shield ornament, refined calligraphy typography, interactive venue navigation, and guests wishes.',
 
     theme: createTheme({
       designKey: 'royal-navy-shield',
@@ -129,7 +132,8 @@ const templateCatalog = {
     priceKey: 'templates.price_somoni',
     priceKeyOld: 'templates.price_somoni_old',
     summary: 'Charming watercolor invitation depicting a serene Tuscan courtyard garden.',
-    description: 'A beautiful botanical theme with watercolor illustrations of a rustic villa garden. Features a wax-sealed envelope cover, a sage-green day timeline, and clean interactive RSVPs.',
+    description: 'A beautiful botanical theme with watercolor illustrations of a rustic villa garden. Features a wax-sealed envelope cover, a sage-green day timeline, and guests wishes.',
+    welcomeText: 'Welcome to Tuscan Garden. A charming watercolor theme depicting a serene Tuscan courtyard garden, featuring a realistic wax-sealed envelope cover, a sage-green day timeline, and beautiful guests wishes.',
 
     theme: createTheme({
       designKey: 'tuscany-finca',
@@ -152,7 +156,8 @@ const templateCatalog = {
     priceKey: 'templates.price_somoni',
     priceKeyOld: 'templates.price_somoni_old',
     summary: 'Magical evening theme featuring crystal chandeliers, beaded drapes, and palm garden glow.',
-    description: 'A premium design inspired by elegant evening dinner settings under string lights and palms. Features a hand-crafted crystal chandelier scene, interactive date cards, and smooth countdowns.',
+    description: 'A premium design inspired by elegant evening dinner settings under string lights and palms. Features a hand-crafted crystal chandelier scene, interactive date cards, smooth countdowns, and guests wishes.',
+    welcomeText: 'Welcome to Chandelier Night. A premium design inspired by evening dinner settings under string lights and palms, featuring a hand-crafted crystal chandelier scene, interactive date cards, smooth countdowns, and guests wishes.',
 
     theme: createTheme({
       designKey: 'chandelier-palm',

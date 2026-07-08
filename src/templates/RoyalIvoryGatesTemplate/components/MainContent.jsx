@@ -4,7 +4,7 @@ import { ChevronDown, MapPin, Heart } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '../../../context/LanguageContext';
 import { db } from '../../../lib/db';
-import { localizedName, translateLocation } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { localizedName, translateLocation, getWelcomeText } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
 
 import palaceBg from '../assets/palace_interior_staircase.png';
 import castleImg from '../assets/castle_illustration.png';
@@ -21,18 +21,18 @@ const FONT = "'Cormorant Garamond', Georgia, serif";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function parseDate(dateStr) {
-  if (!dateStr) return { day: 24, month: 6, year: 2026 };
+  if (!dateStr) return { day: 26, month: 2, year: 2027 };
   const str = String(dateStr);
   if (str.includes('-')) {
     const [y, m, d] = str.split('-');
-    return { day: parseInt(d, 10) || 24, month: parseInt(m, 10) || 6, year: parseInt(y, 10) || 2026 };
+    return { day: parseInt(d, 10) || 26, month: parseInt(m, 10) || 2, year: parseInt(y, 10) || 2027 };
   }
   const [d, m, y] = str.split('.');
-  return { day: parseInt(d, 10) || 24, month: parseInt(m, 10) || 6, year: parseInt(y, 10) || 2026 };
+  return { day: parseInt(d, 10) || 26, month: parseInt(m, 10) || 2, year: parseInt(y, 10) || 2027 };
 }
 
 function calcTimeLeft(dateStr, timeStr) {
-  const { day, month, year } = parseDate(dateStr || '24.06.2026');
+  const { day, month, year } = parseDate(dateStr || '26.02.2027');
   const t = timeStr || '18:00';
   const diff = Math.max(0, new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T${t}:00`).getTime() - Date.now());
   return {
@@ -108,11 +108,25 @@ export default function MainContent({ data }) {
   const params = useParams();
   const invRef = params['*'] || params.id || (params.slugPrefix && params.slugName ? `${params.slugPrefix}/${params.slugName}` : '');
 
+  const WRITE_WISH_HEADING = {
+    en: "Write Your Wishes",
+    ru: "Напишите свои пожелания",
+    uz_cyrl: "Тилакларингизни ёзинг",
+    tj: "Таманниёти худро нависед"
+  };
+
+  const SEND_WISH_BTN = {
+    en: "Send Wish",
+    ru: "Отправить пожелание",
+    uz_cyrl: "Тилакни юбориш",
+    tj: "Таманниётро ирсол кунед"
+  };
+
   const groomName = localizedName(data?.groomName || 'Groom', language);
   const brideName = localizedName(data?.brideName || 'Bride', language);
   const { day, month, year } = parseDate(data?.wedding_date || data?.date);
   const monthName = (MONTH_NAMES[language] || MONTH_NAMES.en)[month - 1];
-  const welcomeText = t('invitation.speech');
+  const welcomeText = getWelcomeText(data?.welcomeText, language, t);
   const timeLabels = {
     en: 'Time',
     ru: 'Время',
@@ -151,7 +165,7 @@ export default function MainContent({ data }) {
   };
 
   let wishes = Array.isArray(data?.rsvps) ? data.rsvps.filter(r => r.wish) : [];
-  const isPreview = !invRef;
+  const isPreview = !invRef || data?.isPreview;
   if (isPreview && wishes.length === 0) {
     wishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;
   }
@@ -510,7 +524,7 @@ export default function MainContent({ data }) {
 
       {/* RSVP */}
       <Section bg="#f9f5ed">
-        <SectionTitle>{language === 'en' ? 'Confirm your attendance' : t('invitation.confirmAttendance') || t('invitation.rsvp')}</SectionTitle>
+        <SectionTitle>{WRITE_WISH_HEADING[language] || WRITE_WISH_HEADING.en}</SectionTitle>
         {rsvpDone ? (
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center' }}>
             <p style={{ fontFamily: "'Playfair Display',serif", fontSize: '2rem', color: GOLD, fontWeight: 300 }}>{t('invitation.rsvp_success_title')}</p>
@@ -537,7 +551,7 @@ export default function MainContent({ data }) {
                 borderRadius: '30px', fontFamily: "'Lato',sans-serif", fontSize: '0.8rem', letterSpacing: 2,
                 textTransform: 'uppercase', fontWeight: 700, cursor: 'pointer', alignSelf: 'center', marginTop: 8
               }}>
-              {rsvpLoading ? '...' : (language === 'en' ? 'Send confirmation' : t('invitation.confirm') || 'Confirm')}
+              {rsvpLoading ? '...' : (SEND_WISH_BTN[language] || SEND_WISH_BTN.en)}
             </motion.button>
           </motion.form>
         )}

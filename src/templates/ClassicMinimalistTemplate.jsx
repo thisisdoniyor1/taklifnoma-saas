@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import FloatingControls from '../components/FloatingControls';
 import { useLanguage } from '../context/LanguageContext';
+import { getWelcomeText } from './WatercolorTuscanVillaTemplate/utils/transliterate';
 
 import coverBg from './ClassicMinimalistAssets/cover_bg.png';
 import sectionBg from './ClassicMinimalistAssets/section_bg.png';
@@ -22,10 +23,10 @@ const LIGHT   = '#fdf5f8';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function parseDate(dateString) {
-  const parts = String(dateString || '24.06.2026').split('.');
-  const day   = parseInt(parts[0], 10) || 24;
-  const month = parseInt(parts[1], 10) || 6;
-  const year  = parseInt(parts[2], 10) || 2026;
+  const parts = String(dateString || '26.02.2027').split('.');
+  const day   = parseInt(parts[0], 10) || 26;
+  const month = parseInt(parts[1], 10) || 2;
+  const year  = parseInt(parts[2], 10) || 2027;
   return { day, month, year };
 }
 
@@ -428,7 +429,8 @@ function Hero({ data }) {
 
 // ─── Welcome / Speech ─────────────────────────────────────────────────────────
 function Welcome({ data }) {
-  const text = data?.welcomeText || 'We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.';
+  const { language, t } = useLanguage();
+  const text = getWelcomeText(data?.welcomeText, language, t);
   return (
     <section style={{ padding: '5rem 2rem', background: BLUSH, textAlign: 'center' }}>
       <motion.div
@@ -845,6 +847,7 @@ function Venue({ data }) {
 
 // ─── RSVP ─────────────────────────────────────────────────────────────────────
 function RSVPSection({ data }) {
+  const { t } = useLanguage();
   const params = useParams();
   const invitationRef = params['*'] || params.id || '';
   const [form, setForm]   = useState({ name: '', wish: '' });
@@ -904,7 +907,7 @@ function RSVPSection({ data }) {
             </h2>
             <PinkDivider />
             <input required value={form.name} onChange={e => setForm(v => ({ ...v, name: e.target.value }))} placeholder="Your name" style={fieldStyle} />
-            <textarea rows={3} value={form.wish} onChange={e => setForm(v => ({ ...v, wish: e.target.value }))} placeholder="Leave a wish (optional)" style={{ ...fieldStyle, resize: 'none' }} />
+            <textarea rows={3} value={form.wish} onChange={e => setForm(v => ({ ...v, wish: e.target.value }))} placeholder={t('invitation.rsvp_wish') || 'Leave a wish'} style={{ ...fieldStyle, resize: 'none' }} />
             <button
               type="submit"
               disabled={loading}

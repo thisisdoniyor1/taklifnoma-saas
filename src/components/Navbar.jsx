@@ -13,7 +13,7 @@ const NavLink = ({ id, label, isActive, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`relative px-3 sm:px-4 py-1.5 sm:py-2 transition-colors uppercase tracking-widest text-[8.5px] sm:text-[9px] font-extrabold ${isActive ? 'text-emerald-950' : 'text-emerald-950/40 hover:text-gold-500'
+      className={`relative px-3 sm:px-4 py-1.5 sm:py-2 transition-colors uppercase tracking-widest text-[10px] sm:text-[11px] font-extrabold ${isActive ? 'text-emerald-950' : 'text-emerald-950/40 hover:text-gold-500'
         }`}
     >
       {isActive && (
@@ -194,16 +194,16 @@ const Navbar = () => {
                     {!showProfileInMenu ? (
                       <>
                         <div className="lg:hidden flex-1 py-2 px-2 flex flex-col">
-                          <button onClick={() => handleNavClick('home')} className="text-left text-[11px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
+                          <button onClick={() => handleNavClick('home')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.home')}
                           </button>
-                          <button onClick={() => handleNavClick('templates')} className="text-left text-[11px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
+                          <button onClick={() => handleNavClick('templates')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.templates')}
                           </button>
-                          <button onClick={() => handleNavClick('features')} className="text-left text-[11px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
+                          <button onClick={() => handleNavClick('features')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.features')}
                           </button>
-                          <button onClick={() => handleNavClick('faq')} className="text-left text-[11px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
+                          <button onClick={() => handleNavClick('faq')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.faq') || 'FAQ'}
                           </button>
                         </div>
@@ -237,7 +237,7 @@ const Navbar = () => {
                               }}
                               className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-950 text-white text-[10px] font-bold uppercase tracking-[2px] hover:bg-emerald-800 transition-colors shadow-md"
                             >
-                              Sign Up
+                              {t('auth.signUp') || 'Sign Up'}
                             </button>
                           )}
                         </div>

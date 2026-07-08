@@ -10,6 +10,8 @@ const LATIN_TO_RU = {
 };
 
 const LATIN_TO_UZ_CYRL = {
+  "o'": 'ў', "o’": 'ў', "o‘": 'ў', "o`": 'ў',
+  "g'": 'ғ', "g’": 'ғ', "g‘": 'ғ', "g`": 'ғ',
   'shch':'шч','sh':'ш','ch':'ч','zh':'ж','kh':'х','gh':'ғ','ng':'нг','ts':'тс',
   'a':'а','b':'б','d':'д','e':'е','f':'ф','g':'г','h':'ҳ','i':'и',
   'j':'ж','k':'к','l':'л','m':'м','n':'н','o':'о','p':'п','q':'қ',
@@ -17,6 +19,8 @@ const LATIN_TO_UZ_CYRL = {
 };
 
 const LATIN_TO_TJ = {
+  "o'": 'ӯ', "o’": 'ӯ', "o‘": 'ӯ', "o`": 'ӯ',
+  "g'": 'ғ', "g’": 'ғ', "g‘": 'ғ', "g`": 'ғ',
   'sh':'ш','ch':'ч','zh':'ж','kh':'х','gh':'ғ','ts':'тс',
   'a':'а','b':'б','d':'д','e':'е','f':'ф','g':'г','h':'ҳ','i':'и',
   'j':'ҷ','k':'к','l':'л','m':'м','n':'н','o':'о','p':'п','q':'қ',
@@ -165,4 +169,51 @@ export function translateLocation(location, language) {
     }
   }
   return localizedName(loc, language);
+}
+
+// Helper to resolve and automatically localize/translate the welcome text
+export function getWelcomeText(welcomeText, language, t) {
+  const defaultTexts = [
+    // English defaults
+    "we invite you to share in the joy of our wedding day. your presence will make our celebration complete as we begin our new life together.",
+    "we invite you to share in the joy of our wedding day. your presence will make our celebration complete as we begin our new life together",
+    // Russian defaults
+    "с радостью приглашаем вас разделить с нами счастье этого особенного дня. ваше присутствие сделает наш праздник незабываемым.",
+    "с радостью приглашаем вас разделить с нами счастье этого особенного дня. ваше присутствие сделает наш праздник незабываемым",
+    // Uzbek Cyrillic defaults
+    "қалбимизда чексиз қувонч билан сизни никоҳ тўйимиз тантанасига таклиф этамиз. сизнинг ташрифингиз ушбу кунни биз учун янада аҳамиятли қилади.",
+    "қалбимизда чексиз қувонч билан сизни никоҳ тўйимиз тантанасига таклиф этамиз. сизнинг ташрифингиз ушбу кунни биз учун янада аҳамиятли қилади",
+    "сизларни ушбу қувончли кунимизда, никоҳ тўйимиз шодиёнасида кўришдан мамнунмиз. сизнинг ташрифингиз тўйимизни янада файзли қилади.",
+    "сизларни ушбу қувончли кунимизда, никоҳ тўйимиз шодиёнасида кўришдан мамнунмиз. сизнинг ташрифингиз тўйимизни янада файзли қилади",
+    // Tajik defaults
+    "бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад.",
+    "бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад",
+    // Uzbek Latin defaults / common placeholders
+    "qalbimizda cheksiz quvonch bilan sizni nikoh to'yimiz tantanasiga taklif etamiz. sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.",
+    "qalbimizda cheksiz quvonch bilan sizni nikoh to'yimiz tantanasiga taklif etamiz. sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi",
+    "uzoq kutilgan quvonchli kunimizda sizni ko’rishdan cheksiz baxtiyor bo’lamiz.",
+    "uzoq kutilgan quvonchli kunimizda sizni ko’rishdan cheksiz baxtiyor bo’lamiz",
+    "biz sizni hayotimizning eng quvonchli kunida — nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz.",
+    "biz sizni hayotimizning eng quvonchli kunida — nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz",
+    "biz sizni hayotimizning eng quvonchli kunida - nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz",
+    "biz sizni hayotimizning eng quvonchli kunida nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz",
+    "bizning baxtli kunimizga xush kelibsiz!",
+    "bizning baxtli kunimizga xush kelibsiz"
+  ];
+
+  if (!welcomeText || !welcomeText.trim()) {
+    return t('invitation.speech');
+  }
+
+  const trimmedLower = welcomeText.trim().toLowerCase();
+  
+  // Check if it matches any of the default texts
+  const isDefault = defaultTexts.some(def => trimmedLower === def || trimmedLower.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") === def.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""));
+  
+  if (isDefault) {
+    return t('invitation.speech');
+  }
+
+  // Otherwise, it's a custom text. Transliterate it to the selected language
+  return localizedName(welcomeText, language);
 }

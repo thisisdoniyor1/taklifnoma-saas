@@ -9,20 +9,30 @@ import {
   Eye,
   EyeOff,
   User,
-  Check
+  Check,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../lib/db';
 
 const Auth = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { login, signup, applySession } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   // ── State derived from location ──────────────────────────────────────────
   const isLogin = location.pathname === '/login';
+
+  const GOOGLE_BTN_TEXT = {
+    en: "Continue with Google",
+    ru: "Продолжить через Google",
+    uz_cyrl: "Google орқали давом этиш",
+    tj: "Давом додан бо Google"
+  };
+
+  const googleBtnLabel = GOOGLE_BTN_TEXT[language] || GOOGLE_BTN_TEXT.en;
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -90,17 +100,21 @@ const Auth = () => {
           callback: handleCredentialResponse,
         });
 
-        // Clear any previously rendered button before re-rendering
         googleBtnElement.innerHTML = '';
-        const calculatedWidth = googleBtnElement.clientWidth ? Math.min(googleBtnElement.clientWidth, 260) : (window.innerWidth < 440 ? 240 : 260);
+        const googleLocaleMap = {
+          uz_cyrl: 'ru', // Fallback to Russian (fully supported by Google and understood in Uzbekistan)
+          tj: 'ru',      // Fallback to Russian (fully supported by Google and understood in Tajikistan)
+          ru: 'ru',
+          en: 'en'
+        };
         window.google.accounts.id.renderButton(googleBtnElement, {
           theme: 'outline',
           size: 'large',
           type: 'standard',
           shape: 'pill',
-          width: calculatedWidth.toString(),
+          width: '260',
           text: isLogin ? 'signin_with' : 'signup_with',
-          locale: language === 'uz' ? 'en' : language,
+          locale: googleLocaleMap[language] || 'en',
         });
       } else if (!window.google) {
         checkInterval = setTimeout(initGoogle, 100);
@@ -123,14 +137,6 @@ const Auth = () => {
     let hasEmpty = false;
     const nextErrors = { ...emptyErrors };
     const nextShake = { email: false, password: false, confirmPassword: false, terms: false, displayName: false };
-
-    if (!isLogin && !isAdminLogin) {
-      if (!displayName.trim()) {
-        nextErrors.displayName = 'Fill in this blank';
-        nextShake.displayName = true;
-        hasEmpty = true;
-      }
-    }
 
     if (!email.trim()) {
       nextErrors.email = 'Fill in this blank';
@@ -166,6 +172,14 @@ const Auth = () => {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setFieldErrors(prev => ({ ...prev, email: t('auth.invalidEmail') || 'Enter a valid email address' }));
+      setShakeFields(prev => ({ ...prev, email: true }));
+      setTimeout(() => setShakeFields(prev => ({ ...prev, email: false })), 500);
+      return;
+    }
+
     setLoading(true);
 
     if (!isLogin) {
@@ -180,7 +194,7 @@ const Auth = () => {
 
     const result = isLogin
       ? await login(email, password, isAdminLogin)
-      : await signup(email, password, displayName);
+      : await signup(email, password, email.split('@')[0]);
 
     if (result.success) {
       if (isLogin) {
@@ -250,11 +264,13 @@ const Auth = () => {
               className="text-3xl font-black text-emerald-950 tracking-tight mb-2"
               style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}
             >
-              {isAdminLogin ? 'Admin Portal' : isLogin ? 'Welcome Back' : 'Create Account'}
+              {isAdminLogin ? 'Admin Portal' : isLogin ? (t('auth.welcomeBack') || 'Welcome Back') : (t('auth.createAccount') || 'Create Account')}
             </h1>
-            <p className="text-emerald-900/40 text-[9px] uppercase tracking-[3px] font-black">
-              {isAdminLogin ? 'Secure admin access only' : isLogin ? 'Log in to your dashboard' : 'Create your wedding invitation'}
-            </p>
+            {(isAdminLogin || isLogin) && (
+              <p className="text-emerald-900/40 text-[9px] uppercase tracking-[3px] font-black">
+                {isAdminLogin ? 'Secure admin access only' : (t('auth.loginSubtitle') || 'Log in to your dashboard')}
+              </p>
+            )}
           </div>
 
           {/* Form */}
@@ -270,29 +286,6 @@ const Auth = () => {
             )}
 
             <div className="space-y-3.5">
-              {!isLogin && !isAdminLogin && (
-                <div className="space-y-1">
-                  {fieldErrors.displayName && (
-                    <div className="flex justify-end px-1 pb-1">
-                      <span className="text-red-400 text-[9px] font-extrabold uppercase tracking-[2px] animate-pulse">
-                        * {fieldErrors.displayName}
-                      </span>
-                    </div>
-                  )}
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none group-focus-within:text-gold-500 transition-colors text-emerald-900/30">
-                       <User size={18} />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      className={`w-full pl-14 pr-4 py-3.5 bg-slate-50/40 border ${fieldErrors.displayName ? 'border-red-400' : 'border-emerald-900/10'} ${shakeFields.displayName ? 'shake-input' : ''} rounded-xl focus:outline-none focus:border-gold-500 focus:bg-white text-sm font-semibold text-emerald-950 transition-all placeholder:text-emerald-900/30 placeholder:font-medium`}
-                      value={displayName}
-                      onChange={(e) => { setDisplayName(e.target.value); setFieldErrors({...fieldErrors, displayName: ''}); }}
-                    />
-                  </div>
-                </div>
-              )}
 
               <div className="space-y-1">
                 {fieldErrors.email && (
@@ -308,7 +301,7 @@ const Auth = () => {
                   </div>
                   <input
                     type="email"
-                    placeholder="Email Address"
+                    placeholder={t('auth.emailAddress') || 'Email Address'}
                     className={`w-full pl-14 pr-4 py-3.5 bg-slate-50/40 border ${fieldErrors.email ? 'border-red-400' : 'border-emerald-900/10'} ${shakeFields.email ? 'shake-input' : ''} rounded-xl focus:outline-none focus:border-gold-500 focus:bg-white text-sm font-semibold text-emerald-950 transition-all placeholder:text-emerald-900/30 placeholder:font-medium`}
                     value={email}
                     onChange={(e) => { setEmail(e.target.value); setFieldErrors({...fieldErrors, email: ''}); }}
@@ -330,7 +323,7 @@ const Auth = () => {
                   </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Password"
+                    placeholder={t('auth.password') || 'Password'}
                     className={`w-full pl-14 pr-12 py-3.5 bg-slate-50/40 border ${fieldErrors.password ? 'border-red-400' : 'border-emerald-900/10'} ${shakeFields.password ? 'shake-input' : ''} rounded-xl focus:outline-none focus:border-gold-500 focus:bg-white text-sm font-semibold text-emerald-950 transition-all placeholder:text-emerald-900/30 placeholder:font-medium`}
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setFieldErrors({...fieldErrors, password: ''}); }}
@@ -360,7 +353,7 @@ const Auth = () => {
                     </div>
                     <input
                       type={showConfirmPassword ? 'text' : 'password'}
-                      placeholder="Confirm Password"
+                      placeholder={t('auth.confirmPassword') || 'Confirm Password'}
                       className={`w-full pl-14 pr-12 py-3.5 bg-slate-50/40 border ${fieldErrors.confirmPassword ? 'border-red-400' : 'border-emerald-900/10'} ${shakeFields.confirmPassword ? 'shake-input' : ''} rounded-xl focus:outline-none focus:border-gold-500 focus:bg-white text-sm font-semibold text-emerald-950 transition-all placeholder:text-emerald-900/30 placeholder:font-medium`}
                       value={confirmPassword}
                       onChange={(e) => { setConfirmPassword(e.target.value); setFieldErrors({...fieldErrors, confirmPassword: ''}); }}
@@ -386,13 +379,13 @@ const Auth = () => {
                     </span>
                   </div>
                 )}
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${termsAccepted ? 'bg-gold-500 border-gold-500' : fieldErrors.terms ? 'border-red-400 shake-input' : 'border-emerald-900/20 group-hover:border-gold-500'}`}>
+                <label className="flex items-start gap-3 cursor-pointer group select-none">
+                  <div className={`mt-0.5 w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors ${termsAccepted ? 'bg-gold-500 border-gold-500' : fieldErrors.terms ? 'border-red-400 shake-input' : 'border-emerald-900/20 group-hover:border-gold-500'}`}>
                     {termsAccepted && <Check size={14} className="text-white" />}
                   </div>
                   <input type="checkbox" className="hidden" checked={termsAccepted} onChange={(e) => { setTermsAccepted(e.target.checked); setFieldErrors({...fieldErrors, terms: ''}); }} />
-                  <span className="text-[8.5px] font-bold text-emerald-900/60 uppercase tracking-[1px] group-hover:text-emerald-950 transition-colors whitespace-nowrap">
-                    I agree to the <Link to="/terms" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-500 hover:text-sky-600 transition-colors" style={{ color: '#0ea5e9' }}>Terms of Use</Link> and <Link to="/privacy" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-500 hover:text-sky-600 transition-colors" style={{ color: '#0ea5e9' }}>Privacy Policy</Link>
+                  <span className="text-[10.5px] font-semibold text-emerald-950/80 leading-normal tracking-[0.5px] group-hover:text-emerald-950 transition-colors">
+                    {t('auth.agreeTerms') || 'I agree to the'} <Link to="/terms" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-600 hover:text-sky-700 transition-colors font-bold underline" style={{ color: '#0284c7' }}>{t('auth.termsOfUse') || 'Terms of Use'}</Link> {t('auth.and') || 'and'} <Link to="/privacy" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-600 hover:text-sky-700 transition-colors font-bold underline" style={{ color: '#0284c7' }}>{t('auth.privacyPolicy') || 'Privacy Policy'}</Link>
                   </span>
                 </label>
               </div>
@@ -406,7 +399,7 @@ const Auth = () => {
                   className="text-[10px] font-extrabold text-sky-500 hover:text-sky-600 uppercase tracking-[2px] transition-colors"
                   style={{ color: '#0ea5e9' }}
                 >
-                  Forgot password?
+                  {t('auth.forgotPassword') || 'Forgot password?'}
                 </button>
               </div>
             )}
@@ -416,7 +409,7 @@ const Auth = () => {
               disabled={loading}
               className="w-full h-11 bg-emerald-950 text-white rounded-xl text-[11px] font-extrabold uppercase tracking-[3px] shadow-[0_12px_24px_rgba(6,78,59,0.12)] hover:bg-emerald-900 hover:-translate-y-0.5 transition-all flex items-center justify-center mt-1 disabled:opacity-70 disabled:hover:translate-y-0"
             >
-              {loading ? 'Processing...' : isLogin ? 'Log In' : 'Create Account'}
+              {loading ? (t('auth.processing') || 'Processing...') : isLogin ? (t('auth.logIn') || 'Log In') : (t('auth.signUp') || 'Create Account')}
               {!loading && <ArrowRight size={16} className="ml-2" />}
             </button>
           </form>
@@ -427,30 +420,73 @@ const Auth = () => {
               <div className="mt-5 pt-2">
                 <div className="relative flex py-3 items-center">
                   <div className="flex-grow border-t border-emerald-900/5"></div>
-                  <span className="flex-shrink mx-4 text-emerald-900/30 text-[9px] font-black uppercase tracking-[2.5px]">or continue with</span>
+                  <span className="flex-shrink mx-4 text-emerald-900/30 text-[9px] font-black uppercase tracking-[2.5px]">{t('auth.orContinueWith') || 'or continue with'}</span>
                   <div className="flex-grow border-t border-emerald-900/5"></div>
                 </div>
-                <div
-                  ref={setGoogleBtnElement}
-                  id="google-btn-container"
-                  className="w-full flex justify-center overflow-hidden min-h-[40px] mt-1 shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-full hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow"
-                />
+                
+                {/* Custom Styled "Google" Button Wrapper */}
+                <div className="relative w-full h-[40px] mt-1 flex justify-center items-center rounded-full border border-emerald-900/10 hover:border-gold-500 bg-white hover:bg-slate-50 transition-colors shadow-sm select-none">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24">
+                      <path
+                        fill="#EA4335"
+                        d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.58 15.02 1 12 1 7.24 1 3.23 3.73 1.34 7.69l3.85 3C6.11 7.63 8.84 5.04 12 5.04z"
+                      />
+                      <path
+                        fill="#4285F4"
+                        d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.43h6.43c-.28 1.44-1.1 2.66-2.33 3.49l3.62 2.81c2.12-1.95 3.77-5.06 3.77-8.39z"
+                      />
+                      <path
+                        fill="#FBBC05"
+                        d="M5.19 14.69C4.95 13.97 4.8 13.2 4.8 12c0-1.2.15-1.97.39-2.69l-3.85-3C.48 7.97 0 9.93 0 12c0 2.07.48 4.03 1.34 5.69l3.85-3z"
+                      />
+                      <path
+                        fill="#34A853"
+                        d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.62-2.81c-1.1.74-2.51 1.18-4.34 1.18-3.16 0-5.89-2.59-6.81-5.65l-3.85 3C3.23 20.27 7.24 23 12 23z"
+                      />
+                    </svg>
+                    <span className="text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
+                      {googleBtnLabel}
+                    </span>
+                  </div>
+
+                  {/* Invisible Real Google Sign-In Button on top to receive click events */}
+                  <div
+                    ref={setGoogleBtnElement}
+                    id="google-btn-container"
+                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full flex justify-center [&_iframe]:w-full [&_iframe]:h-full"
+                    style={{ zIndex: 10 }}
+                  />
+                </div>
               </div>
 
               {/* Toggle login ↔ signup */}
               <div className="mt-5 text-center text-[10px] font-extrabold uppercase tracking-[2px]">
                 <p className="whitespace-nowrap" style={{ color: '#064E3B' }}>
-                  {isLogin ? 'New to Taklifnoma?' : 'Already have an account?'}
+                  {isLogin ? (t('auth.newToApp') || 'New to Taklifnoma?') : (t('auth.alreadyHaveAccount') || 'Already have an account?')}
                   <Link
                     to={isLogin ? '/signup' : '/login'}
                     state={location.state}
                     className="ml-2 text-sky-500 hover:text-sky-600 transition-colors"
                     style={{ textDecoration: 'none', color: '#0ea5e9' }}
                   >
-                    {isLogin ? 'Create Account' : 'Log in'}
+                    {isLogin ? (t('auth.createAccount') || 'Create Account') : (t('auth.logIn') || 'Log In')}
                   </Link>
                 </p>
               </div>
+
+              {!isLogin && (
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                    className="inline-flex items-center justify-center gap-1.5 font-extrabold uppercase tracking-[2px] text-emerald-900/45 hover:text-emerald-950 text-[10px] transition-colors"
+                  >
+                    <ArrowLeft size={12} />
+                    {t('auth.goBack') || 'Go Back'}
+                  </button>
+                </div>
+              )}
             </div>
           )}
             </motion.div>
@@ -460,7 +496,7 @@ const Auth = () => {
         {/* Footer Security Badge */}
         <div className="bg-emerald-950 py-3 px-8 text-center">
            <p className="text-[9px] text-emerald-100/50 uppercase tracking-[3px] flex items-center justify-center gap-2 font-extrabold">
-             <Shield size={12} className="text-gold-500" /> Secure Login
+             <Shield size={12} className="text-gold-500" /> {t('auth.secureLogin') || 'Secure Login'}
            </p>
         </div>
       </motion.div>

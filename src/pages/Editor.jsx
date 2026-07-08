@@ -84,6 +84,8 @@ const Editor = () => {
 
   const imageInputRef = useRef(null);
   const audioInputRef = useRef(null);
+  const hiddenDateInputRef = useRef(null);
+  const hiddenTimeInputRef = useRef(null);
 
   const copyText = useCallback((key, fallback) => resolveText(t, key, fallback), [t]);
   const shareUrl = useMemo(() => buildInvitationUrl(orderSlug || orderId), [orderId, orderSlug]);
@@ -295,11 +297,15 @@ const Editor = () => {
       invalids.push('brideName');
     }
 
-    if (!String(invitationData.date || '').trim()) {
+    const dateStr = String(invitationData.date || '').trim();
+    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
+    if (!dateStr || !dateRegex.test(dateStr)) {
       invalids.push('date');
     }
 
-    if (!String(invitationData.time || '').trim()) {
+    const timeStr = String(invitationData.time || '').trim();
+    const timeRegex = /^\d{2}:\d{2}$/;
+    if (!timeStr || !timeRegex.test(timeStr)) {
       invalids.push('time');
     }
 
@@ -313,11 +319,18 @@ const Editor = () => {
     }
 
     setInvalidFields(invalids);
-    setErrorMsg(
-      invalids.every((field) => field === 'groomName' || field === 'brideName')
-        ? copyText('editor.errors.names', 'Please enter both names fully!')
-        : copyText('editor.errors.details', 'Please do not forget the date and venue details.')
-    );
+    
+    // Check if format error exists
+    const isDateInvalid = !dateStr || !dateRegex.test(dateStr);
+    const isTimeInvalid = !timeStr || !timeRegex.test(timeStr);
+    if (isDateInvalid || isTimeInvalid) {
+      setErrorMsg('Please input the date (DD.MM.YYYY) and time (HH:MM) correctly.');
+    } else if (invalids.every((field) => field === 'groomName' || field === 'brideName')) {
+      setErrorMsg(copyText('editor.errors.names', 'Please enter both names fully!'));
+    } else {
+      setErrorMsg(copyText('editor.errors.details', 'Please do not forget the date and venue details.'));
+    }
+    
     setIsErrorShaking(true);
     window.setTimeout(() => setIsErrorShaking(false), 420);
     
@@ -564,8 +577,8 @@ const Editor = () => {
         className="rounded-[30px] border-[3px] border-emerald-900/10 bg-white shadow-[0_30px_80px_-50px_rgba(6,78,59,0.34)] w-full"
       >
         <div className="border-b border-emerald-900/10 bg-[#F8FAF9] px-5 py-5 md:px-6 rounded-t-[27px]">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-4 items-start gap-4 md:gap-6">
+            <div className="md:col-span-3">
               <p className="text-[10px] font-black uppercase tracking-[3px] text-emerald-900/50">
                 {copyText('editor.payment.formTitle', 'Invitation Form')}
               </p>
@@ -577,19 +590,21 @@ const Editor = () => {
               </p>
             </div>
 
-            <div className="rounded-[20px] border border-emerald-900/12 bg-white px-4 py-3">
-              <p className="text-[9px] font-black uppercase tracking-[2px] text-emerald-900/35">
-                {copyText('editor.payment.templateLabel', 'Template')}
-              </p>
-              <p className="mt-1 text-sm font-black text-emerald-950">
-                {templateName}
-              </p>
+            <div className="md:col-span-1 flex md:justify-end">
+              <div className="rounded-[20px] border border-emerald-900/12 bg-white px-4 py-3 w-full md:max-w-[180px]">
+                <p className="text-[9px] font-black uppercase tracking-[2px] text-emerald-900/35">
+                  {copyText('editor.payment.templateLabel', 'Template')}
+                </p>
+                <p className="mt-1 text-sm font-black text-emerald-950 font-medium">
+                  {templateName}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className="space-y-4 p-5 md:p-6">
-          <FormSection title={copyText('editor.fields.coupleSection', 'Couple')}>
+          <FormSection>
             <div className="grid gap-4 md:grid-cols-2">
               <div className={isErrorShaking && invalidFields.includes('groomName') ? 'input-shake' : ''}>
                 <EditorInput
@@ -627,8 +642,35 @@ const Editor = () => {
             </div>
           </FormSection>
 
-          <FormSection title={copyText('editor.fields.eventSection', 'Event Details')}>
+          <FormSection>
             <div className="grid gap-4 md:grid-cols-2">
+              <input
+                type="date"
+                ref={hiddenDateInputRef}
+                style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
+                onChange={(e) => {
+                  const dateVal = e.target.value;
+                  if (dateVal) {
+                    const [y, m, d] = dateVal.split('-');
+                    const formatted = `${d}.${m}.${y}`;
+                    updateInvitation({ date: formatted });
+                    clearInvalidField('date');
+                  }
+                }}
+              />
+              <input
+                type="time"
+                ref={hiddenTimeInputRef}
+                style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
+                onChange={(e) => {
+                  const timeVal = e.target.value;
+                  if (timeVal) {
+                    updateInvitation({ time: timeVal });
+                    clearInvalidField('time');
+                  }
+                }}
+              />
+
               <div className={isErrorShaking && invalidFields.includes('date') ? 'input-shake' : ''}>
                 <EditorInput
                   required
@@ -637,8 +679,9 @@ const Editor = () => {
                   type="text"
                   value={invitationData.date}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.date', 'DD:MM:YYYY')}
+                  placeholder={copyText('editor.placeholders.date', '26.02.2027')}
                   icon={<Calendar size={16} strokeWidth={3} />}
+                  onIconClick={() => hiddenDateInputRef.current && hiddenDateInputRef.current.showPicker()}
                   invalid={invalidFields.includes('date')}
                 />
               </div>
@@ -648,10 +691,12 @@ const Editor = () => {
                   required
                   label={copyText('editor.fields.time', 'Time')}
                   name="time"
+                  type="text"
                   value={invitationData.time}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.time', 'HH:MM')}
+                  placeholder={copyText('editor.placeholders.time', '18:00')}
                   icon={<Clock size={16} strokeWidth={3} />}
+                  onIconClick={() => hiddenTimeInputRef.current && hiddenTimeInputRef.current.showPicker()}
                   invalid={invalidFields.includes('time')}
                 />
               </div>
@@ -669,7 +714,7 @@ const Editor = () => {
                 />
               </div>
 
-              <div className="block md:col-span-2">
+              <div className="block">
                 <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
                   {copyText('editor.fields.photoMusicSection', 'Music')}
                 </span>
@@ -680,7 +725,7 @@ const Editor = () => {
                     className="flex w-full items-center justify-between rounded-[18px] border-2 border-emerald-900/20 bg-white px-4 min-h-[3.25rem] text-sm font-extrabold text-emerald-950 shadow-sm transition-all hover:border-emerald-900/40 hover:bg-[#F8FAF9] focus:outline-none"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-emerald-900/70">
+                      <span className="text-emerald-800">
                         <Music4 size={16} strokeWidth={3} className={previewUrl ? "animate-pulse text-emerald-800" : ""} />
                       </span>
                       <span className="text-emerald-950 font-medium">
@@ -721,98 +766,98 @@ const Editor = () => {
                       }}
                     />
                   )}
-
-                  <AnimatePresence>
-                    {showMusicList && (
-                      <motion.div
-                        key="music-list"
-                        initial={{ opacity: 0, y: -10, height: 0 }}
-                        animate={{ opacity: 1, y: 0, height: 'auto' }}
-                        exit={{ opacity: 0, y: -10, height: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="overflow-hidden mt-2 rounded-[20px] border-2 border-emerald-900/10 bg-white shadow-lg w-full"
-                      >
-                        <div className="border-b border-emerald-900/10 bg-[#F8FAF9] px-5 py-4 rounded-t-[18px]">
-                          <p className="text-[10px] font-black uppercase tracking-[3px] text-emerald-900/50">
-                            {copyText('editor.fields.photoMusicSection', 'Music Selection')}
-                          </p>
-                        </div>
-                        <div className="p-4 space-y-2">
-                          {MUSIC_OPTIONS.map((option) => {
-                            const isSelected = invitationData.musicUrl === option.url;
-                            const isPlaying = previewUrl === option.url;
-                            const label = option.name[language] || option.name.en;
-
-                            return (
-                              <div
-                                key={option.id}
-                                onClick={() => {
-                                  updateInvitation({ musicUrl: option.url });
-                                  setPreviewUrl(option.url);
-                                }}
-                                className={`flex items-center justify-between rounded-2xl border-[1.5px] p-3 transition-all cursor-pointer ${
-                                  isSelected
-                                    ? 'border-emerald-800 bg-emerald-50 text-emerald-950 shadow-sm'
-                                    : 'border-emerald-900/10 bg-white text-emerald-900/80 hover:border-emerald-900/30 hover:bg-emerald-50/30'
-                                }`}
-                              >
-                                <div className="flex items-center gap-3">
-                                  <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${isSelected ? 'bg-emerald-900 text-white' : 'bg-emerald-100/50 text-emerald-800'}`}>
-                                    <Music4 size={14} strokeWidth={3} />
-                                  </div>
-                                  <span className="text-sm font-extrabold">{label}</span>
-                                </div>
-
-                                <button
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (isPlaying) {
-                                      setPreviewUrl(null);
-                                    } else {
-                                      updateInvitation({ musicUrl: option.url });
-                                      setPreviewUrl(option.url);
-                                    }
-                                  }}
-                                  className={`flex h-8 w-8 items-center justify-center rounded-full transition-all border-2 ${
-                                    isPlaying
-                                      ? 'border-emerald-800 bg-emerald-900 text-white'
-                                      : 'border-emerald-900/20 bg-white text-emerald-800 hover:bg-emerald-50'
-                                  }`}
-                                >
-                                  {isPlaying ? (
-                                    <div className="flex gap-[2px] items-end justify-center h-3 w-3">
-                                      <span className="w-[2px] bg-current eq-bar-1 h-3" />
-                                      <span className="w-[2px] bg-current eq-bar-2 h-2" />
-                                      <span className="w-[2px] bg-current eq-bar-3 h-3.5" />
-                                    </div>
-                                  ) : (
-                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 ml-[2px]">
-                                      <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                  )}
-                                </button>
-                              </div>
-                            );
-                          })}
-                        </div>
-                        <div className="p-4 border-t border-emerald-900/10 bg-[#F8FAF9]">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setShowMusicList(false);
-                              setPreviewUrl(null);
-                            }}
-                            className="w-full flex h-12 items-center justify-center rounded-2xl bg-emerald-900 px-4 font-bold uppercase tracking-[2px] text-white shadow-sm transition-all hover:bg-emerald-800 text-[11px]"
-                          >
-                            {copyText('editor.upload.closeBtn', 'Close')}
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
               </div>
+
+              <AnimatePresence>
+                {showMusicList && (
+                  <motion.div
+                    key="music-list"
+                    initial={{ opacity: 0, y: -10, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, y: -10, height: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="overflow-hidden mt-2 rounded-[16px] border-2 border-emerald-900/10 bg-white shadow-lg w-full md:col-span-2"
+                  >
+                    <div className="border-b border-emerald-900/10 bg-[#F8FAF9] px-4 py-2.5 rounded-t-[14px]">
+                      <p className="text-[9px] font-black uppercase tracking-[3px] text-emerald-900/50">
+                        {copyText('editor.fields.photoMusicSection', 'Music Selection')}
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 p-2.5">
+                      {MUSIC_OPTIONS.map((option) => {
+                        const isSelected = invitationData.musicUrl === option.url;
+                        const isPlaying = previewUrl === option.url;
+                        const label = option.name[language] || option.name.en;
+
+                        return (
+                          <div
+                            key={option.id}
+                            onClick={() => {
+                              updateInvitation({ musicUrl: option.url });
+                              setPreviewUrl(option.url);
+                            }}
+                            className={`flex flex-col items-center justify-between rounded-xl border-[1.5px] p-2.5 w-full transition-all cursor-pointer select-none ${
+                              isSelected
+                                ? 'border-emerald-800 bg-emerald-50 text-emerald-950 shadow-sm'
+                                : 'border-emerald-900/10 bg-white text-emerald-900/80 hover:border-emerald-900/30 hover:bg-emerald-50/30'
+                            }`}
+                          >
+                            <div className="flex flex-col items-center gap-1.5">
+                              <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${isSelected ? 'bg-emerald-900 text-white' : 'bg-emerald-100/50 text-emerald-800'}`}>
+                                <Music4 size={12} strokeWidth={3} />
+                              </div>
+                              <span className="text-[10px] font-black tracking-wider uppercase text-center whitespace-nowrap">{label}</span>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (isPlaying) {
+                                  setPreviewUrl(null);
+                                } else {
+                                  updateInvitation({ musicUrl: option.url });
+                                  setPreviewUrl(option.url);
+                                }
+                              }}
+                              className={`flex h-6 w-6 items-center justify-center rounded-full transition-all border-2 mt-2 ${
+                                isPlaying
+                                  ? 'border-emerald-800 bg-emerald-900 text-white'
+                                  : 'border-emerald-900/20 bg-white text-emerald-800 hover:bg-emerald-50'
+                              }`}
+                            >
+                              {isPlaying ? (
+                                <div className="flex gap-[1.5px] items-end justify-center h-2.5 w-2.5">
+                                  <span className="w-[1.5px] bg-current eq-bar-1 h-2.5" />
+                                  <span className="w-[1.5px] bg-current eq-bar-2 h-1.5" />
+                                  <span className="w-[1.5px] bg-current eq-bar-3 h-3" />
+                                </div>
+                              ) : (
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 ml-[1.5px]">
+                                  <path d="M8 5v14l11-7z" />
+                                </svg>
+                              )}
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="p-3 border-t border-emerald-900/10 bg-[#F8FAF9]">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowMusicList(false);
+                          setPreviewUrl(null);
+                        }}
+                        className="w-full flex h-9 items-center justify-center rounded-xl bg-emerald-900 px-4 font-bold uppercase tracking-[2px] text-white shadow-sm transition-all hover:bg-emerald-800 text-[10px]"
+                      >
+                        {copyText('editor.upload.closeBtn', 'Close')}
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </FormSection>
 
@@ -861,24 +906,33 @@ const EditorShell = ({ children }) => (
   </div>
 );
 
-const FormSection = ({ title, children }) => (
+const FormSection = ({ title = null, children }) => (
   <div className="py-6 border-b border-emerald-900/10 last:border-b-0">
-    <p className="text-xs font-black uppercase tracking-[2px] text-emerald-950">
-      {title}
-    </p>
-    <div className="mt-4">
+    {title && (
+      <p className="text-xs font-black uppercase tracking-[2px] text-emerald-950">
+        {title}
+      </p>
+    )}
+    <div className={title ? "mt-4" : ""}>
       {children}
     </div>
   </div>
 );
 
-const EditorInput = ({ label, name, value, onChange, placeholder, invalid = false, icon = null, type = "text", required = false }) => (
+const EditorInput = ({ label, name, value, onChange, placeholder, invalid = false, icon = null, onIconClick = null, type = "text", required = false }) => (
   <label className="block">
     <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
       {label}{required && <span className="text-red-500 ml-1">*</span>}
     </span>
     <div className={`flex min-h-[3.25rem] items-center gap-3 rounded-[18px] border-[1.5px] px-4 ${invalid ? 'border-red-400 bg-red-50/70' : 'border-emerald-900/30 bg-white'}`}>
-      {icon ? <span className="text-emerald-800">{icon}</span> : null}
+      {icon ? (
+        <span
+          onClick={onIconClick}
+          className={onIconClick ? "text-emerald-800 cursor-pointer hover:scale-110 active:scale-95 transition-transform shrink-0 flex items-center justify-center" : "text-emerald-800 shrink-0 flex items-center justify-center"}
+        >
+          {icon}
+        </span>
+      ) : null}
       <input
         type={type}
         name={name}

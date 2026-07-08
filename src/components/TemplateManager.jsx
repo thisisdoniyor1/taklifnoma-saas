@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
 import { getTemplateConfig } from '../lib/templates';
+import { useLanguage } from '../context/LanguageContext';
+import { getWelcomeText } from '../templates/WatercolorTuscanVillaTemplate/utils/transliterate';
 
 const templateLoaders = {
   'envelope-classic': () => import('../templates/RoyalIvoryGatesTemplate'),
@@ -45,12 +47,18 @@ export const preloadTemplates = (templateIds) => {
 };
 
 const TemplateManager = ({ templateId, data, fallback, isThumbnail = false }) => {
+  const { language, t } = useLanguage();
   const resolvedTemplateId = getTemplateConfig(templateId).id;
   const SelectedTemplate = getLazyTemplate(resolvedTemplateId);
 
+  const processedData = data ? {
+    ...data,
+    welcomeText: getWelcomeText(data.welcomeText, language, t)
+  } : data;
+
   return (
     <Suspense fallback={fallback ?? <DefaultTemplateFallback />}>
-      <SelectedTemplate data={data} templateId={resolvedTemplateId} isThumbnail={isThumbnail} />
+      <SelectedTemplate data={processedData} templateId={resolvedTemplateId} isThumbnail={isThumbnail} />
     </Suspense>
   );
 };

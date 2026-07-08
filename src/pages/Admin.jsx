@@ -1107,12 +1107,6 @@ const ViewInsightsPanel = ({ totalViews, averageViews, buckets, topViewed }) => 
 
   return (
     <div className="mt-5 space-y-5">
-      <div className="grid gap-4 md:grid-cols-4">
-        <MetricCard value={buckets.no_views} label={t('admin.views.zero')} />
-        <MetricCard value={buckets.lower_range} label={t('admin.views.lower')} />
-        <MetricCard value={buckets.mid_range} label={t('admin.views.mid')} />
-        <MetricCard value={buckets.higher_range} label={t('admin.views.high')} />
-      </div>
 
       <div className="overflow-hidden rounded-[30px] border border-white/70 bg-white/88 shadow-lg shadow-emerald-950/5">
         <div className="border-b border-emerald-900/8 bg-emerald-50/70 px-5 py-4">

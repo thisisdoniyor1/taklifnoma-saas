@@ -85,11 +85,7 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
           whileTap={{ scale: 0.93 }}
           style={btnStyle}
         >
-          <motion.div
-            animate={isPlaying ? { rotate: 360 } : { rotate: 0 }}
-            transition={isPlaying ? { repeat: Infinity, duration: 4, ease: 'linear' } : { duration: 0 }}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {isPlaying ? (
               /* Pause icon */
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
@@ -104,7 +100,7 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
                 <circle cx="18" cy="16" r="3" fill="#fff"/>
               </svg>
             )}
-          </motion.div>
+          </div>
         </motion.button>
 
         {/* ── Language switcher ── */}

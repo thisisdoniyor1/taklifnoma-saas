@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Dashboard from './pages/Dashboard'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
+import TemplatePreview from './pages/TemplatePreview'
 import Navbar from './components/Navbar'
 import { LanguageProvider, useLanguage } from './context/LanguageContext'
 import { AuthProvider, useAuth } from './context/AuthContext'
@@ -86,6 +87,7 @@ function App() {
               </Route>
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/create" element={<Navigate to="/#templates" replace />} />
+              <Route path="/templates/preview/:templateId" element={<TemplatePreview />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
 

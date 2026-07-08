@@ -94,8 +94,8 @@ export default function Home() {
 
   const features = [
     { icon: <MapPin size={24} />, title: t('features.items.maps.title'), desc: t('features.items.maps.desc') },
-    { icon: <Music size={24} />, title: t('features.items.media.title'), desc: t('features.items.media.desc') },
-    { icon: <Calendar size={24} />, title: t('features.items.rsvp.title'), desc: t('features.items.rsvp.desc') },
+    { icon: <MessageCircle size={24} />, title: t('features.items.rsvp.title'), desc: t('features.items.rsvp.desc') },
+    { icon: <Music size={24} />, title: t('features.items.music.title'), desc: t('features.items.music.desc') },
     { icon: <Globe size={24} />, title: t('features.items.language.title'), desc: t('features.items.language.desc') },
     { icon: <Zap size={24} />, title: t('features.items.speed.title'), desc: t('features.items.speed.desc') },
     { icon: <Shield size={24} />, title: t('features.items.secure.title'), desc: t('features.items.secure.desc') },
@@ -174,7 +174,7 @@ export default function Home() {
               <Label>{t('features.label')}</Label>
               <H2>{t('features.title')}</H2>
             </div>
-            <p className="text-emerald-900/40 font-medium lowercase tracking-normal text-base sm:text-lg max-w-sm mb-8 sm:mb-12">
+            <p className="text-emerald-900/40 font-medium lowercase tracking-normal text-base sm:text-lg max-w-2xl mb-8 sm:mb-12">
               {t('features.subtitle')}
             </p>
           </div>
@@ -215,7 +215,7 @@ export default function Home() {
             </p>
           </div>
           <div className="space-y-2">
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[1, 2, 3, 4, 5, 6].map((i) => (
               <FaqItem key={i} q={t(`faq.q${i}`)} a={t(`faq.a${i}`)} />
             ))}
           </div>

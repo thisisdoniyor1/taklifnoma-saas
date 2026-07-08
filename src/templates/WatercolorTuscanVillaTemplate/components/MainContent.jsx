@@ -6,7 +6,7 @@ import { db } from '../../../lib/db';
 import Scene from './Scene';
 import Countdown from './Countdown';
 import Venue from './Venue';
-
+import { getWelcomeText } from '../utils/transliterate';
 const CREAM = '#f8f5f0';
 const SAGE = '#8a9e7a';
 const DARK_SAGE = '#5c7048';
@@ -64,8 +64,9 @@ const MainContent = ({ data }) => {
     setRsvpLoading(false);
   };
 
+  const isPreview = !invRef || data?.isPreview;
   let displayWishes = wishes;
-  if (!invRef && wishes.length === 0) {
+  if (isPreview && wishes.length === 0) {
     displayWishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;
   }
 
@@ -75,56 +76,56 @@ const MainContent = ({ data }) => {
       welcomeSub: 'Сизни тўйимизда кўришдан мамнунмиз',
       wishesTitle: 'Меҳмонлар тилаклари',
       noWishes: 'Ҳозирча тилаклар йўқ.',
-      rsvpTitle: 'Ташрифни тасдиқлаш',
-      rsvpSubtitle: 'Илтимос, иштирокингизни тасдиқланг',
+      rsvpTitle: 'Тилакларингизни ёзинг',
+      rsvpSubtitle: 'Никоҳ кунимиз учун ўз табрикларингизни қолдиринг',
       namePlaceholder: 'Исмингиз',
-      wishPlaceholder: 'Тилакларингиз (ихтиёрий)',
-      confirm: 'ТАСДИҚЛАШ',
+      wishPlaceholder: 'Тилакларингиз',
+      confirm: 'ТИЛАКНИ ЮБОРИШ',
       sending: 'ЮБОРИЛМОҚДА...',
-      thanks: 'Раҳмат! Сизни кутиб қоламиз.',
-      successMsg: "Муваффақиятли! Ташрифингиз тасдиқланди.",
+      thanks: 'Раҳмат! Тилагингиз қабул қилинди.',
+      successMsg: "Муваффақиятли! Тилагингиз юборилди.",
     },
     tj: {
       welcome: 'Хуш омадед!',
       welcomeSub: 'Мо аз дидани шумо дар тӯйи мо шодем',
       wishesTitle: 'Таманниёти меҳмонон',
       noWishes: 'Ҳоло таманниёт нест.',
-      rsvpTitle: 'Тасдиқи иштирок',
-      rsvpSubtitle: 'Лутфан, иштироки худро тасдиқ кунед',
+      rsvpTitle: 'Таманниёти худро нависед',
+      rsvpSubtitle: 'Табрикоти худро барои рӯзи тӯи мо бигузоред',
       namePlaceholder: 'Номи шумо',
-      wishPlaceholder: 'Таманниёти шумо (ихтиёрӣ)',
-      confirm: 'ТАСДИҚ КУНЕД',
+      wishPlaceholder: 'Таманниёти шумо',
+      confirm: 'ИРСОЛИ ТАМАННИЁТ',
       sending: 'ИРСОЛ...',
-      thanks: 'Ташаккур! Мо шуморо интизорем.',
-      successMsg: "Бомуваффақият! Иштироки шумо тасдиқ шуд.",
+      thanks: 'Ташаккур! Таманниёти шумо қабул шуд.',
+      successMsg: "Бомуваффақият! Таманниёти шумо ирсол шуд.",
     },
     ru: {
       welcome: 'Добро пожаловать!',
       welcomeSub: 'Мы рады видеть вас на нашей свадьбе',
       wishesTitle: 'Пожелания гостей',
       noWishes: 'Пока нет пожеланий.',
-      rsvpTitle: 'Подтверждение участия',
-      rsvpSubtitle: 'Пожалуйста, подтвердите ваше участие',
+      rsvpTitle: 'Напишите свои пожелания',
+      rsvpSubtitle: 'Оставьте свои поздравления для нашего особенного дня',
       namePlaceholder: 'Ваше имя',
-      wishPlaceholder: 'Оставьте пожелание (необязательно)',
-      confirm: 'ПОДТВЕРДИТЬ',
+      wishPlaceholder: 'Оставьте пожелание',
+      confirm: 'ОТПРАВИТЬ ПОЖЕЛАНИЕ',
       sending: 'ОТПРАВКА...',
-      thanks: 'Спасибо! Мы ждем вас.',
-      successMsg: "Успешно! Ваше участие подтверждено.",
+      thanks: 'Спасибо! Ваше пожелание получено.',
+      successMsg: "Успешно! Ваше пожелание отправлено.",
     },
     en: {
       welcome: 'Welcome!',
       welcomeSub: 'We are delighted to have you at our wedding',
       wishesTitle: 'Guest Wishes',
       noWishes: 'No wishes yet.',
-      rsvpTitle: 'Confirm Your Attendance',
-      rsvpSubtitle: 'Please let us know if you will be joining us',
+      rsvpTitle: 'Write Your Wishes',
+      rsvpSubtitle: 'Leave your congratulations and wishes for our special day',
       namePlaceholder: 'Your Full Name',
-      wishPlaceholder: 'Share a message or wish (optional)',
-      confirm: 'SEND CONFIRMATION',
+      wishPlaceholder: 'Share a message or wish',
+      confirm: 'SEND WISH',
       sending: 'SENDING...',
-      thanks: 'Thank you! We look forward to seeing you.',
-      successMsg: "Success! Your attendance is confirmed.",
+      thanks: 'Thank you! Your wish has been received.',
+      successMsg: "Success! Your wish has been sent.",
     },
   };
 
@@ -167,7 +168,7 @@ const MainContent = ({ data }) => {
             margin: '0 auto',
             lineHeight: 1.4,
           }}>
-            {t('invitation.speech') || 'We are delighted to have you at our wedding'}
+            {getWelcomeText(data?.welcomeText, language, t)}
           </p>
           <div style={{ width: '60px', height: '1px', background: SAGE, margin: '30px auto 0' }} />
         </motion.div>

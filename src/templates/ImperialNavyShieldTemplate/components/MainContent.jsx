@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../../../context/LanguageContext';
 import { db } from '../../../lib/db';
 import { useParams } from 'react-router-dom';
-import { translateLocation, localizedName } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { translateLocation, localizedName, getWelcomeText } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
 
 // Asset imports
 import palaceImg from '../../../assets/royal_navy/palace.png';
@@ -36,9 +36,9 @@ const DUMMY_WISHES_BY_LANG = {
 const GOLD = '#d4af37';
 
 function parseDate(s) {
-  if (!s) return { day: 24, month: 6, year: 2026 };
+  if (!s) return { day: 26, month: 2, year: 2027 };
   const [d, m, y] = String(s).split('.');
-  return { day: +d || 24, month: +m || 6, year: +y || 2026 };
+  return { day: +d || 26, month: +m || 2, year: +y || 2027 };
 }
 
 function parseTarget(s, t) {
@@ -200,7 +200,7 @@ const MainContent = ({ data }) => {
             maxWidth: '500px',
             margin: '0 auto'
           }}>
-            {t('invitation.speech') || WELCOME_FALLBACKS[language] || WELCOME_FALLBACKS.en}
+            {getWelcomeText(data?.welcomeText, language, t)}
           </p>
           <div style={{ width: 40, height: 1, background: GOLD, margin: '20px auto 0' }} />
         </motion.div>
@@ -576,7 +576,7 @@ const MainContent = ({ data }) => {
                 style={{ padding: '16px', border: '1px solid rgba(26, 43, 75, 0.1)', background: IVORY_BACKGROUND, outline: 'none', borderRadius: '12px', fontSize: '0.9rem' }}
               />
               <textarea
-                placeholder={language === 'en' ? 'Leave a wish (optional)' : language === 'ru' ? 'Оставьте пожелание (необязательно)' : language === 'tj' ? 'Таманниёти шумо (ихтиёрӣ)' : language === 'uz_cyrl' ? 'Тилакларингиз (ихтиёрий)' : 'Tilaklaringiz (ихтиёрий)'}
+                placeholder={t('invitation.rsvp_wish') || 'Leave a wish'}
                 rows="4"
                 value={form.wish}
                 onChange={e => setForm({ ...form, wish: e.target.value })}

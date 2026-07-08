@@ -5,7 +5,7 @@ import gatesImg from '../assets/royal_gates_cover.png';
 
 const TR = {
   uz_cyrl: {
-    enter: "ОЧИШ УЧУН ТУГМАНИ БОСИНГ",
+    enter: "ОЧИШ УЧУН\nТУГМАНИ БОСИНГ",
     title: "СИЗГА ТАКЛИФНОМА БОР"
   },
   tj: {
@@ -163,7 +163,10 @@ export default function EnvelopeIntro({ onOpen, isThumbnail = false }) {
               fontWeight: 800,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              minWidth: '130px'
+              minWidth: '130px',
+              whiteSpace: 'pre-line',
+              lineHeight: '1.4',
+              textAlign: 'center'
             }}
           >
             <span>{tr.enter}</span>

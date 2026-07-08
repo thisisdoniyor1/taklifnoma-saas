@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('taklifnoma_user');
     localStorage.removeItem('taklifnoma_token');
+    window.location.href = '/';
   };
 
   return (

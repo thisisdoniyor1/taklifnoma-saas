@@ -32,9 +32,9 @@ const WEEKDAY_FULL = {
 };
 
 function parseDate(dateStr) {
-  if (!dateStr) return { day: 24, month: 6, year: 2026 };
+  if (!dateStr) return { day: 26, month: 2, year: 2027 };
   const [d, m, y] = String(dateStr).split('.');
-  return { day: parseInt(d, 10) || 24, month: parseInt(m, 10) || 6, year: parseInt(y, 10) || 2026 };
+  return { day: parseInt(d, 10) || 26, month: parseInt(m, 10) || 2, year: parseInt(y, 10) || 2027 };
 }
 
 export default function CalendarCard({ date, time }) {

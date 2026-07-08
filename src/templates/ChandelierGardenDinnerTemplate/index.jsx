@@ -5,7 +5,7 @@ import { CalendarDays, Check, Clock, MapPin, Navigation, Send, ChevronDown } fro
 import FloatingControls from '../../components/FloatingControls';
 import { useLanguage } from '../../context/LanguageContext';
 import { db } from '../../lib/db';
-import { localizedName } from '../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { localizedName, getWelcomeText } from '../WatercolorTuscanVillaTemplate/utils/transliterate';
 
 import heroBg from './assets/chandelier_hero_bg.png';
 import coverTexture from './assets/sage_floral_texture.png';
@@ -43,7 +43,7 @@ const COPY = {
     rsvp: 'RSVP',
     rsvpSub: 'Confirm your attendance',
     name: 'Your name',
-    wish: 'Leave a wish (optional)',
+    wish: 'Leave a wish',
     confirm: 'Confirm your attendance',
     sending: 'Sending...',
     success: 'Thank you. Your response has been received.',
@@ -72,7 +72,7 @@ const COPY = {
     rsvp: 'RSVP',
     rsvpSub: 'Подтвердите ваше участие',
     name: 'Ваше имя',
-    wish: 'Оставьте пожелание (необязательно)',
+    wish: 'Оставьте пожелание',
     confirm: 'Подтвердить участие',
     sending: 'Отправка...',
     success: 'Спасибо. Ваш ответ получен.',
@@ -101,7 +101,7 @@ const COPY = {
     rsvp: 'Ташрифни тасдиқлаш',
     rsvpSub: 'Иштирокингизни тасдиқланг',
     name: 'Исмингиз',
-    wish: 'Тилак қолдиринг (ихтиёрий)',
+    wish: 'Тилак қолдиринг',
     confirm: 'Тасдиқлаш',
     sending: 'Юборилмоқда...',
     success: 'Раҳмат. Жавобингиз қабул қилинди.',
@@ -130,7 +130,7 @@ const COPY = {
     rsvp: 'Тасдиқи иштирок',
     rsvpSub: 'Иштироки худро тасдиқ кунед',
     name: 'Номи шумо',
-    wish: 'Таманно нависед (ихтиёрӣ)',
+    wish: 'Таманно нависед',
     confirm: 'Тасдиқ кунед',
     sending: 'Ирсол...',
     success: 'Ташаккур. Ҷавоби шумо қабул шуд.',
@@ -154,19 +154,19 @@ const WEEKDAYS = {
 };
 
 function parseDate(dateString) {
-  const ds = String(dateString || '24.06.2026');
+  const ds = String(dateString || '26.02.2027');
   if (ds.includes('-')) {
     const parts = ds.split('-');
     return { 
-      day: Number.parseInt(parts[2], 10) || 24, 
-      month: Number.parseInt(parts[1], 10) || 6, 
-      year: Number.parseInt(parts[0], 10) || 2026 
+      day: Number.parseInt(parts[2], 10) || 26, 
+      month: Number.parseInt(parts[1], 10) || 2, 
+      year: Number.parseInt(parts[0], 10) || 2027 
     };
   }
   const parts = ds.split('.');
-  const day = Number.parseInt(parts[0], 10) || 24;
-  const month = Number.parseInt(parts[1], 10) || 6;
-  const year = Number.parseInt(parts[2], 10) || 2026;
+  const day = Number.parseInt(parts[0], 10) || 26;
+  const month = Number.parseInt(parts[1], 10) || 2;
+  const year = Number.parseInt(parts[2], 10) || 2027;
   return { day, month, year };
 }
 
@@ -624,23 +624,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
 }
 function Welcome({ data }) {
   const { language, t } = useLanguage();
-  const tr = COPY[language] || COPY.en;
-
-  const defaultTexts = [
-    "We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.",
-    "С радостью приглашаем вас разделить с нами счастье этого особенного дня. Ваше присутствие сделает наш праздник незабываемым.",
-    "Qalbimizda cheksiz quvonch bilan sizni nikoh to'yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.",
-    "Қалбимизда чексиз қувонч билан сизни никоҳ тўйимиз тантанасига таклиф этамиз. Сизнинг ташрифингиз ушбу кунни биз учун янада аҳамиятли қилади.",
-    "Бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. Ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад.",
-    "Uzoq kutilgan quvonchli kunimizda sizni ko’rishdan cheksiz baxtiyor bo’lamiz.",
-    "Biz sizni hayotimizning eng quvonchli kunida — nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz.",
-    "Биз сизни ҳаётимизнинг энг қувончли кунида — никоҳ тўйимизда кўришдан бахтиёр бўламиз.",
-    "Мо сиро ба ҷашни хурсандии худ — тӯйи арӯсӣ самимона даъват менамоем.",
-    "Будем искренне рады видеть вас на самом радостном событии в нашей жизни — нашей свадьбе."
-  ];
-
-  const isDefaultText = !data?.welcomeText || defaultTexts.includes(data.welcomeText.trim());
-  const text = isDefaultText ? (t('invitation.speech') || tr.footer) : data.welcomeText;
+  const text = getWelcomeText(data?.welcomeText, language, t);
 
   return (
     <section className="chandelier-section" style={{ paddingTop: '5rem' }}>

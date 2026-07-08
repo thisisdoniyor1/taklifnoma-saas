@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../../context/LanguageContext';
-import { localizedName } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { localizedName, getWelcomeText } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
 import CalendarCard from './CalendarCard';
 import LocationLinks from './LocationLinks';
 import Countdown from './Countdown';
@@ -203,7 +203,7 @@ export default function MainInvitation({ data }) {
             color: '#6a4050',
             letterSpacing: '0.01em',
           }}>
-            {t('invitation.speech')}
+            {getWelcomeText(data?.welcomeText, language, t)}
           </p>
           <div style={{ marginTop: 32 }} />
           <PinkDivider />

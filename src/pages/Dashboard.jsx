@@ -590,37 +590,19 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                 <EditorField
                   label={t('dashboard.editor.date')}
                   value={editForm.wedding_date}
+                  placeholder="26.02.2027"
                   onChange={(value) => handleFieldChange('wedding_date', value)}
                 />
                 <EditorField
                   label={t('dashboard.editor.time')}
                   value={editForm.wedding_time}
+                  placeholder="18:00"
                   onChange={(value) => handleFieldChange('wedding_time', value)}
                 />
                 <EditorField
                   label={t('dashboard.editor.locationName')}
                   value={editForm.location_name}
                   onChange={(value) => handleFieldChange('location_name', value)}
-                />
-                <EditorField
-                  label={t('dashboard.editor.locationUrl')}
-                  value={editForm.location_url}
-                  onChange={(value) => handleFieldChange('location_url', value)}
-                />
-                <EditorField
-                  label={t('dashboard.editor.musicUrl')}
-                  value={editForm.music_url}
-                  onChange={(value) => handleFieldChange('music_url', value)}
-                />
-                <EditorField
-                  label={t('dashboard.editor.imageUrl')}
-                  value={editForm.image_url}
-                  onChange={(value) => handleFieldChange('image_url', value)}
-                />
-                <EditorField
-                  label={t('dashboard.editor.phone')}
-                  value={editForm.phone}
-                  onChange={(value) => handleFieldChange('phone', value)}
                 />
                 <div className="md:col-span-2 lg:col-span-3">
                   <EditorArea
@@ -766,13 +748,14 @@ const InviteMetricTile = ({ value, label, centered = false }) => (
   </div>
 );
 
-const EditorField = ({ label, value, onChange }) => (
+const EditorField = ({ label, value, onChange, placeholder }) => (
   <div>
     <label className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
       {label}
     </label>
     <input
       value={value}
+      placeholder={placeholder}
       onChange={(event) => onChange(event.target.value)}
       className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
     />
