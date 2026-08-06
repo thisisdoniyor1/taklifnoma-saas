@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server/index.js",
     "dev": "node scripts/run-app-with-api.mjs dev",
     "dev:client": "vite",
     "api": "node server/index.js",

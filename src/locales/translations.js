@@ -79,8 +79,8 @@ export const translations = {
       select: "SELECT TEMPLATE",
       price: "Price",
       free: "Free",
-      price_somoni: "99 Somoni",
-      price_somoni_old: "149 Somoni"
+      price_somoni: "149 Somoni",
+      price_somoni_old: "200 Somoni"
     },
     auth: {
       loginFirst: "Please log in first to create a template",
@@ -487,8 +487,8 @@ export const translations = {
       rsvpSub: "ПОДТВЕРДИТЕ ПРИСУТСТВИЕ",
       confirmAttendance: "Подтвердить присутствие",
       free: "Бесплатно",
-      price_somoni: "99 сомони",
-      price_somoni_old: "149 сомони"
+      price_somoni: "149 сомони",
+      price_somoni_old: "200 сомони"
     },
     auth: {
       loginFirst: "Сначала войдите в систему",
@@ -881,8 +881,8 @@ export const translations = {
       rsvpSub: "ИШТИРОКНИ ТАСДИҚЛАШ",
       confirmAttendance: "Ишлирокни тасдиқлаш",
       free: "Бепул",
-      price_somoni: "99 сомони",
-      price_somoni_old: "149 сомони"
+      price_somoni: "149 сомони",
+      price_somoni_old: "200 сомони"
     },
     auth: { loginFirst: "Илтимос, таклифнома яратиш учун тизимга киринг", logout: "Чиқиш", welcomeBack: "Қайтиб келдингиз", createAccount: "Рўйхатдан ўтиш", loginSubtitle: "шахсий кабинетингизга киринг", signupSubtitle: "тўй таклифномангизни яратинг", fullName: "ТЎЛИҚ ИСМ", emailAddress: "Электрон почта манзили", password: "Парол", confirmPassword: "Паролни тасдиқланг", logIn: "Кириш", signUp: "Рўйхатдан ўтиш", orContinueWith: "ёки давом этиш", newToApp: "Биринчи келдингизми?", alreadyHaveAccount: "Ҳисобингиз борми?", forgotPassword: "Паролни унутдингизми?", agreeTerms: "Қуйидаги шартларга розиман", termsOfUse: "Фойдаланиш шартлари", and: "ва", privacyPolicy: "Махфият Сиёсати", processing: "Ишлавоқда...", secureLogin: "Хавфсиз кириш", invalidEmail: "Тўғри электрон почта манзилини киритинг", goBack: "Орқага" },
     editor: {
@@ -1238,8 +1238,8 @@ export const translations = {
       rsvpSub: "ИШТИРОКНИ ТАСДИҚЛАШ",
       confirmAttendance: "Иштирокни тасдиқлаш",
       free: "Ройгон",
-      price_somoni: "99 сомонӣ",
-      price_somoni_old: "149 сомонӣ"
+      price_somoni: "149 сомонӣ",
+      price_somoni_old: "200 сомонӣ"
     },
     auth: { loginFirst: "Лутфан аввал ворид шавед", logout: "Хуруҷ", welcomeBack: "Хуш омадед", createAccount: "Рӯйхатгирӣ", loginSubtitle: "ба кабинети шахсии худ дохил шавед", signupSubtitle: "даъватномаи тӯи худ созед", fullName: "Номи пурра", emailAddress: "Почтаи электронӣ", password: "Парол", confirmPassword: "Паролро тасдиқ кунед", logIn: "Воридшавӣ", signUp: "Рӯйхатгирӣ", orContinueWith: "ё бо тариқа давом", newToApp: "Бори шумо?", alreadyHaveAccount: "Аллакай ҳисоб доред?", forgotPassword: "Паролро фаромӯш кардед?", agreeTerms: "Ман бо шартҳои", termsOfUse: "Шартҳои истифода", and: "ва", privacyPolicy: "Сиёсати маҳфият", processing: "Ҳолло кароришг...", secureLogin: "Воридшавӣи амн", invalidEmail: "Нишони электронии дурустро ворид кунед", goBack: "Ақиб" },
     editor: {

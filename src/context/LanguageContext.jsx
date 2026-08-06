@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../locales/translations';
 
 const LanguageContext = createContext();
-const defaultLanguage = 'en';
+const defaultLanguage = 'uz_cyrl';
 
 const resolveTranslation = (locale, key) => {
   const dictionary = translations[locale];

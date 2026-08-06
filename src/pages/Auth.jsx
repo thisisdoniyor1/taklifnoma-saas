@@ -8,7 +8,6 @@ import {
   Shield, 
   Eye,
   EyeOff,
-  User,
   Check,
   ArrowLeft
 } from 'lucide-react';
@@ -25,15 +24,6 @@ const Auth = () => {
   // ── State derived from location ──────────────────────────────────────────
   const isLogin = location.pathname === '/login';
 
-  const GOOGLE_BTN_TEXT = {
-    en: "Continue with Google",
-    ru: "Продолжить через Google",
-    uz_cyrl: "Google орқали давом этиш",
-    tj: "Давом додан бо Google"
-  };
-
-  const googleBtnLabel = GOOGLE_BTN_TEXT[language] || GOOGLE_BTN_TEXT.en;
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -76,6 +66,10 @@ const Auth = () => {
     setError('');
 
     try {
+      if (!response?.credential) {
+        throw new Error('No Google credential was returned. Please try again.');
+      }
+
       // Send the raw Google ID token to the backend for secure server-side verification
       const data = await db.googleAuth(response.credential);
       applySession(data);
@@ -96,23 +90,23 @@ const Auth = () => {
     const initGoogle = () => {
       if (window.google && googleBtnElement) {
         window.google.accounts.id.initialize({
-          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '1066068691515-2njt5855hh6hnb7ksd4ofh365q19ikf1.apps.googleusercontent.com',
+          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '377667344144-3kb0h2mtb5roeddvl2dvhllgvif7775j.apps.googleusercontent.com',
           callback: handleCredentialResponse,
         });
 
-        googleBtnElement.innerHTML = '';
         const googleLocaleMap = {
           uz_cyrl: 'ru', // Fallback to Russian (fully supported by Google and understood in Uzbekistan)
           tj: 'ru',      // Fallback to Russian (fully supported by Google and understood in Tajikistan)
           ru: 'ru',
           en: 'en'
         };
+        googleBtnElement.innerHTML = '';
         window.google.accounts.id.renderButton(googleBtnElement, {
           theme: 'outline',
           size: 'large',
           type: 'standard',
           shape: 'pill',
-          width: '260',
+          width: 260,
           text: isLogin ? 'signin_with' : 'signup_with',
           locale: googleLocaleMap[language] || 'en',
         });
@@ -424,40 +418,11 @@ const Auth = () => {
                   <div className="flex-grow border-t border-emerald-900/5"></div>
                 </div>
                 
-                {/* Custom Styled "Google" Button Wrapper */}
-                <div className="relative w-full h-[40px] mt-1 flex justify-center items-center rounded-full border border-emerald-900/10 hover:border-gold-500 bg-white hover:bg-slate-50 transition-colors shadow-sm select-none">
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24">
-                      <path
-                        fill="#EA4335"
-                        d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.58 15.02 1 12 1 7.24 1 3.23 3.73 1.34 7.69l3.85 3C6.11 7.63 8.84 5.04 12 5.04z"
-                      />
-                      <path
-                        fill="#4285F4"
-                        d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.43h6.43c-.28 1.44-1.1 2.66-2.33 3.49l3.62 2.81c2.12-1.95 3.77-5.06 3.77-8.39z"
-                      />
-                      <path
-                        fill="#FBBC05"
-                        d="M5.19 14.69C4.95 13.97 4.8 13.2 4.8 12c0-1.2.15-1.97.39-2.69l-3.85-3C.48 7.97 0 9.93 0 12c0 2.07.48 4.03 1.34 5.69l3.85-3z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.62-2.81c-1.1.74-2.51 1.18-4.34 1.18-3.16 0-5.89-2.59-6.81-5.65l-3.85 3C3.23 20.27 7.24 23 12 23z"
-                      />
-                    </svg>
-                    <span className="text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
-                      {googleBtnLabel}
-                    </span>
-                  </div>
-
-                  {/* Invisible Real Google Sign-In Button on top to receive click events */}
-                  <div
-                    ref={setGoogleBtnElement}
-                    id="google-btn-container"
-                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full flex justify-center [&_iframe]:w-full [&_iframe]:h-full"
-                    style={{ zIndex: 10 }}
-                  />
-                </div>
+                <div
+                  ref={setGoogleBtnElement}
+                  id="google-btn-container"
+                  className="mt-1 flex min-h-[40px] w-full justify-center [&_iframe]:max-w-full"
+                />
               </div>
 
               {/* Toggle login ↔ signup */}

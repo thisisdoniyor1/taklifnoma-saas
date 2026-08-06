@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Crown, Sparkles, MessageCircle, Star, Check } from 'lucide-react';
 import TemplateManager, { preloadTemplate } from '../components/TemplateManager';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { useInvitation } from '../context/InvitationContext';
@@ -37,7 +38,7 @@ const PREVIEW_DUMMY_DATA = {
 
 const Templates = () => {
   const { updateInvitation } = useInvitation();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
@@ -260,41 +261,161 @@ const Templates = () => {
         </div>
       </motion.div>
     );
+  };  const WHATSAPP_NUMBER = '992985140212';
+  const WHATSAPP_MSG = encodeURIComponent("Салом! Мен Taklifnoma.vip орқали махсус индивидуал тўй таклифномаси буюртма қилмоқчиман.");
+  const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`;
+
+  const premiumTexts = {
+    badge: language === 'en' ? "Exclusive Service" : language === 'ru' ? "Эксклюзивная Услуга" : language === 'tj' ? "Хизмати Эксклюзивӣ" : "Махсус хизмат",
+    title: language === 'en' ? "Individual Invitation" : language === 'ru' ? "Индивидуальное Приглашение" : language === 'tj' ? "Даъватномаи Инфиродӣ" : "Индивидуал Таклифнома",
+    desc: language === 'en' ? "Your wedding is a once-in-a-lifetime event! Our individual invitation creation service includes:" : language === 'ru' ? "Ваша свадьба — неповторимое событие! Создание индивидуального приглашения включает в себя:" : language === 'tj' ? "Тӯи шумо – рӯйдоди фаромӯшнашаванда аст! Сохтани даъватномаи инфиродӣ дар бар мегирад:" : "Тўйингиз – ҳаётингиздаги энг гўзал тарих! Сиз учун индивидуал таклифнома яратиш қуйидагиларни ўз ичига олади:",
+    features: language === 'en' ? ["Custom Design & Colors", "Your Choice of Music", "Unique Animations", "Unlimited Edits"] : language === 'ru' ? ["Уникальный дизайн", "Ваша любимая музыка", "Специальные анимации", "Безлимитные правки"] : language === 'tj' ? ["Дизайни дилхоҳи шумо", "Мусиқии дӯстдошта", "Аниматсияҳои махсус", "Тағйироти бемаҳдуд"] : ["Сиз истаган ноёб дизайн", "Ёқтирган мусиқангиз", "Махсус анимациялар", "Чексиз таҳрир қилиш"],
+    button: language === 'en' ? "Order now" : language === 'ru' ? "Заказать" : language === 'tj' ? "Фармоиш додан" : "Буюртма бериш",
+    priceLabel: language === 'en' ? "Price" : language === 'ru' ? "Стоимость" : language === 'tj' ? "Нархи" : "Нархи",
+    currency: language === 'en' ? "Somoni" : language === 'ru' ? "сомони" : language === 'tj' ? "сомонӣ" : "сомони"
   };
 
+  const standardTitle = language === 'en' ? "STANDARD" : language === 'ru' ? "СТАНДАРТ" : language === 'tj' ? "СТАНДАРТ" : "СТАНДАРТ";
+  const premiumTitle = language === 'en' ? "PREMIUM" : language === 'ru' ? "ПРЕМИУМ" : language === 'tj' ? "ПРЕМИУМ" : "ПРЕМИУМ";
+
+  const PremiumCustomCard = ({ fullWidth = false }) => (
+    <motion.div 
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className="p-8 sm:p-12 bg-white border border-emerald-900/10 rounded-3xl hover:border-emerald-950 transition-all shadow-sm hover:shadow-[0_20px_40px_-10px_rgba(6,78,59,0.1)] group max-w-4xl mx-auto text-left relative overflow-hidden"
+    >
+      {/* Decorative ambient aura */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-gold-500/5 blur-3xl rounded-full pointer-events-none" />
+
+      <div className="relative z-10">
+        {/* Site Label Style */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-10 h-[2px] bg-gold-500 rounded-full" />
+          <span className="text-xs font-extrabold uppercase tracking-[3px] text-emerald-900 font-sans flex items-center gap-1.5">
+            <span>👑</span> {premiumTexts.badge}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-3xl sm:text-4xl font-extrabold text-emerald-950 mb-4 tracking-tight font-sans">
+          {premiumTexts.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-emerald-900/60 font-medium text-base sm:text-lg leading-relaxed mb-8">
+          {premiumTexts.desc}
+        </p>
+
+        {/* Feature Items (Compact Website Feature Pill Style) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-8">
+          {premiumTexts.features.map((feature) => (
+            <div 
+              key={feature} 
+              className="py-2.5 px-3.5 bg-[#F8FAF9] border border-emerald-900/5 rounded-xl flex items-center gap-2.5 group-hover:border-emerald-900/10 transition-colors"
+            >
+              <div className="w-6 h-6 rounded-md bg-white border border-emerald-900/10 text-emerald-800 flex items-center justify-center shrink-0 shadow-xs">
+                <Check size={12} strokeWidth={3} />
+              </div>
+              <span className="text-xs sm:text-sm font-bold text-emerald-950 font-sans leading-tight">{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer / Price & Luxury Action Button */}
+        <div className="pt-7 border-t border-emerald-900/10 flex flex-col sm:flex-row items-center justify-between gap-5">
+          {/* Price Tag */}
+          <div className="flex items-baseline gap-2.5">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-900/40">{premiumTexts.priceLabel}:</span>
+            <span className="text-3xl sm:text-4xl font-extrabold text-emerald-950 tracking-tight font-sans">
+              199 <span className="text-base font-bold text-gold-600">{premiumTexts.currency}</span>
+            </span>
+            <span className="text-xs sm:text-sm font-semibold text-emerald-900/30 line-through">
+              300 {premiumTexts.currency}
+            </span>
+          </div>
+
+          {/* Luxury Website Action Button */}
+          <motion.button
+            whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(16,185,129,0.28)" }}
+            whileTap={{ scale: 0.98, boxShadow: "0 0 30px 5px rgba(16, 185, 129, 0.6)" }}
+            onClick={() => window.open(WHATSAPP_URL, '_blank', 'noopener,noreferrer')}
+            className="luxury-button !h-13 !px-9 text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2.5 w-full sm:w-auto"
+          >
+            <MessageCircle size={17} />
+            {premiumTexts.button}
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  /* ── Section Header Component ── */
+  const SectionHeader = ({ title, isPremium = false }) => (
+    <div className="flex items-center gap-4 mb-8 justify-center lg:justify-start">
+      {isPremium && (
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center bg-gold-50 text-gold-600 border border-gold-200 shadow-sm">
+          <div className="text-2xl sm:text-3xl drop-shadow-sm leading-none" style={{ marginTop: '-4px' }}>👑</div>
+        </div>
+      )}
+      <h2
+        className={`text-2xl sm:text-3xl font-black tracking-widest uppercase font-sans ${
+          isPremium ? 'text-gold-600' : 'text-emerald-950'
+        }`}
+      >
+        {title}
+      </h2>
+    </div>
+  );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 relative">
-      {/* Mobile: 2-col grid — unchanged */}
-      <div className="grid grid-cols-2 gap-4 lg:hidden">
-        {templates.map((template, index) => (
-          <TemplateCard key={template.id} template={template} index={index} />
-        ))}
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 relative">
+
+      {/* ── STANDARD TEMPLATES SECTION ── */}
+      <div className="mb-12">
+        <SectionHeader
+          title={standardTitle}
+        />
+
+        {/* Mobile: 2-col grid */}
+        <div className="grid grid-cols-2 gap-4 lg:hidden">
+          {templates.map((template, index) => (
+            <TemplateCard key={template.id} template={template} index={index} />
+          ))}
+        </div>
+
+        {/* Desktop: row 1 = 3 centered, row 2 = remaining centered */}
+        <div className="hidden lg:flex flex-col items-center gap-8">
+          <div className="flex gap-8 justify-center w-full">
+            {templates.slice(0, 3).map((template, index) => (
+              <div key={template.id} style={{ width: '16.5rem', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+                <TemplateCard template={template} index={index} />
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-8 justify-center w-full">
+            {templates.slice(3).map((template, index) => (
+              <div key={template.id} style={{ width: '16.5rem', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+                <TemplateCard template={template} index={index + 3} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Desktop: row 1 = 3 centered, row 2 = 2 centered, same card size as original 4-col grid */}
-      <div className="hidden lg:flex flex-col items-center gap-8">
-        {/* Row 1 — 3 templates */}
-        <div className="flex gap-8 justify-center w-full">
-          {templates.slice(0, 3).map((template, index) => (
-            <div key={template.id} style={{ width: '16.5rem', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-              <TemplateCard template={template} index={index} />
-            </div>
-          ))}
-        </div>
-        {/* Row 2 — 2 templates centered */}
-        <div className="flex gap-8 justify-center w-full">
-          {templates.slice(3).map((template, index) => (
-            <div key={template.id} style={{ width: '16.5rem', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-              <TemplateCard template={template} index={index + 3} />
-            </div>
-          ))}
+      {/* ── PREMIUM CUSTOM SECTION ── */}
+      <div className="mt-14">
+        <SectionHeader
+          title={premiumTitle}
+          isPremium
+        />
+
+        <div className="w-full">
+          <PremiumCustomCard fullWidth />
         </div>
       </div>
+
     </div>
   );
 };
 
 export default Templates;
-
-

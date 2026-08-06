@@ -63,6 +63,7 @@ const InvitationView = () => {
           date: backendData.wedding_date,
           time: backendData.wedding_time,
           location: backendData.location_name,
+          locationUrl: backendData.location_url || `https://maps.google.com/?q=${encodeURIComponent(backendData.location_name || '')}`,
           welcomeText: backendData.welcome_text,
           musicUrl: backendData.music_url,
           image_url: backendData.image_url,
