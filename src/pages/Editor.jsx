@@ -15,6 +15,9 @@ import {
   UploadCloud,
   Clock,
   MessageCircle,
+  Lock,
+  Unlock,
+  CheckCircle2,
 } from 'lucide-react';
 import { PAYMENT_CONFIG } from '../config';
 import { useInvitation } from '../context/InvitationContext';
@@ -74,6 +77,16 @@ const Editor = () => {
   const [orderId, setOrderId] = useState(null);
   const [orderSlug, setOrderSlug] = useState(null);
   const [copiedBankId, setCopiedBankId] = useState(null);
+  const [hasSentReceipt, setHasSentReceipt] = useState(false);
+
+  useEffect(() => {
+    if (orderId && typeof window !== 'undefined') {
+      const isSent = localStorage.getItem(`receipt_sent_${orderId}`) === 'true';
+      if (isSent) {
+        setHasSentReceipt(true);
+      }
+    }
+  }, [orderId]);
   const [copied, setCopied] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [invalidFields, setInvalidFields] = useState([]);
@@ -426,7 +439,13 @@ const Editor = () => {
     const bride = invitationData.brideName || 'Bride';
     const text = `Assalomu alaykum! I have made the payment for this invitation (${groom} & ${bride}):\n${shareUrl}\n\nHere is my payment screenshot.`;
     const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    
     window.open(whatsappUrl, '_blank');
+
+    setHasSentReceipt(true);
+    if (orderId) {
+      localStorage.setItem(`receipt_sent_${orderId}`, 'true');
+    }
   };
 
   if (orderId) {
@@ -439,46 +458,47 @@ const Editor = () => {
           className="relative overflow-hidden rounded-[36px] bg-white shadow-[0_40px_100px_-30px_rgba(6,78,59,0.22)] border border-emerald-900/10"
         >
           {/* ── Celebration hero banner ── */}
-          <div className="relative flex flex-col items-center justify-center px-6 py-10 sm:py-16 text-center overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #0d7254 70%, #1a5c3f 100%)' }}
-          >
-            {/* Decorative glow blobs */}
+          <div className="relative flex flex-col items-center justify-center px-6 py-10 sm:py-14 text-center overflow-hidden bg-gradient-to-br from-[#022c22] via-[#064e3b] to-[#043427]">
+            {/* Ambient gold glow circles */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute -top-16 -left-16 h-64 w-64 rounded-full bg-emerald-300/10 blur-3xl" />
-              <div className="absolute -bottom-16 -right-8 h-72 w-72 rounded-full bg-yellow-300/10 blur-3xl" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+              <div className="absolute -top-12 -left-12 h-56 w-56 rounded-full bg-emerald-400/10 blur-3xl" />
+              <div className="absolute -bottom-12 -right-12 h-56 w-56 rounded-full bg-gold-500/15 blur-3xl" />
             </div>
 
-            {/* Status label */}
-            <motion.p
+            {/* Status label pill */}
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-[10px] font-black uppercase tracking-[5px] text-emerald-300 mb-5"
+              transition={{ delay: 0.15 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-400/30 backdrop-blur-md mb-4 shadow-sm"
             >
-              {copyText('editor.payment.ready', 'Ready')}
-            </motion.p>
+              <span className={`w-2 h-2 rounded-full ${hasSentReceipt ? 'bg-emerald-400' : 'bg-gold-400 animate-pulse'}`} />
+              <span className="text-[10px] font-black uppercase tracking-[3px] text-emerald-100">
+                {hasSentReceipt ? copyText('editor.payment.ready', 'Ready!') : copyText('editor.payment.stepPayment', 'Step: Payment Verification')}
+              </span>
+            </motion.div>
 
-            {/* Couple names — large */}
+            {/* Couple names — clean, high-contrast, beautiful typography */}
             <motion.h1
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.7 }}
-              className="text-white leading-tight mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(2.4rem, 8vw, 4rem)' }}
+              transition={{ delay: 0.25, duration: 0.6 }}
+              className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-2 font-sans"
             >
               {invitationData.groomName || 'Groom'}
-              <span className="text-yellow-300 mx-3 not-italic" style={{ fontStyle: 'normal', fontSize: '60%', verticalAlign: 'middle' }}>&</span>
+              <span className="text-gold-400 font-serif italic mx-2.5 font-normal">&</span>
               {invitationData.brideName || 'Bride'}
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.55 }}
-              className="text-white/70 text-xs sm:text-sm tracking-wide max-w-md mt-3"
+              transition={{ delay: 0.4 }}
+              className="text-emerald-100/70 text-xs sm:text-sm tracking-wide max-w-md mt-2 leading-relaxed"
             >
-              {copyText('editor.payment.successDesc', 'Your invitation is created! Complete payment below to activate.')}
+              {hasSentReceipt
+                ? copyText('editor.payment.successDesc', 'Your invitation is active! Share your link with guests below.')
+                : copyText('editor.payment.pendingDesc', 'Complete payment to activate your invitation link.')}
             </motion.p>
           </div>
 
@@ -536,7 +556,7 @@ const Editor = () => {
               whileTap={{ scale: 0.97 }}
               type="button"
               onClick={handleWhatsAppSend}
-              className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all"
+              className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer"
             >
               <MessageCircle size={20} className="fill-current" />
               <span>{copyText('editor.payment.sendWhatsApp', 'Send Screenshot via WhatsApp')}</span>
@@ -545,24 +565,64 @@ const Editor = () => {
 
           {/* ── Share link row ── */}
           <div className="px-6 py-6 border-b border-emerald-900/8 bg-[#fafdfb]">
+            {/* Locked / Unlocked alert banner */}
+            {!hasSentReceipt ? (
+              <div className="mb-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-800 flex items-center justify-center shrink-0">
+                  <Lock size={18} />
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-amber-950">
+                    {copyText('editor.payment.lockedTitle', 'Link & Actions Locked')}
+                  </p>
+                  <p className="text-[11px] font-semibold text-amber-900/70 mt-0.5">
+                    {copyText('editor.payment.lockedDesc', 'Send your payment screenshot to WhatsApp using the button above to unlock your invitation link.')}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="mb-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-800 flex items-center justify-center shrink-0">
+                  <CheckCircle2 size={18} />
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-emerald-950">
+                    {copyText('editor.payment.unlockedTitle', 'Receipt Sent — Link Unlocked!')}
+                  </p>
+                  <p className="text-[11px] font-semibold text-emerald-900/70 mt-0.5">
+                    {copyText('editor.payment.unlockedDesc', 'Your invitation link and buttons are now fully active.')}
+                  </p>
+                </div>
+              </div>
+            )}
+
             <p className="text-[9px] font-black uppercase tracking-[3px] text-emerald-900/35 mb-3">
               {copyText('editor.payment.couple', 'Your link')}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               <input
                 readOnly
-                value={shareUrl}
-                className="flex-1 h-14 rounded-2xl border-2 border-emerald-900/20 bg-white px-4 text-sm font-semibold text-emerald-950 outline-none shadow-sm"
+                value={hasSentReceipt ? shareUrl : copyText('editor.payment.unlockHint', 'Click "Send Screenshot via WhatsApp" above to unlock link')}
+                className={`flex-1 h-14 rounded-2xl border-2 px-4 text-xs sm:text-sm font-semibold outline-none shadow-sm transition-all ${
+                  hasSentReceipt
+                    ? 'border-emerald-900/20 bg-white text-emerald-950'
+                    : 'border-gray-200 bg-gray-100 text-gray-400 select-none cursor-not-allowed'
+                }`}
               />
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={hasSentReceipt ? { scale: 1.03 } : {}}
+                whileTap={hasSentReceipt ? { scale: 0.97 } : {}}
                 type="button"
+                disabled={!hasSentReceipt}
                 onClick={handleCopy}
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] text-white shadow-md transition-colors shrink-0"
-                style={{ backgroundColor: copied ? '#059669' : '#064e3b' }}
+                className={`inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] transition-colors shrink-0 ${
+                  hasSentReceipt
+                    ? 'text-white shadow-md cursor-pointer'
+                    : 'text-gray-400 bg-gray-200 cursor-not-allowed shadow-none border border-gray-300/40 opacity-60'
+                }`}
+                style={hasSentReceipt ? { backgroundColor: copied ? '#059669' : '#064e3b' } : {}}
               >
-                {copied ? <Check size={15} /> : <Copy size={15} />}
+                {hasSentReceipt ? (copied ? <Check size={15} /> : <Copy size={15} />) : <Lock size={15} />}
                 {copied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyBtn', 'Copy link')}
               </motion.button>
             </div>
@@ -571,30 +631,52 @@ const Editor = () => {
           {/* ── Action buttons ── */}
           <div className="flex flex-col sm:flex-row gap-4 px-6 py-6 bg-white">
             <motion.a
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href={shareUrl}
+              whileHover={hasSentReceipt ? { scale: 1.02, y: -2 } : {}}
+              whileTap={hasSentReceipt ? { scale: 0.97 } : {}}
+              href={hasSentReceipt ? shareUrl : undefined}
               target="_blank"
               rel="noreferrer"
-              className="flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl border-3 border-emerald-900/30 bg-[#f7fdf9] text-[11px] font-black uppercase tracking-[2.5px] text-emerald-900 shadow-sm"
+              onClick={(e) => {
+                if (!hasSentReceipt) e.preventDefault();
+              }}
+              className={`flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl border-3 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+                hasSentReceipt
+                  ? 'border-emerald-900/30 bg-[#f7fdf9] text-emerald-900 shadow-sm cursor-pointer'
+                  : 'border-gray-200 bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed pointer-events-none'
+              }`}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
+              {hasSentReceipt ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              ) : (
+                <Lock size={16} />
+              )}
               {copyText('editor.payment.viewInv', 'View Invitation')}
             </motion.a>
 
             <motion.button
-              whileHover={{ scale: 1.02, y: -2, boxShadow: '0 12px 32px -8px rgba(6,78,59,0.45)' }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={hasSentReceipt ? { scale: 1.02, y: -2, boxShadow: '0 12px 32px -8px rgba(6,78,59,0.45)' } : {}}
+              whileTap={hasSentReceipt ? { scale: 0.97 } : {}}
               type="button"
-              onClick={() => navigate('/dashboard')}
-              className="flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] text-white shadow-lg"
-              style={{ background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' }}
+              disabled={!hasSentReceipt}
+              onClick={() => {
+                if (hasSentReceipt) navigate('/dashboard');
+              }}
+              className={`flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+                hasSentReceipt
+                  ? 'text-white shadow-lg cursor-pointer'
+                  : 'text-gray-400 bg-gray-200 opacity-50 cursor-not-allowed'
+              }`}
+              style={hasSentReceipt ? { background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' } : {}}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-              </svg>
+              {hasSentReceipt ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              ) : (
+                <Lock size={16} />
+              )}
               {copyText('dashboard.title', 'My Dashboard')}
             </motion.button>
           </div>
