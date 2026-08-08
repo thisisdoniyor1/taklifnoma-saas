@@ -148,7 +148,7 @@ const Navbar = () => {
             {!isCreatePage && (
               <motion.button
                 onClick={openTemplates}
-                className="luxury-button !h-8 sm:!h-9 !px-3 sm:!px-4 !text-[8px] sm:!text-[8.5px] font-bold tracking-[1px] sm:tracking-[1.5px] uppercase transition-shadow flex items-center justify-center"
+                className="luxury-button hidden sm:inline-flex !h-8 sm:!h-9 !px-3 sm:!px-4 !text-[8px] sm:!text-[8.5px] font-bold tracking-[1px] sm:tracking-[1.5px] uppercase transition-shadow items-center justify-center"
                 whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(16,185,129,0.28)" }}
                 whileTap={{ scale: 0.98, boxShadow: "0 0 30px 5px rgba(16, 185, 129, 0.6)" }}
               >
@@ -193,7 +193,7 @@ const Navbar = () => {
                   >
                     {!showProfileInMenu ? (
                       <>
-                        <div className="lg:hidden flex-1 py-2 px-2 flex flex-col">
+                        <div className="lg:hidden flex-1 py-2 px-2 flex flex-col gap-1">
                           <button onClick={() => handleNavClick('home')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.home')}
                           </button>
@@ -206,6 +206,19 @@ const Navbar = () => {
                           <button onClick={() => handleNavClick('faq')} className="text-left text-[12px] font-bold text-emerald-950/60 hover:text-emerald-950 hover:bg-emerald-50 px-4 py-3 rounded-lg transition-all uppercase tracking-wider">
                             {t('nav.faq') || 'FAQ'}
                           </button>
+
+                          {/* Create invitation button inside mobile menu */}
+                          {!isCreatePage && (
+                            <button
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                openTemplates();
+                              }}
+                              className="mt-2 mx-1 py-3 rounded-xl bg-gold-500 text-white text-[10px] font-bold uppercase tracking-[1.5px] hover:bg-gold-600 transition-colors shadow-md text-center"
+                            >
+                              {t('nav.create')}
+                            </button>
+                          )}
                         </div>
                         <div className="px-4 py-3 border-t border-emerald-900/10 bg-[#F8FAF9]">
                           {user ? (

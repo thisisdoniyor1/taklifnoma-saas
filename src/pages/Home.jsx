@@ -41,7 +41,7 @@ const Label = ({ children, centered }) => (
 
 /* ── Modern Heading ── */
 const H2 = ({ children, light = false, style = {} }) => (
-  <h2 className="text-[clamp(2.4rem,6vw,4.2rem)] font-extrabold leading-[1.05] tracking-tight mb-8" style={{ color: light ? '#FFFFFF' : '#064E3B', ...style }}>
+  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.05] tracking-tight mb-8" style={{ color: light ? '#FFFFFF' : '#064E3B', ...style }}>
     {children}
   </h2>
 );
@@ -115,7 +115,7 @@ export default function Home() {
           {/* Tagline removed as requested */}
 
           <Reveal delay={0.1}>
-            <h1 className="text-[clamp(2.25rem,8vw,6rem)] font-extrabold leading-[1.05] tracking-tight mb-10 text-emerald-950 break-words hyphens-auto">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-10 text-emerald-950 break-words hyphens-auto">
               {t('hero.title')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-emerald-950 font-sans break-words inline-block max-w-full">{t('hero.titleAccent')}</span>
             </h1>
