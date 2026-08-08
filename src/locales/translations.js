@@ -380,31 +380,31 @@ export const translations = {
     },
     templates_catalog: {
       'envelope-classic': {
-        name: "Golden Palace",
+        name: "Design 1",
         summary: "Regal ivory and gold digital card with an elegant, cinematic opening gate animation.",
         description: "Welcome your guests with a majestic opening gate animation. Features a premium ivory-and-gold frame centerpiece, hand-drawn palace sketches, and guests wishes.",
         welcomeText: "We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together."
       },
       'classic-gold-white': {
-        name: "Blush Elegance",
+        name: "Design 2",
         summary: "Elegant blush pink invitation cover with a realistic wax-sealed envelope opening.",
         description: "A premium pink and rose gold invitation that opens with a realistic animated wax seal. Features a custom palace sketch, dynamic guest wishes, and direct map navigation.",
         welcomeText: "Welcome to Blush Elegance. This romantic invitation opens with a realistic animated wax seal, showcasing soft pink rose aesthetics, a custom palace sketch, dynamic guest wishes, and direct map navigation."
       },
       'royal-navy-shield': {
-        name: "Imperial Navy",
+        name: "Design 3",
         summary: "Luxurious deep navy blue and gold design with stately architectural sketches.",
         description: "An exquisite classical design in deep royal blue with gold-leaf accents. Features an elegant imperial shield ornament, refined calligraphy typography, interactive venue navigation, and guests wishes.",
         welcomeText: "Welcome to Imperial Navy. An exquisite classical design in deep royal blue with gold-leaf accents, featuring an elegant imperial shield ornament, refined calligraphy typography, interactive venue navigation, and guests wishes."
       },
       'tuscany-finca': {
-        name: "Tuscan Garden",
+        name: "Design 4",
         summary: "Charming watercolor invitation depicting a serene Tuscan courtyard garden.",
         description: "A beautiful botanical theme with watercolor illustrations of a rustic villa garden. Features a wax-sealed envelope cover, a sage-green day timeline, and guests wishes.",
         welcomeText: "Welcome to Tuscan Garden. A charming watercolor theme depicting a serene Tuscan courtyard garden, featuring a realistic wax-sealed envelope cover, a sage-green day timeline, and beautiful guests wishes."
       },
       'chandelier-palm': {
-        name: "Chandelier Night",
+        name: "Design 5",
         summary: "Magical evening theme featuring crystal chandeliers, beaded drapes, and palm garden glow.",
         description: "A premium design inspired by elegant evening dinner settings under string lights and palms. Features a hand-crafted crystal chandelier scene, interactive date cards, smooth countdowns, and guests wishes.",
         welcomeText: "Welcome to Chandelier Night. A premium design inspired by evening dinner settings under string lights and palms, featuring a hand-crafted crystal chandelier scene, interactive date cards, smooth countdowns, and guests wishes."
@@ -794,31 +794,31 @@ export const translations = {
     },
     templates_catalog: {
       'envelope-classic': {
-        name: "Золотой Дворец",
+        name: "Дизайн 1",
         summary: "Роскошная открытка в цвете слоновой кости и золоте с кинематографичной анимацией открытия врат.",
         description: "Встречайте ваших гостей величественной анимацией открывающихся врат. Премиальная рамка в центре, эскизы дворца и пожелания гостей.",
         welcomeText: "С радостью приглашаем вас разделить с нами счастье этого особенного дня. Ваше присутствие сделает наш праздник незабываемым."
       },
       'classic-gold-white': {
-        name: "Элегантный Румянец",
+        name: "Дизайн 2",
         summary: "Изящное розовое приглашение с реалистичным конвертом и сургучной печатью.",
         description: "Премиальное приглашение в нежно-розовых тонах, открывающееся реалистичной анимацией печати. Рисованный дворец, пожелания гостей и интерактивная карта.",
         welcomeText: "Добро пожаловать в Элегантный Румянец. Это романтическое приглашение открывается реалистичной анимацией сургучной печати, демонстрируя нежные розовые розы, авторский эскиз дворца, пожелания гостей и удобную карту."
       },
       'royal-navy-shield': {
-        name: "Императорский Синий",
+        name: "Дизайн 3",
         summary: "Роскошный глубокий темно-синий дизайн с золотыми архитектурными эскизами.",
         description: "Изысканный классический дизайн в глубоком королевском синем цвете с золотыми деталями. Изящный гербовый щит, благородная каллиграфия, интерактивная карта и пожелания гостей.",
         welcomeText: "Добро пожаловать в Императорский Синий. Изысканный классический дизайн в глубоком темно-синем цвете с золотыми деталями, украшенный гербовым щитом, благородной каллиграфией, интерактивной картой и пожеланиями гостей."
       },
       'tuscany-finca': {
-        name: "Тосканский Сад",
+        name: "Дизайн 4",
         summary: "Очаровательное акварельное приглашение с атмосферой уютного тосканского дворика.",
         description: "Прекрасная ботаническая тема с нежными акварельными иллюстрациями виллы в саду. Включает конверт с сургучной печатью, шалфейно-зеленую шкалу времени и пожелания гостей.",
         welcomeText: "Добро пожаловать в Тосканский Сад. Очаровательная акварельная тема, передающая атмосферу уютного тосканского дворика, с конвертом под сургучной печатью, шалфейно-зеленой шкалой времени и пожеланиями гостей."
       },
       'chandelier-palm': {
-        name: "Вечерний Шандельер",
+        name: "Дизайн 5",
         summary: "Волшебная вечерняя тема с хрустальными люстрами, шторами и сиянием садовых пальм.",
         description: "Премиальный дизайн, вдохновленный атмосферой праздничного ужина под гирляндами и пальмами. Хрустальная люстра ручной работы, карточки даты, обратный отсчет и пожелания гостей.",
         welcomeText: "Добро пожаловать в Вечерний Шандельер. Премиальный дизайн в стиле праздничного ужина под гирляндами и пальмами, с хрустальной люстрой ручной работы, карточками даты, обратным отсчетом и пожеланиями гостей."
@@ -1152,34 +1152,34 @@ export const translations = {
     },
     templates_catalog: {
       'envelope-classic': {
-        name: "Олтин Саройи",
+        name: "Дизайн 1",
         summary: "",
         description: "Меҳмонларингизни очилувчи қироллик дарвозаси анимацияси билан кутиб олинг. Нафис марказий рамка, қўлда чизилган сарой эскизлари ва меҳмонлар тилаклари мавжуд.",
         welcomeText: "Қалбимизда чексиз қувонч билан сизни никоҳ тўйимиз тантанасига таклиф этамиз. Сизнинг ташрифингиз ушбу кунни биз учун янада аҳамиятли қилади."
       },
       'classic-gold-white': {
-        name: "Нарми Нафис",
+        name: "Дизайн 2",
         summary: "Реал муҳрли конверт очилиши анимациясига эга нафис нимпушти таклифнома.",
         description: "Ҳақиқий сурғучли муҳр очилиши анимациясига эга премиум нимпушти таклифнома. Қўлда чизилган сарой расми, меҳмонлар тилаклари ва интерактив харитани ўз ичига олади.",
         welcomeText: "Нарми Нафис таклифномасига хуш келибсиз. Бу романтик таклифнома сурғучли муҳр очилиши анимацияси, нимпушти атиргуллар нафосати, сарой расми, меҳмонлар тилаклари ва интерактив харитадан иборат."
       },
       'royal-navy-shield': {
-        name: "Императорлик Кўки",
+        name: "Дизайн 3",
         summary: "Тўқ кўк ва тилла рангли ҳашаматли меъморий эскизли дизайн.",
         description: "Тўқ кўк ва тилла рангли уйғунликдаги нафис классик дизайн. Муҳташам қалқон рамкаси, нафис каллиграфия, тўйхона харитаси ва меҳмонлар тилаклари мавжуд.",
         welcomeText: "Императорлик Кўки таклифномасига хуш келибсиз. Тўқ кўк ва тилла ранглар уйғунлигидаги нафис классик дизайн, муҳташам қалқон рамкаси, нафис каллиграфия, тўйхона харитаси ва меҳмонлар тилаклари мавжуд."
       },
       'tuscany-finca': {
-        name: "Тоскана Боғи",
+        name: "Дизайн 4",
         summary: "Тоскана ҳовли боғи услубидаги ажойиб акварель таклифнома.",
         description: "Вилла боғининг акварель расмлари билан безатилган гўзал ботаник мавзу. Муҳрли конверт муқоваси, нафис тўй куни дастури ва меҳмонлар тилаклари мавжуд.",
         welcomeText: "Тоскана Боғига хуш келибсиз. Тоскана ҳовлиси боғи услубидаги ажойиб акварель мавзуси, реал муҳрли конверт, нафис тўй куни дастури ва гўзал меҳмонлар тилакларини ўз ичига олади."
       },
       'chandelier-palm': {
-        name: "Чарчироқли Оқшом",
+        name: "Дизайн 5",
         summary: "Хрустал қондиллар, чиройли пардалар ва пальма дарахтлари остидаги оқшом мавзуси.",
         description: "Муҳташам чироқлар ва пальма дарахтлари остидаги романтик оқшом зиёфати руҳидаги премиум дизайн. Хрустал қондил расми, тўй санаси, орқага санаш таймери ва меҳмонлар тилаклари билан жиҳозланган.",
-        welcomeText: "Чарчироқли Оқшом таклифномасига хуш келибсиз. Романтик оқшом зиёфати руҳидаги премиум дизайн, хрустал қондил расми, тўй санаси ва орқага санаш таймери ҳамда меҳмонлар тилаклари мавжуд."
+        welcomeText: "Романитик оқшом зиёфати руҳидаги премиум дизайн, хрустал қондил расми, тўй санаси ва орқага санаш таймери ҳамда меҳмонлар тилаклари мавжуд."
       }
     }
   },
@@ -1510,31 +1510,31 @@ export const translations = {
     },
     templates_catalog: {
       'envelope-classic': {
-        name: "Қасри Тиллоӣ",
+        name: "Дизайн 1",
         summary: "Даъватномаи боҳашамати тиллоӣ бо аниматсияи кушодашавии дарвозаҳои шоҳона.",
         description: "Меҳмонони худро бо аниматсияи кушодашавии дарвозаҳои шоҳона пешвоз гиред. Чорчӯбаи боҳашамат дар марказ, расми дастнависи қаср ва таманниёти меҳмонон.",
         welcomeText: "Бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. Ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад."
       },
       'classic-gold-white': {
-        name: "Нимранги Зебо",
+        name: "Дизайн 2",
         summary: "Даъватномаи шевои нимпушти бо аниматсияи воқеии конверти мӯҳрдор.",
         description: "Даъватномаи олии нимпушти ва тиллоии сурх, ки бо мӯҳри сурғучии аниматсионӣ кушода мешавад. Расми дастнависи қаср ва таманниёти меҳмонон дорад.",
         welcomeText: "Ба Нимранги Зебо хуш омадед. Ин даъватномаи ошиқона бо аниматсияи воқеии мӯҳри сурғучӣ кушода шуда, гулҳои зебои нимпушт, расми қаср, таманниёти меҳмонон ва харитаи сайёҳат дорад."
       },
       'royal-navy-shield': {
-        name: "Империали Кабуд",
+        name: "Дизайн 3",
         summary: "Тарҳи боҳашамати кабуди тира ва тиллоӣ бо расмҳои меъморӣ.",
         description: "Тарҳи олиҷаноби классикӣ бо рангҳои кабуди тира ва тиллоӣ. Дорои чорчӯбаи зебои сипар, хаттотии нафис, харитаи интерактивӣ ва таманниёти меҳмонон.",
         welcomeText: "Ба Империали Кабуд хуш омадед. Тарҳи олиҷаноби классикӣ бо рангҳои кабуди тира ва тиллоӣ, дорои чорчӯбаи зебои сипар, хаттотии нафис, харитаи интерактивӣ ва таманниёти меҳмонон."
       },
       'tuscany-finca': {
-        name: "Боғи Тоскана",
+        name: "Дизайн 4",
         summary: "Даъватномаи акварелии зебо бо тасвири ҳавлии виллаи Тоскана.",
         description: "Мавзӯи зебои ботаникӣ бо тасвирҳои акварелии боғи вилла. Дорои конверти мӯҳрдор, ҷадвали вақти сабзи нафис ва таманниёти меҳмонон.",
         welcomeText: "Ба Боғи Тоскана хуш омадед. Мавзӯи зебои акварелӣ бо тасвири ҳавлии виллаи Тоскана, дорои конверти мӯҳрдор, ҷадвали вақти сабзи нафис ва таманниёти меҳмонон."
       },
       'chandelier-palm': {
-        name: "Шоми Чарчироқҳо",
+        name: "Дизайн 5",
         summary: "Мавзӯи шоми афсонавӣ бо чарчироғҳои булӯрӣ ва палмаҳои зебо.",
         description: "Тарҳи олӣ зери чароғҳо ва дарахтони палма, дорои чарчироғи булӯрӣ, варақаҳои сана, ҳисоби معкаус ва таманниёти меҳмонон.",
         welcomeText: "Ба Шоми Чарчироқҳо хуш омадед. Тарҳи олӣ зери чароғҳо ва дарахтони палма, дорои чарчироғи булӯрӣ, варақаҳои сана, ҳисоби معкаус ва таманниёти меҳмонон."

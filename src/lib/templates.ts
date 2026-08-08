@@ -38,7 +38,7 @@ const createTheme = (overrides = {}) => ({
 const templateCatalog = {
   'envelope-classic': {
     id: 'envelope-classic',
-    name: 'Golden Palace',
+    name: 'Design 1',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#D4AF37', '#FFFAF0'],
@@ -74,7 +74,7 @@ const templateCatalog = {
 
   'classic-gold-white': {
     id: 'classic-gold-white',
-    name: 'Blush Elegance',
+    name: 'Design 2',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#b05470', '#fdf0f4'],
@@ -104,7 +104,7 @@ const templateCatalog = {
 
   'royal-navy-shield': {
     id: 'royal-navy-shield',
-    name: 'Imperial Navy',
+    name: 'Design 3',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#1A2B4B', '#D4AF37'],
@@ -125,7 +125,7 @@ const templateCatalog = {
 
   'tuscany-finca': {
     id: 'tuscany-finca',
-    name: 'Tuscan Garden',
+    name: 'Design 4',
     type: 'PREMIUM',
     category: 'botanical',
     colors: ['#8a9e7a', '#f8f5f0'],
@@ -149,7 +149,7 @@ const templateCatalog = {
 
   'chandelier-palm': {
     id: 'chandelier-palm',
-    name: 'Chandelier Night',
+    name: 'Design 5',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#b99a52', '#f3e4e8', '#686a4d'],
@@ -185,7 +185,7 @@ const templateCatalog = {
 
   'emerald-elegance': {
     id: 'emerald-elegance',
-    name: 'Emerald Elegance',
+    name: 'Design 6',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#064E3B', '#FCD34D'],
@@ -207,7 +207,7 @@ const templateCatalog = {
 
   'luxury-gold': {
     id: 'luxury-gold',
-    name: 'Luxury Gold',
+    name: 'Design 7',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#0EA5E9', '#F8FAFC'],
@@ -229,7 +229,7 @@ const templateCatalog = {
 
   'classic-minimalist': {
     id: 'classic-minimalist',
-    name: 'Classic Minimalist',
+    name: 'Design 8',
     type: 'PREMIUM',
     category: 'classic',
     colors: ['#EC4899', '#FDF2F8'],
