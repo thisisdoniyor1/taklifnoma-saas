@@ -503,35 +503,32 @@ const Editor = () => {
           </div>
 
           {/* ── Bank Transfer & WhatsApp Receipt Section ── */}
-          <div className="px-6 py-8 border-b border-emerald-900/10 bg-[#f4faf6]">
-            <div className="mb-6 text-center sm:text-left">
-              <span className="inline-block px-3 py-1 rounded-full bg-emerald-900/10 text-emerald-900 text-[9px] font-black uppercase tracking-[2px] mb-2">
+          <div className="px-4 py-5 sm:px-6 sm:py-8 border-b border-emerald-900/10 bg-[#f4faf6]">
+            <div className="mb-4 sm:mb-6 text-center sm:text-left">
+              <span className="inline-block px-3 py-1 rounded-full bg-emerald-900/10 text-emerald-900 text-[8.5px] sm:text-[9px] font-black uppercase tracking-[2px] mb-1.5">
                 {copyText('editor.payment.bankTitle', 'Payment & Activation')}
               </span>
-              <p className="text-xs font-semibold text-emerald-950/70 max-w-lg leading-relaxed">
+              <p className="text-[11px] sm:text-xs font-semibold text-emerald-950/70 max-w-lg leading-relaxed">
                 {copyText('editor.payment.bankDesc', 'Transfer payment to any bank card below, then send your payment screenshot via WhatsApp to activate your invitation.')}
               </p>
             </div>
 
             {/* Bank Card Items Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-4 sm:mb-6">
               {PAYMENT_CONFIG.banks.map((bank) => {
                 const isCopied = copiedBankId === bank.id;
                 return (
                   <div
                     key={bank.id}
-                    className="p-4 rounded-2xl bg-white border border-emerald-900/12 shadow-sm flex flex-col justify-between hover:border-emerald-700/30 transition-all"
+                    className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-emerald-900/12 shadow-xs flex flex-col justify-between hover:border-emerald-700/30 transition-all"
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[11px] font-black text-emerald-950 uppercase tracking-wide">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] sm:text-[11px] font-black text-emerald-950 uppercase tracking-wide">
                           {bank.name}
                         </span>
                       </div>
-                      <p className="text-[10px] font-extrabold text-emerald-900/40 uppercase mb-2">
-                        {bank.accountName}
-                      </p>
-                      <p className="text-sm font-mono font-bold text-emerald-950 tracking-wider mb-3 select-all bg-emerald-50/50 p-2 rounded-xl border border-emerald-900/5 text-center">
+                      <p className="text-xs sm:text-sm font-mono font-bold text-emerald-950 tracking-wider mb-2.5 sm:mb-3 select-all bg-emerald-50/60 py-1.5 px-2 rounded-lg sm:rounded-xl border border-emerald-900/5 text-center">
                         {bank.cardNumber}
                       </p>
                     </div>
@@ -540,7 +537,7 @@ const Editor = () => {
                       whileTap={{ scale: 0.97 }}
                       type="button"
                       onClick={() => handleCopyBankCard(bank.cardNumber, bank.id)}
-                      className="w-full py-2.5 px-3 rounded-xl border border-emerald-900/15 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                      className="w-full py-2 sm:py-2.5 px-2.5 rounded-lg sm:rounded-xl border border-emerald-900/15 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 text-[9px] sm:text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-xs"
                     >
                       {isCopied ? <Check size={13} className="text-emerald-700" /> : <Copy size={13} />}
                       {isCopied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyCard', 'Copy Card Number')}
@@ -556,46 +553,15 @@ const Editor = () => {
               whileTap={{ scale: 0.97 }}
               type="button"
               onClick={handleWhatsAppSend}
-              className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+              className="w-full py-3.5 sm:py-4 px-5 rounded-xl sm:rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer"
             >
-              <MessageCircle size={20} className="fill-current" />
+              <MessageCircle size={18} className="fill-current" />
               <span>{copyText('editor.payment.sendWhatsApp', 'Send Screenshot via WhatsApp')}</span>
             </motion.button>
           </div>
 
           {/* ── Share link row ── */}
           <div className="px-6 py-6 border-b border-emerald-900/8 bg-[#fafdfb]">
-            {/* Locked / Unlocked alert banner */}
-            {!hasSentReceipt ? (
-              <div className="mb-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-800 flex items-center justify-center shrink-0">
-                  <Lock size={18} />
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-amber-950">
-                    {copyText('editor.payment.lockedTitle', 'Link & Actions Locked')}
-                  </p>
-                  <p className="text-[11px] font-semibold text-amber-900/70 mt-0.5">
-                    {copyText('editor.payment.lockedDesc', 'Send your payment screenshot to WhatsApp using the button above to unlock your invitation link.')}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="mb-4 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-800 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={18} />
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-emerald-950">
-                    {copyText('editor.payment.unlockedTitle', 'Receipt Sent — Link Unlocked!')}
-                  </p>
-                  <p className="text-[11px] font-semibold text-emerald-900/70 mt-0.5">
-                    {copyText('editor.payment.unlockedDesc', 'Your invitation link and buttons are now fully active.')}
-                  </p>
-                </div>
-              </div>
-            )}
-
             <p className="text-[9px] font-black uppercase tracking-[3px] text-emerald-900/35 mb-3">
               {copyText('editor.payment.couple', 'Your link')}
             </p>
@@ -639,7 +605,7 @@ const Editor = () => {
               onClick={(e) => {
                 if (!hasSentReceipt) e.preventDefault();
               }}
-              className={`flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl border-3 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl border-3 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
                 hasSentReceipt
                   ? 'border-emerald-900/30 bg-[#f7fdf9] text-emerald-900 shadow-sm cursor-pointer'
                   : 'border-gray-200 bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed pointer-events-none'
@@ -663,7 +629,7 @@ const Editor = () => {
               onClick={() => {
                 if (hasSentReceipt) navigate('/dashboard');
               }}
-              className={`flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
                 hasSentReceipt
                   ? 'text-white shadow-lg cursor-pointer'
                   : 'text-gray-400 bg-gray-200 opacity-50 cursor-not-allowed'
