@@ -9,4 +9,6 @@ const isLocalRuntime = (() => {
 
 export const API_URL =
   import.meta.env.VITE_API_URL ||
-  (isLocalRuntime ? 'http://localhost:8100/api' : '/api');
+  (isLocalRuntime
+    ? 'http://localhost:8100/api'
+    : 'https://taklifnoma-saas-production.up.railway.app/api');
