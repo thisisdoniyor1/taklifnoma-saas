@@ -191,17 +191,7 @@ const Auth = () => {
       : await signup(email, password, email.split('@')[0]);
 
     if (result.success) {
-      if (isLogin) {
-        completeAuthNavigation();
-      } else {
-        const loginResult = await login(email, password, false);
-        if (loginResult.success) {
-          completeAuthNavigation();
-        } else {
-          alert('Account successfully created! Please log in.');
-          navigate('/login', { replace: true });
-        }
-      }
+      completeAuthNavigation();
     } else {
       const errLower = result.error.toLowerCase();
       if (errLower.includes('password')) {

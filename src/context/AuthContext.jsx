@@ -44,8 +44,11 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (email, password, displayName) => {
     try {
-      await db.signup(email, password, displayName);
-      return { success: true };
+      const data = await db.signup(email, password, displayName);
+      if (data?.token && data?.user) {
+        applySession(data);
+      }
+      return { success: true, user: data?.user };
     } catch (err) {
       return { success: false, error: err.message };
     }

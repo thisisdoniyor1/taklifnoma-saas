@@ -21,3 +21,28 @@ if (rawApiUrl && !rawApiUrl.startsWith('http://') && !rawApiUrl.startsWith('http
 }
 
 export const API_URL = rawApiUrl;
+
+export const PAYMENT_CONFIG = {
+  whatsappNumber: '992900000000', // Update with your WhatsApp number (e.g. 992XXXXXXXXX)
+  banks: [
+    {
+      id: 'dc',
+      name: 'Dushanbe City Bank',
+      accountName: 'Taklifnoma VIP',
+      cardNumber: '9771 0000 0000 0000',
+    },
+    {
+      id: 'alif',
+      name: 'Alif Mobi',
+      accountName: 'Taklifnoma VIP',
+      cardNumber: '5058 0000 0000 0000',
+    },
+    {
+      id: 'kortimilli',
+      name: 'Korti Milli',
+      accountName: 'Taklifnoma VIP',
+      cardNumber: '9771 1111 2222 3333',
+    },
+  ],
+};
+

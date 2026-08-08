@@ -596,7 +596,7 @@ app.post('/api/auth/signup', async (req, res) => {
   }
 
   try {
-    await updateDatabase(async (data) => {
+    const result = await updateDatabase(async (data) => {
       const adminAccount = getAdminAccount(data);
       const existingUser = data.users.find((user) => normalizeEmail(user.email) === email);
       if (existingUser || email === normalizeEmail(adminAccount.email)) {
@@ -604,16 +604,25 @@ app.post('/api/auth/signup', async (req, res) => {
       }
 
       const password_hash = await bcrypt.hash(password, 10);
-      data.users.push({
+      const newUser = {
         id: getNextNumericId(data.users),
         email,
         password_hash,
         is_admin: false,
         created_at: new Date().toISOString(),
+      };
+      data.users.push(newUser);
+
+      const responseUser = userResponse({
+        id: newUser.id,
+        email: newUser.email,
+        isAdmin: false,
       });
+
+      return { token: issueToken(responseUser), user: responseUser };
     });
 
-    return res.status(201).json({ success: true });
+    return res.status(201).json(result);
   } catch (error) {
     return res.status(error.status || 500).json({ error: error.message || 'Signup failed' });
   }

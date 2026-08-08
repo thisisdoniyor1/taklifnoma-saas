@@ -14,7 +14,9 @@ import {
   Trash2,
   UploadCloud,
   Clock,
+  MessageCircle,
 } from 'lucide-react';
+import { PAYMENT_CONFIG } from '../config';
 import { useInvitation } from '../context/InvitationContext';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -71,6 +73,7 @@ const Editor = () => {
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [orderSlug, setOrderSlug] = useState(null);
+  const [copiedBankId, setCopiedBankId] = useState(null);
   const [copied, setCopied] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [invalidFields, setInvalidFields] = useState([]);
@@ -410,6 +413,22 @@ const Editor = () => {
     }
   };
 
+  const handleCopyBankCard = (cardNumber, bankId) => {
+    try {
+      navigator.clipboard.writeText(cardNumber.replace(/\s+/g, ''));
+      setCopiedBankId(bankId);
+      window.setTimeout(() => setCopiedBankId(null), 1800);
+    } catch (_) {}
+  };
+
+  const handleWhatsAppSend = () => {
+    const groom = invitationData.groomName || 'Groom';
+    const bride = invitationData.brideName || 'Bride';
+    const text = `Assalomu alaykum! I have made the payment for this invitation (${groom} & ${bride}):\n${shareUrl}\n\nHere is my payment screenshot.`;
+    const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   if (orderId) {
     return (
       <EditorShell>
@@ -457,10 +476,71 @@ const Editor = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
-              className="text-white/55 text-sm tracking-wide max-w-sm mt-4"
+              className="text-white/70 text-xs sm:text-sm tracking-wide max-w-md mt-3"
             >
-              {copyText('editor.payment.successDesc', 'Your invitation is live. Share it with your guests!')}
+              {copyText('editor.payment.successDesc', 'Your invitation is created! Complete payment below to activate.')}
             </motion.p>
+          </div>
+
+          {/* ── Bank Transfer & WhatsApp Receipt Section ── */}
+          <div className="px-6 py-8 border-b border-emerald-900/10 bg-[#f4faf6]">
+            <div className="mb-6 text-center sm:text-left">
+              <span className="inline-block px-3 py-1 rounded-full bg-emerald-900/10 text-emerald-900 text-[9px] font-black uppercase tracking-[2px] mb-2">
+                {copyText('editor.payment.bankTitle', 'Payment & Activation')}
+              </span>
+              <p className="text-xs font-semibold text-emerald-950/70 max-w-lg leading-relaxed">
+                {copyText('editor.payment.bankDesc', 'Transfer payment to any bank card below, then send your payment screenshot via WhatsApp to activate your invitation.')}
+              </p>
+            </div>
+
+            {/* Bank Card Items Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+              {PAYMENT_CONFIG.banks.map((bank) => {
+                const isCopied = copiedBankId === bank.id;
+                return (
+                  <div
+                    key={bank.id}
+                    className="p-4 rounded-2xl bg-white border border-emerald-900/12 shadow-sm flex flex-col justify-between hover:border-emerald-700/30 transition-all"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[11px] font-black text-emerald-950 uppercase tracking-wide">
+                          {bank.name}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-extrabold text-emerald-900/40 uppercase mb-2">
+                        {bank.accountName}
+                      </p>
+                      <p className="text-sm font-mono font-bold text-emerald-950 tracking-wider mb-3 select-all bg-emerald-50/50 p-2 rounded-xl border border-emerald-900/5 text-center">
+                        {bank.cardNumber}
+                      </p>
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      type="button"
+                      onClick={() => handleCopyBankCard(bank.cardNumber, bank.id)}
+                      className="w-full py-2.5 px-3 rounded-xl border border-emerald-900/15 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                    >
+                      {isCopied ? <Check size={13} className="text-emerald-700" /> : <Copy size={13} />}
+                      {isCopied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyCard', 'Copy Card Number')}
+                    </motion.button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* WhatsApp Direct Send Screenshot Button */}
+            <motion.button
+              whileHover={{ scale: 1.02, boxShadow: '0 10px 25px -5px rgba(37,211,102,0.4)' }}
+              whileTap={{ scale: 0.97 }}
+              type="button"
+              onClick={handleWhatsAppSend}
+              className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all"
+            >
+              <MessageCircle size={20} className="fill-current" />
+              <span>{copyText('editor.payment.sendWhatsApp', 'Send Screenshot via WhatsApp')}</span>
+            </motion.button>
           </div>
 
           {/* ── Share link row ── */}
