@@ -420,7 +420,7 @@ const Editor = () => {
           className="relative overflow-hidden rounded-[36px] bg-white shadow-[0_40px_100px_-30px_rgba(6,78,59,0.22)] border border-emerald-900/10"
         >
           {/* ── Celebration hero banner ── */}
-          <div className="relative flex flex-col items-center justify-center px-6 py-16 text-center overflow-hidden"
+          <div className="relative flex flex-col items-center justify-center px-6 py-10 sm:py-16 text-center overflow-hidden"
             style={{ background: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #0d7254 70%, #1a5c3f 100%)' }}
           >
             {/* Decorative glow blobs */}
@@ -429,31 +429,6 @@ const Editor = () => {
               <div className="absolute -bottom-16 -right-8 h-72 w-72 rounded-full bg-yellow-300/10 blur-3xl" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
             </div>
-
-            {/* Animated sparkle ring */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-              className="relative mb-8"
-            >
-              <div className="h-24 w-24 rounded-full border border-white/15 flex items-center justify-center">
-                <div className="h-16 w-16 rounded-full border border-white/25 flex items-center justify-center bg-white/10 backdrop-blur-sm">
-                  <motion.div
-                    animate={{ scale: [1, 1.15, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <Sparkles size={28} className="text-yellow-300" />
-                  </motion.div>
-                </div>
-              </div>
-              {/* Orbit dots */}
-              {[0, 60, 120, 180, 240, 300].map((deg) => (
-                <div key={deg} className="absolute inset-0 flex items-start justify-center"
-                  style={{ transform: `rotate(${deg}deg)` }}>
-                  <div className="h-1.5 w-1.5 -mt-0.5 rounded-full bg-yellow-300/70" />
-                </div>
-              ))}
-            </motion.div>
 
             {/* Status label */}
             <motion.p
@@ -497,14 +472,14 @@ const Editor = () => {
               <input
                 readOnly
                 value={shareUrl}
-                className="flex-1 h-12 rounded-2xl border border-emerald-900/12 bg-white px-4 text-sm font-semibold text-emerald-950 outline-none shadow-sm"
+                className="flex-1 h-14 rounded-2xl border-2 border-emerald-900/20 bg-white px-4 text-sm font-semibold text-emerald-950 outline-none shadow-sm"
               />
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 type="button"
                 onClick={handleCopy}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] text-white shadow-md transition-colors shrink-0"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] text-white shadow-md transition-colors shrink-0"
                 style={{ backgroundColor: copied ? '#059669' : '#064e3b' }}
               >
                 {copied ? <Check size={15} /> : <Copy size={15} />}
@@ -521,7 +496,7 @@ const Editor = () => {
               href={shareUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl border-2 border-emerald-900/15 bg-[#f7fdf9] text-[11px] font-black uppercase tracking-[2.5px] text-emerald-900 shadow-sm"
+              className="flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl border-3 border-emerald-900/30 bg-[#f7fdf9] text-[11px] font-black uppercase tracking-[2.5px] text-emerald-900 shadow-sm"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
@@ -534,7 +509,7 @@ const Editor = () => {
               whileTap={{ scale: 0.97 }}
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] text-white shadow-lg"
+              className="flex-1 inline-flex h-16 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] text-white shadow-lg"
               style={{ background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
