@@ -751,6 +751,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
 
     if (smtpPass) {
       const transporter = nodemailer.createTransport({
+        service: smtpHost.includes('gmail') ? 'gmail' : undefined,
         host: smtpHost,
         port: smtpPort,
         secure: smtpPort === 465,
