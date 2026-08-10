@@ -740,7 +740,10 @@ app.post('/api/auth/forgot-password', async (req, res) => {
       }
     });
 
-    // Send email using SMTP
+    // Send email using SMTP or Resend HTTP API
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const resendFrom = process.env.RESEND_FROM || 'onboarding@resend.dev';
+
     const smtpUser = process.env.SMTP_USER || 'thedoniyor17@gmail.com';
     const smtpPass = process.env.SMTP_PASS;
     const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
@@ -749,7 +752,44 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const origin = req.headers.origin || 'https://taklifnoma.vip';
     const resetUrl = `${origin}/reset-password?token=${resetToken}`;
 
-    if (smtpPass) {
+    const htmlContent = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 16px; background-color: #ffffff;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <h2 style="color: #064e3b; margin: 0; font-size: 24px; font-weight: bold; letter-spacing: -0.02em;">Taklifnoma<span style="color: #c5a017;">.vip</span></h2>
+        </div>
+        <p style="font-size: 15px; color: #1f2937; line-height: 1.5;">Assalomu alaykum,</p>
+        <p style="font-size: 15px; color: #4b5563; line-height: 1.5;">You requested a password reset for your Taklifnoma account. Click the button below to recover and change your password:</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${resetUrl}" style="background-color: #064e3b; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(6,78,59,0.15);">Reset Password</a>
+        </div>
+        <p style="font-size: 13px; color: #9ca3af; line-height: 1.5;">This recovery link is valid for 1 hour. If you did not request this email, please ignore it or contact support.</p>
+        <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
+        <p style="font-size: 11px; color: #9ca3af; text-align: center; margin: 0;">© 2026 Taklifnoma.vip. All rights reserved.</p>
+      </div>
+    `;
+
+    if (resendApiKey) {
+      console.log('Sending reset email via Resend HTTP API...');
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${resendApiKey}`,
+        },
+        body: JSON.stringify({
+          from: resendFrom,
+          to: email,
+          subject: 'Reset Password — Taklifnoma.vip',
+          html: htmlContent,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Resend API error: ${errorText}`);
+      }
+      console.log(`Password reset link sent to ${email} via Resend`);
+    } else if (smtpPass) {
       const cleanPass = String(smtpPass).replace(/\s+/g, '');
 
       const transporter = nodemailer.createTransport({
@@ -763,33 +803,21 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         connectionTimeout: 15000,
         greetingTimeout: 15000,
         socketTimeout: 15000,
+        dnsTimeout: 10000,
+        family: 4,
       });
 
       const mailOptions = {
         from: `"Taklifnoma" <${smtpUser}>`,
         to: email,
         subject: 'Reset Password — Taklifnoma.vip',
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 16px; background-color: #ffffff;">
-            <div style="text-align: center; margin-bottom: 24px;">
-              <h2 style="color: #064e3b; margin: 0; font-size: 24px; font-weight: bold; letter-spacing: -0.02em;">Taklifnoma<span style="color: #c5a017;">.vip</span></h2>
-            </div>
-            <p style="font-size: 15px; color: #1f2937; line-height: 1.5;">Assalomu alaykum,</p>
-            <p style="font-size: 15px; color: #4b5563; line-height: 1.5;">You requested a password reset for your Taklifnoma account. Click the button below to recover and change your password:</p>
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${resetUrl}" style="background-color: #064e3b; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(6,78,59,0.15);">Reset Password</a>
-            </div>
-            <p style="font-size: 13px; color: #9ca3af; line-height: 1.5;">This recovery link is valid for 1 hour. If you did not request this email, please ignore it or contact support.</p>
-            <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
-            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin: 0;">© 2026 Taklifnoma.vip. All rights reserved.</p>
-          </div>
-        `,
+        html: htmlContent,
       };
 
       await transporter.sendMail(mailOptions);
-      console.log(`Password reset link sent to ${email}`);
+      console.log(`Password reset link sent to ${email} via SMTP`);
     } else {
-      console.warn(`[SMTP Warning] SMTP_PASS not set. Reset link printed to console: ${resetUrl}`);
+      console.warn(`[SMTP Warning] Neither RESEND_API_KEY nor SMTP_PASS is set. Reset link: ${resetUrl}`);
     }
 
     res.json({ success: true, message: 'Recovery link sent successfully' });
