@@ -750,16 +750,28 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const resetUrl = `${origin}/reset-password?token=${resetToken}`;
 
     if (smtpPass) {
-      const transporter = nodemailer.createTransport({
-        service: smtpHost.includes('gmail') ? 'gmail' : undefined,
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+      const isGmail = smtpHost.includes('gmail') || smtpUser.endsWith('@gmail.com');
+      const cleanPass = String(smtpPass).replace(/\s+/g, '');
+
+      const transporter = nodemailer.createTransport(
+        isGmail
+          ? {
+              service: 'gmail',
+              auth: {
+                user: smtpUser,
+                pass: cleanPass,
+              },
+            }
+          : {
+              host: smtpHost,
+              port: smtpPort,
+              secure: smtpPort === 465,
+              auth: {
+                user: smtpUser,
+                pass: cleanPass,
+              },
+            }
+      );
 
       const mailOptions = {
         from: `"Taklifnoma" <${smtpUser}>`,
