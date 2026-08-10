@@ -245,10 +245,10 @@ const Auth = () => {
               {/* Logo / Header */}
           <div className="text-center mb-6">
             <h1
-              className="text-3xl font-black text-emerald-950 tracking-tight mb-2"
-              style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}
+              className="text-3xl font-extrabold text-emerald-950 tracking-tight mb-2"
+              style={{ fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", fontWeight: 800 }}
             >
-              {isAdminLogin ? 'Admin Portal' : isLogin ? (t('auth.welcomeBack') || 'Welcome Back') : (t('auth.createAccount') || 'Create Account')}
+              {isAdminLogin ? 'Admin Portal' : isLogin ? (t('auth.welcomeBack') || 'Qaytib keldingiz') : (t('auth.createAccount') || 'Ro‘yxatdan o‘tish')}
             </h1>
             {(isAdminLogin || isLogin) && (
               <p className="text-emerald-900/40 text-[9px] uppercase tracking-[3px] font-black">

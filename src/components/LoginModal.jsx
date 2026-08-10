@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { X, Lock, Mail } from 'lucide-react';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const { login } = useAuth();
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -40,8 +42,8 @@ const LoginModal = ({ isOpen, onClose }) => {
           <X size={20} />
         </button>
         
-        <h2 style={{ fontSize: '1.75rem', fontFamily: '"Playfair Display", serif', fontWeight: 500, marginBottom: '0.75rem', textAlign: 'center', color: '#2D2D2D' }}>
-          Hush Kelibsiz!
+        <h2 style={{ fontSize: '1.8rem', fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", fontWeight: 800, marginBottom: '0.5rem', textAlign: 'center', color: '#064e3b', letterSpacing: '-0.01em' }}>
+          {t('auth.welcomeBack') || 'Qaytib keldingiz'}
         </h2>
         <p style={{ textAlign: 'center', color: '#666666', fontSize: '0.9rem', marginBottom: '2.5rem', fontFamily: '"Montserrat", sans-serif' }}>
           Taklifnoma yaratish va ularni boshqarish uchun sahifangizga kiring.
