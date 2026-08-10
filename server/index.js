@@ -751,24 +751,65 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const origin = req.headers.origin || 'https://taklifnoma.vip';
     const resetUrl = `${origin}/reset-password?token=${resetToken}`;
 
+    const EMAIL_TRANSLATIONS = {
+      uz: {
+        subject: 'Parolni tiklash — Taklifnoma.vip',
+        greeting: 'Assalomu alaykum,',
+        message: 'Siz Taklifnoma hisobingiz parolini tiklashni so‘radingiz. Parolni tiklash va yangilash uchun quyidagi tugmani bosing:',
+        button: 'Parolni tiklash',
+        footer: 'Ushbu havola 1 soat davomida faol bo‘ladi. Agar siz parolni tiklashni so‘ramagan bo‘lsangiz, ushbu xatga e‘tibor bermang.',
+      },
+      uz_cyrl: {
+        subject: 'Паролни тиклаш — Taklifnoma.vip',
+        greeting: 'Ассалому алайкум,',
+        message: 'Сиз Taklifnoma ҳисобингиз паролини тиклашни сўрадингиз. Паролни тиклаш ва янгилаш учун қуйидаги тугмани босинг:',
+        button: 'Паролни тиклаш',
+        footer: 'Ушбу ҳавола 1 соат давомида фаол бўлади. Агар сиз паролни тиклашни сўрамаган бўлсангиз, ушбу хатга эътибор берманг.',
+      },
+      tj: {
+        subject: 'Барқарорсозии парол — Taklifnoma.vip',
+        greeting: 'Ассалому алайкум,',
+        message: 'Шумо дархости барқарорсозии пароли худро дар сомонаи Taklifnoma пешниҳод кардед. Барои барқарор кардан ва иваз намудани парол тугмаи зерро пахш кунед:',
+        button: 'Барқарорсозии парол',
+        footer: 'Ин пайванд барои 1 соат эътибор дорад. Агар шумо ин дархостро нафиристода бошед, ин мактубро нодида гиред.',
+      },
+      ru: {
+        subject: 'Восстановление пароля — Taklifnoma.vip',
+        greeting: 'Здравствуйте,',
+        message: 'Вы запросили восстановление пароля для вашего аккаута Taklifnoma. Нажмите кнопку ниже, чтобы изменить пароль:',
+        button: 'Восстановить пароль',
+        footer: 'Эта ссылка действительна в течение 1 часа. Если вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.',
+      },
+      en: {
+        subject: 'Reset Password — Taklifnoma.vip',
+        greeting: 'Hello,',
+        message: 'You requested a password reset for your Taklifnoma account. Click the button below to recover and change your password:',
+        button: 'Reset Password',
+        footer: 'This recovery link is valid for 1 hour. If you did not request this email, please ignore it.',
+      }
+    };
+
+    const lang = req.body?.language || 'uz';
+    const text = EMAIL_TRANSLATIONS[lang] || EMAIL_TRANSLATIONS['uz'];
+
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 16px; background-color: #ffffff;">
         <div style="text-align: center; margin-bottom: 24px;">
           <h2 style="color: #064e3b; margin: 0; font-size: 24px; font-weight: bold; letter-spacing: -0.02em;">Taklifnoma<span style="color: #c5a017;">.vip</span></h2>
         </div>
-        <p style="font-size: 15px; color: #1f2937; line-height: 1.5;">Assalomu alaykum,</p>
-        <p style="font-size: 15px; color: #4b5563; line-height: 1.5;">You requested a password reset for your Taklifnoma account. Click the button below to recover and change your password:</p>
+        <p style="font-size: 15px; color: #1f2937; line-height: 1.5;">${text.greeting}</p>
+        <p style="font-size: 15px; color: #4b5563; line-height: 1.5;">${text.message}</p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${resetUrl}" style="background-color: #064e3b; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(6,78,59,0.15);">Reset Password</a>
+          <a href="${resetUrl}" style="background-color: #064e3b; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(6,78,59,0.15);">${text.button}</a>
         </div>
-        <p style="font-size: 13px; color: #9ca3af; line-height: 1.5;">This recovery link is valid for 1 hour. If you did not request this email, please ignore it or contact support.</p>
+        <p style="font-size: 13px; color: #9ca3af; line-height: 1.5;">${text.footer}</p>
         <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
         <p style="font-size: 11px; color: #9ca3af; text-align: center; margin: 0;">© 2026 Taklifnoma.vip. All rights reserved.</p>
       </div>
     `;
 
     if (resendApiKey) {
-      console.log('Sending reset email via Resend HTTP API...');
+      console.log(`Sending reset email via Resend HTTP API in language: ${lang}...`);
       const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -778,7 +819,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         body: JSON.stringify({
           from: resendFrom,
           to: email,
-          subject: 'Reset Password — Taklifnoma.vip',
+          subject: text.subject,
           html: htmlContent,
         }),
       });
@@ -809,7 +850,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
       const mailOptions = {
         from: `"Taklifnoma" <${smtpUser}>`,
         to: email,
-        subject: 'Reset Password — Taklifnoma.vip',
+        subject: text.subject,
         html: htmlContent,
       };
 

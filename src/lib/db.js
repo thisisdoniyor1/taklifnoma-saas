@@ -154,9 +154,9 @@ export const db = {
     auth: false,
   }),
 
-  forgotPassword: async (email) => request('/auth/forgot-password', {
+  forgotPassword: async (email, language) => request('/auth/forgot-password', {
     method: 'POST',
-    body: { email },
+    body: { email, language },
     auth: false,
   }),
 

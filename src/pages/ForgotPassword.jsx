@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     setLoading(true);
     setErrorMsg('');
     try {
-      await db.forgotPassword(email.trim());
+      await db.forgotPassword(email.trim(), language);
       setSent(true);
     } catch (err) {
       setErrorMsg(err.message || t('password.forgotError') || 'Failed to request recovery link.');
