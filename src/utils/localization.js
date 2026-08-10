@@ -1,7 +1,7 @@
 const DATE_LOCALE_BY_LANGUAGE = {
   en: 'en-GB',
   ru: 'ru-RU',
-  uz_cyrl: 'uz-Cyrl-UZ',
+  uz_cyrl: 'uz-Latn-UZ',
   tj: 'tg-TJ',
 };
 

@@ -3,8 +3,10 @@ import { KeyRound, CheckCircle2, ArrowLeft, ArrowRight, ShieldAlert } from 'luci
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { db } from '../lib/db';
+import { useLanguage } from '../context/LanguageContext';
 
 const ResetPassword = () => {
+  const { t } = useLanguage();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const navigate = useNavigate();
@@ -19,12 +21,12 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (!token) {
-      setErrorMsg('Invalid or missing recovery token.');
+      setErrorMsg(t('password.invalidTokenDesc') || 'Invalid or missing recovery token.');
       return;
     }
 
     if (password !== confirmPassword) {
-      setErrorMsg('Passwords do not match.');
+      setErrorMsg(t('password.passwordsMismatch') || 'Passwords do not match.');
       return;
     }
 
@@ -35,7 +37,7 @@ const ResetPassword = () => {
       await db.resetPassword(token, password);
       setSent(true);
     } catch (err) {
-      setErrorMsg(err.message || 'Failed to reset password. The link may have expired.');
+      setErrorMsg(err.message || t('password.invalidTokenDesc') || 'Failed to reset password.');
     } finally {
       setLoading(false);
     }
@@ -52,15 +54,19 @@ const ResetPassword = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-md w-full bg-white/70 backdrop-blur-2xl rounded-[32px] border border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] overflow-hidden relative z-10"
       >
-        <div className="p-12">
+        <div className="p-8 sm:p-12">
           {!sent ? (
             <>
-              <div className="text-center mb-12">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-800/30">
+              <div className="text-center mb-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-800/30">
                    <KeyRound className="text-white" size={28} />
                 </div>
-                <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-3 capitalize">Reset Password</h1>
-                <p className="text-slate-400 text-[11px] font-extrabold uppercase tracking-[3px]">Establish a new security key</p>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                  {t('password.resetTitle') || 'Yangi parol o‘rnatish'}
+                </h1>
+                <p className="text-slate-400 text-xs font-semibold">
+                  {t('password.resetSubtitle') || 'Yangi parolingizni kiriting va tasdiqlang'}
+                </p>
               </div>
 
               {!token ? (
@@ -68,12 +74,14 @@ const ResetPassword = () => {
                   <div className="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                      <ShieldAlert size={24} />
                   </div>
-                  <p className="text-red-600 text-sm font-semibold mb-6">Invalid, broken, or missing recovery link.</p>
+                  <p className="text-red-600 text-sm font-semibold mb-6">
+                    {t('password.invalidTokenDesc') || 'Tiklash havolasi yaroqsiz yoki muddati o‘tgan.'}
+                  </p>
                   <button 
                     onClick={() => navigate('/forgot-password')}
                     className="w-full py-4 bg-slate-950 text-white rounded-2xl text-[11px] font-extrabold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg"
                   >
-                    Request New Link
+                    {t('password.requestNewLink') || 'Yangi havola so‘rash'}
                   </button>
                 </div>
               ) : (
@@ -91,7 +99,7 @@ const ResetPassword = () => {
                     <input 
                       type="password" 
                       required
-                      placeholder="New Password"
+                      placeholder={t('password.newPasswordPlaceholder') || 'Yangi parolni kiriting'}
                       className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-800 focus:bg-white text-sm font-medium transition-all"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -105,7 +113,7 @@ const ResetPassword = () => {
                     <input 
                       type="password" 
                       required
-                      placeholder="Confirm New Password"
+                      placeholder={t('password.confirmPasswordPlaceholder') || 'Parolni қайта киритинг'}
                       className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-emerald-800 focus:bg-white text-sm font-medium transition-all"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
@@ -115,9 +123,9 @@ const ResetPassword = () => {
                   <button 
                     type="submit" 
                     disabled={loading}
-                    className="luxury-button !h-16 !w-full !rounded-2xl text-[11px] font-extrabold uppercase tracking-[4px]"
+                    className="luxury-button !h-14 !w-full !rounded-2xl text-[11px] font-extrabold uppercase tracking-[3px]"
                   >
-                    {loading ? 'Processing...' : 'Reset Password'}
+                    {loading ? (t('password.savingBtn') || 'Saqlanmoqda...') : (t('password.saveNewPasswordBtn') || 'Yangi parolni saqlash')}
                     {!loading && <ArrowRight size={18} className="ml-2" />}
                   </button>
                 </form>
@@ -125,26 +133,30 @@ const ResetPassword = () => {
             </>
           ) : (
             <div className="text-center py-6">
-              <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
                  <CheckCircle2 size={32} />
               </div>
-              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-4 capitalize">Password Changed!</h2>
-              <p className="text-slate-400 text-[11px] font-extrabold mb-10 uppercase tracking-[3px] leading-relaxed">Your password has been successfully reset. You can now log in.</p>
+              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-3">
+                {t('password.resetSuccessTitle') || 'Parol almashtirildi!'}
+              </h2>
+              <p className="text-slate-500 text-xs font-medium mb-8 leading-relaxed">
+                {t('password.resetSuccessDesc') || 'Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan kirishingiz mumkin.'}
+              </p>
               <button 
                 onClick={() => navigate('/login')}
                 className="w-full py-4 bg-slate-950 text-white rounded-2xl text-[11px] font-extrabold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg"
               >
-                Go to Sign In
+                {t('password.backToLogin') || 'Kirish sahifasiga qaytish'}
               </button>
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-slate-50 flex justify-center">
+          <div className="mt-10 pt-6 border-t border-slate-100 flex justify-center">
              <button 
                onClick={() => navigate('/login')}
-               className="flex items-center gap-2 text-[10px] font-extrabold text-slate-400 hover:text-emerald-800 transition-all uppercase tracking-widest"
+               className="flex items-center gap-2 text-[11px] font-extrabold text-slate-400 hover:text-emerald-800 transition-all uppercase tracking-widest"
              >
-               <ArrowLeft size={16} /> Return to Login
+               <ArrowLeft size={16} /> {t('password.backToLogin') || 'Kirish sahifasiga qaytish'}
              </button>
           </div>
         </div>

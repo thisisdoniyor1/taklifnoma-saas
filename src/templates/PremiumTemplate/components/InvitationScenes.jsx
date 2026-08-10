@@ -18,7 +18,7 @@ const MONTHS_BY_LANG = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   ru: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
   uz: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
-  uz_cyrl: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентабр', 'Октабр', 'Ноябр', 'Декабр'],
+  uz_cyrl: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
   tj: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],
 };
 
@@ -1108,7 +1108,7 @@ function RsvpSection({ config, theme, t }) {
                   required
                   value={formData.name}
                   onChange={(event) => setFormData((previous) => ({ ...previous, name: event.target.value }))}
-                  placeholder={t('invitation.rsvp_name_placeholder') || 'Your full name'}
+                  placeholder=""
                   className="mt-3 w-full rounded-[20px] px-4 py-4 outline-none"
                   style={{
                     border: `1px solid ${theme.border}`,
@@ -1126,7 +1126,7 @@ function RsvpSection({ config, theme, t }) {
                   rows="4"
                   value={formData.wish}
                   onChange={(event) => setFormData((previous) => ({ ...previous, wish: event.target.value }))}
-                  placeholder={t('invitation.rsvp_wish_placeholder') || 'Leave your message...'}
+                  placeholder=""
                   className="mt-3 w-full rounded-[20px] px-4 py-4 outline-none resize-none"
                   style={{
                     border: `1px solid ${theme.border}`,

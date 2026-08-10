@@ -95,7 +95,7 @@ const Scene = ({ data }) => {
           style={{ position: 'absolute', bottom: '40px', left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}
         >
           <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#8a7060', fontWeight: 600 }}>
-            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'ПАСТГА СУРИНГ' : 'PASTGA SURING'}
+            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'PASTGA SURING' : 'PASTGA SURING'}
           </span>
           <ChevronDown size={20} color="#8a7060" />
         </motion.div>

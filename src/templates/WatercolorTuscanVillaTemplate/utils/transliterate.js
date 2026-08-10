@@ -86,7 +86,7 @@ export function localizedName(name, language) {
   // Otherwise transliterate from Latin to the target script
   switch (language) {
     case 'ru':      return transliterate(name, LATIN_TO_RU);
-    case 'uz_cyrl': return transliterate(name, LATIN_TO_UZ_CYRL);
+    case 'uz_cyrl': return name;
     case 'tj':      return transliterate(name, LATIN_TO_TJ);
     default:        return name;
   }
@@ -100,61 +100,61 @@ export function translateLocation(location, language) {
   // Map known English venue phrases → localized
   const knownMaps = {
     'Wedding house Farel, Khujand': {
-      uz_cyrl: '«Форель» тўйхонаси, Хўжанд',
+      uz_cyrl: '«Forel» to‘yxonasi, Xo‘jand',
       ru: 'Ресторан «Форель», Худжанд',
       tj: 'Тӯйхонаи «Форел», Хуҷанд',
       en: 'Wedding house Forel, Khujand',
     },
     'Wedding House Farel, Khujand': {
-      uz_cyrl: '«Форель» тўйхонаси, Хўжанд',
+      uz_cyrl: '«Forel» to‘yxonasi, Xo‘jand',
       ru: 'Ресторан «Форель», Худжанд',
       tj: 'Тӯйхонаи «Форел», Хуҷанд',
       en: 'Wedding House Forel, Khujand',
     },
     'Farel, Khujand': {
-      uz_cyrl: '«Форель», Хўжанд',
+      uz_cyrl: '«Forel», Xo‘jand',
       ru: '«Форель», Худжанд',
       tj: '«Форел», Хуҷанд',
       en: 'Forel, Khujand',
     },
     'Wedding house Forel, Khujand': {
-      uz_cyrl: '«Форель» тўйхонаси, Хўжанд',
+      uz_cyrl: '«Forel» to‘yxonasi, Xo‘jand',
       ru: 'Ресторан «Форель», Худжанд',
       tj: 'Тӯйхонаи «Форел», Хуҷанд',
       en: 'Wedding house Forel, Khujand',
     },
     'Wedding House Forel, Khujand': {
-      uz_cyrl: '«Форель» тўйхонаси, Хўжанд',
+      uz_cyrl: '«Forel» to‘yxonasi, Xo‘jand',
       ru: 'Ресторан «Форель», Худжанд',
       tj: 'Тӯйхонаи «Форел», Хуҷанд',
       en: 'Wedding House Forel, Khujand',
     },
     'Forel, Khujand': {
-      uz_cyrl: '«Форель», Хўжанд',
+      uz_cyrl: '«Forel», Xo‘jand',
       ru: '«Форель», Худжанд',
       tj: '«Форел», Хуҷанд',
       en: 'Forel, Khujand',
     },
     'Wedding House': {
-      uz_cyrl: 'Тўй зали',
+      uz_cyrl: 'To‘y zali',
       ru: 'Свадебный дом',
       tj: 'Хонаи арӯсӣ',
       en: 'Wedding House',
     },
     'Wedding house': {
-      uz_cyrl: 'Тўй зали',
+      uz_cyrl: 'To‘y zali',
       ru: 'Свадебный дом',
       tj: 'Хонаи арӯсӣ',
       en: 'Wedding House',
     },
     'OQ SAROY': {
-      uz_cyrl: 'ОҚ САРОЙ',
+      uz_cyrl: 'OQ SAROY',
       ru: 'ОҚ САРОЙ',
       tj: 'ОҚ САРОЙ',
       en: 'OQ SAROY',
     },
     'ROYAL PALACE': {
-      uz_cyrl: 'ШОҲОНА САРОЙ',
+      uz_cyrl: 'SHOHONA SAROY',
       ru: 'КОРОЛЕВСКИЙ ДВОРЕЦ',
       tj: 'ҚАСРИ ШОҲОНА',
       en: 'ROYAL PALACE',
@@ -208,7 +208,16 @@ export function getWelcomeText(welcomeText, language, t) {
   const trimmedLower = welcomeText.trim().toLowerCase();
   
   // Check if it matches any of the default texts
-  const isDefault = defaultTexts.some(def => trimmedLower === def || trimmedLower.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") === def.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""));
+  const isDefault = defaultTexts.some(def => trimmedLower === def || trimmedLower.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") === def.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")) ||
+    trimmedLower.includes("quvonch bilan") ||
+    trimmedLower.includes("share in the joy") ||
+    trimmedLower.includes("радостью приглашаем") ||
+    trimmedLower.includes("шодмонӣ дар қалб") ||
+    trimmedLower.includes("хуш омадед") ||
+    trimmedLower.includes("blush elegance") ||
+    trimmedLower.includes("imperial navy") ||
+    trimmedLower.includes("tuscan garden") ||
+    trimmedLower.includes("chandelier night");
   
   if (isDefault) {
     return t('invitation.speech');

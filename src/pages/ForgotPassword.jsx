@@ -3,8 +3,10 @@ import { Mail, CheckCircle2, ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-r
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { db } from '../lib/db';
+import { useLanguage } from '../context/LanguageContext';
 
 const ForgotPassword = () => {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,7 @@ const ForgotPassword = () => {
       await db.forgotPassword(email.trim());
       setSent(true);
     } catch (err) {
-      setErrorMsg(err.message || 'Failed to request recovery link. Please try again.');
+      setErrorMsg(err.message || t('password.forgotError') || 'Failed to request recovery link.');
     } finally {
       setLoading(false);
     }
@@ -36,15 +38,19 @@ const ForgotPassword = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-md w-full bg-white/70 backdrop-blur-2xl rounded-[32px] border border-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] overflow-hidden relative z-10"
       >
-        <div className="p-12">
+        <div className="p-8 sm:p-12">
           {!sent ? (
             <>
-              <div className="text-center mb-12">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-cyan-500/30">
+              <div className="text-center mb-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-cyan-500/30">
                    <ShieldCheck className="text-white" size={28} />
                 </div>
-                <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-3 lowercase tracking-normal capitalize">Identity Recovery</h1>
-                <p className="text-slate-400 text-[11px] font-extrabold uppercase tracking-[3px]">Authenticate your primary protocol</p>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                  {t('password.forgotTitle') || 'Parolni tiklash'}
+                </h1>
+                <p className="text-slate-400 text-xs font-semibold">
+                  {t('password.forgotSubtitle') || 'Elektron pochta manzilingizni kiriting'}
+                </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -60,7 +66,7 @@ const ForgotPassword = () => {
                   <input 
                     type="email" 
                     required
-                    placeholder="Email Protocol"
+                    placeholder={t('password.emailPlaceholder') || 'Elektron pochta manzili'}
                     className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-cyan-500 focus:bg-white text-sm font-medium transition-all"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -70,35 +76,39 @@ const ForgotPassword = () => {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="luxury-button !h-16 !w-full !rounded-2xl text-[11px] font-extrabold uppercase tracking-[4px]"
+                  className="luxury-button !h-14 !w-full !rounded-2xl text-[11px] font-extrabold uppercase tracking-[3px]"
                 >
-                  {loading ? 'Transmitting...' : 'Initiate Recovery'}
+                  {loading ? (t('password.sending') || 'Yuborilmoqda...') : (t('password.sendRecoveryBtn') || 'Tiklash havolasini yuborish')}
                   {!loading && <ArrowRight size={18} className="ml-2" />}
                 </button>
               </form>
             </>
           ) : (
             <div className="text-center py-6">
-              <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
                  <CheckCircle2 size={32} />
               </div>
-              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-4 lowercase tracking-normal capitalize">Credential Payload Sent</h2>
-              <p className="text-slate-400 text-[11px] font-extrabold mb-10 uppercase tracking-[3px] leading-relaxed">System has dispatched a restoration link to your primary hub.</p>
+              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-3">
+                {t('password.linkSentTitle') || 'Havola yuborildi!'}
+              </h2>
+              <p className="text-slate-500 text-xs font-medium mb-8 leading-relaxed">
+                {t('password.linkSentDesc') || 'Parolni tiklash havolasi elektron pochtangizga yuborildi.'}
+              </p>
               <button 
                 onClick={() => navigate('/login')}
                 className="w-full py-4 bg-slate-900 text-white rounded-2xl text-[11px] font-extrabold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg"
               >
-                Back to Authentication
+                {t('password.backToLogin') || 'Kirish sahifasiga qaytish'}
               </button>
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-slate-50 flex justify-center">
+          <div className="mt-10 pt-6 border-t border-slate-100 flex justify-center">
              <button 
                onClick={() => navigate('/login')}
-               className="flex items-center gap-2 text-[10px] font-extrabold text-slate-400 hover:text-cyan-500 transition-all uppercase tracking-widest"
+               className="flex items-center gap-2 text-[11px] font-extrabold text-slate-400 hover:text-cyan-600 transition-all uppercase tracking-widest"
              >
-               <ArrowLeft size={16} /> Return to Portal
+               <ArrowLeft size={16} /> {t('password.backToLogin') || 'Kirish sahifasiga qaytish'}
              </button>
           </div>
         </div>

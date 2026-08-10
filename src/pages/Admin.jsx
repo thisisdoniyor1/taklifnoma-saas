@@ -435,7 +435,23 @@ const InviteRow = ({ invite, onRefresh, onDeleteOptimistic }) => {
   const [restoring, setRestoring] = useState(false);
   const [saving, setSaving] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [togglingStatus, setTogglingStatus] = useState(false);
   const [editForm, setEditForm] = useState(buildEditForm(invite));
+
+  const isDeactivated = invite.status === 'deactivated' || invite.status === 'inactive';
+
+  const handleToggleActivate = async () => {
+    setTogglingStatus(true);
+    const nextStatus = isDeactivated ? 'active' : 'deactivated';
+    try {
+      await db.updateOrder(invite.invite_uuid, { status: nextStatus });
+      await onRefresh();
+    } catch (err) {
+      window.alert(`Status update failed: ${err.message}`);
+    } finally {
+      setTogglingStatus(false);
+    }
+  };
 
   useEffect(() => {
     setEditForm(buildEditForm(invite));
@@ -636,9 +652,14 @@ const InviteRow = ({ invite, onRefresh, onDeleteOptimistic }) => {
                     {invite.groom_name} <span className="font-light text-[#f5d989]">&</span> {invite.bride_name}
                   </h3>
                   {invite.created_at && (
-                    <p className="mt-0.5 text-[6.5px] font-semibold text-white/40 uppercase tracking-[1.5px]">
-                      {new Date(invite.created_at).toLocaleDateString()}
-                    </p>
+                    <div className="mt-0.5 flex items-center gap-1.5">
+                      <p className="text-[6.5px] font-semibold text-white/40 uppercase tracking-[1.5px]">
+                        {new Date(invite.created_at).toLocaleDateString()}
+                      </p>
+                      <span className={`px-1.5 py-0.5 rounded-full text-[6.5px] font-black uppercase tracking-wider ${isDeactivated ? 'bg-amber-400/25 text-amber-300 border border-amber-400/40' : 'bg-emerald-400/25 text-emerald-300 border border-emerald-400/40'}`}>
+                        {isDeactivated ? 'Deactivated' : 'Active'}
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -694,6 +715,16 @@ const InviteRow = ({ invite, onRefresh, onDeleteOptimistic }) => {
           <div className="grid grid-cols-2 gap-1.5 xl:flex-1 xl:order-2">
             {!invite.is_deleted ? (
               <>
+                <ActionButton
+                  onClick={handleToggleActivate}
+                  disabled={togglingStatus}
+                  icon={isDeactivated ? <Check size={14} /> : <X size={14} />}
+                  label={togglingStatus ? 'Updating...' : (isDeactivated ? 'Activate' : 'Deactivate')}
+                  className={isDeactivated
+                    ? 'border-emerald-600 bg-emerald-600 text-white font-black hover:bg-emerald-700 xl:min-h-[2.3rem]'
+                    : 'border-amber-600/30 bg-amber-50 text-amber-900 font-black hover:bg-amber-100 xl:min-h-[2.3rem]'}
+                />
+
                 <ActionButton
                   onClick={toggleExpand}
                   icon={<MessageSquare size={14} />}

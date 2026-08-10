@@ -65,7 +65,7 @@ const PinkDivider = () => (
 
 const LABELS = {
   uz: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun tugmani bosing' },
-  uz_cyrl: { invite: 'Сизга таклифнома бор', open: 'Очиш учун тугмани босинг' },
+  uz_cyrl: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun tugmani bosing' },
   tj: { invite: 'Барои шумо даъватнома аст', open: 'Барои кушодан тугмаро пахш кунед' },
   ru: { invite: 'У вас есть приглашение', open: 'Нажмите, чтобы открыть' },
   en: { invite: 'You have an invitation', open: 'Click to Open' },
@@ -78,6 +78,7 @@ function Cover({ data, onOpen, isThumbnail }) {
 
   const handleOpen = () => {
     if (isThumbnail || opening) return;
+    window.dispatchEvent(new Event('open-invitation'));
     setOpening(true);
     window.setTimeout(onOpen, 700);
   };
@@ -847,7 +848,7 @@ function Venue({ data }) {
 
 // ─── RSVP ─────────────────────────────────────────────────────────────────────
 function RSVPSection({ data }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const params = useParams();
   const invitationRef = params['*'] || params.id || '';
   const [form, setForm]   = useState({ name: '', wish: '' });
@@ -903,11 +904,11 @@ function RSVPSection({ data }) {
         {!done ? (
           <form onSubmit={submit} style={{ display: 'grid', gap: '1rem' }}>
             <h2 style={{ fontFamily: '"Cormorant Garamond", Georgia, serif', fontStyle: 'italic', fontSize: '2rem', color: INK, margin: '0 0 0.5rem' }}>
-              Confirm Attendance
+              {language === 'uz_cyrl' ? 'Tilaklaringizni yuboring' : language === 'ru' ? 'Оставьте пожелания' : language === 'tj' ? 'Таманниёти худро бигзоред' : 'Leave Your Wishes'}
             </h2>
             <PinkDivider />
-            <input required value={form.name} onChange={e => setForm(v => ({ ...v, name: e.target.value }))} placeholder="Your name" style={fieldStyle} />
-            <textarea rows={3} value={form.wish} onChange={e => setForm(v => ({ ...v, wish: e.target.value }))} placeholder={t('invitation.rsvp_wish') || 'Leave a wish'} style={{ ...fieldStyle, resize: 'none' }} />
+            <input required value={form.name} onChange={e => setForm(v => ({ ...v, name: e.target.value }))} placeholder="" style={fieldStyle} />
+            <textarea rows={3} value={form.wish} onChange={e => setForm(v => ({ ...v, wish: e.target.value }))} placeholder="" style={{ ...fieldStyle, resize: 'none' }} />
             <button
               type="submit"
               disabled={loading}

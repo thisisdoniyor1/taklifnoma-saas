@@ -9,8 +9,8 @@ const TR = {
     days: 'KUN', hours: 'SOAT', min: 'DAQ', sec: 'SON',
   },
   uz_cyrl: {
-    countdown: "Ҳар лаҳзани санаяпмиз",
-    days: 'КУН', hours: 'СОАТ', min: 'ДАҚ', sec: 'СОН',
+    countdown: "Har lahzani sanayapmiz",
+    days: 'KUN', hours: 'SOAT', min: 'DAQ', sec: 'SON',
   },
   tj: {
     countdown: "Ҳар як лаҳзаро мешуморем",
@@ -88,7 +88,7 @@ const Countdown = ({ data }) => {
         >
           <h2 style={{
             fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 'clamp(1rem, 4.8vw, 1.8rem)',
+            fontSize: 'clamp(0.8rem, 3.5vw, 1.3rem)',
             fontStyle: 'italic',
             fontWeight: 400,
             color: '#3d3028',

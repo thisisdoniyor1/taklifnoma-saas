@@ -11,7 +11,7 @@ const BLUSH  = '#fdf0f4';
 const SECTION_TITLES = {
   en: "Guests' Wishes",
   ru: "Пожелания гостей",
-  uz_cyrl: "Меҳмонлар тилаклари",
+  uz_cyrl: "Mehmonlar tilaklari",
   tj: "Таманниёти меҳмонон"
 };
 
@@ -27,9 +27,9 @@ const DEFAULT_WISHES = {
     { name: "Дмитрий и Елена", wish: "Пусть ваша любовь крепнет с каждым днем! Счастья, взаимопонимания и гармонии вашему дому!" }
   ],
   uz_cyrl: [
-    { name: "Фарҳод ва Шаҳноза", wish: "Сизларга бир умрлик бахт ва муҳаббат тилаймиз! Ҳаётингиз қувонч ва гўзал лаҳзаларга бой бўлсин." },
-    { name: "Каримовлар оиласи", wish: "Ушбу қувончли кунингизда сиз билан бирга бўлганимиздан жуда шодмиз! Оилангиз мустаҳкам ва файзли бўлсин!" },
-    { name: "Дилшод ва Гулноза", wish: "Севгингиз кундан-кунга мустаҳкамланиб борсин! Янги ҳаётингиз бахтли ва омадли бўлсин!" }
+    { name: "Farhod va Shahnoza", wish: "Sizlarga bir umrlik baxt va muhabbat tilaymiz! Hayotingiz quvonch va go‘zal lahzalarga boy bo‘lsin." },
+    { name: "Karimovlar oilasi", wish: "Ushbu quvonchli kuningizda siz bilan birga bo‘lganimizdan juda shodmiz! Oilangiz mustahkam va fayzli bo‘lsin!" },
+    { name: "Dilshod va Gulnoza", wish: "Sevingiz kundan-kunga mustahkamlanib borsin! Yangi hayotingiz baxtli va omadli bo‘lsin!" }
   ],
   tj: [
     { name: "Фарҳод ва Шаҳноза", wish: "Бароятон хушбахтӣ ва муҳаббати ҷовидона хоҳонем! Бигзор ҳаёти якҷояи шумо пур аз шодиву хотираҳои ширин бошад." },

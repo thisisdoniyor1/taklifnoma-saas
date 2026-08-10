@@ -12,7 +12,7 @@ const MONTH_NAMES = {
   en:      ['January','February','March','April','May','June','July','August','September','October','November','December'],
   ru:      ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
   uz:      ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'],
-  uz_cyrl: ['Январ','Феврал','Март','Апрел','Май','Июн','Июл','Август','Сентабр','Октабр','Ноябр','Декабр'],
+  uz_cyrl: ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'],
   tj:      ['Январ','Феврал','Март','Апрел','Май','Июн','Июл','Август','Сентябр','Октябр','Ноябр','Декабр'],
 };
 
@@ -20,14 +20,14 @@ const WEEK_DAYS = {
   en:      ['M','T','W','T','F','S','S'],
   ru:      ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
   uz:      ['Du','Se','Ch','Pa','Ju','Sh','Ya'],
-  uz_cyrl: ['Ду','Се','Чо','Па','Жу','Ша','Як'],
+  uz_cyrl: ['Du','Se','Cho','Pa','Ju','Sha','Yak'],
   tj:      ['Дш','Сш','Чш','Пш','Ҷм','Шн','Як'],
 };
 
 const WEEKDAY_FULL = {
   en:      ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
   ru:      ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],
-  uz_cyrl: ['Якшанба','Душанба','Сешанба','Чоршанба','Пайшанба','Жума','Шанба'],
+  uz_cyrl: ['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'],
   tj:      ['Якшанбе','Душанбе','Сешанбе','Чоршанбе','Панҷшанбе','Ҷумъа','Шанбе'],
 };
 

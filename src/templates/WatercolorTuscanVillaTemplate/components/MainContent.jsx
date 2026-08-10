@@ -13,8 +13,8 @@ const DARK_SAGE = '#5c7048';
 
 const DUMMY_WISHES_BY_LANG = {
   uz_cyrl: [
-    { name: 'Шавкат ва Гулнора', wish: 'Бахтли бўлинглар! Қўша қаринглар, оилавий хотиржамлик тилаймиз.' },
-    { name: 'Дилшод оиласи билан', wish: 'Тўйлар муборак! Ёшлар бахтли бўлсин, шириндан-шакар фарзандлар кўринглар.' }
+    { name: 'Shavkat va Gulnora', wish: 'Baxtli bo‘linglar! Qo‘sha qaringlar, oilaviy xotirjamlik tilaymiz.' },
+    { name: 'Dilshod oilasi bilan', wish: 'To‘ylar muborak! Yoshlar baxtli bo‘lsin, shirindan-shakar farzandlar ko‘ringlar.' }
   ],
   tj: [
     { name: 'Фарҳод ва Мадина', wish: 'Хушбахт бошед! Зиндагии ширин ва хушбахтӣ таманно дорем.' },
@@ -72,18 +72,18 @@ const MainContent = ({ data }) => {
 
   const T = {
     uz_cyrl: {
-      welcome: 'Хуш келибсиз!',
-      welcomeSub: 'Сизни тўйимизда кўришдан мамнунмиз',
-      wishesTitle: 'Меҳмонлар тилаклари',
-      noWishes: 'Ҳозирча тилаклар йўқ.',
-      rsvpTitle: 'Тилакларингизни ёзинг',
-      rsvpSubtitle: 'Никоҳ кунимиз учун ўз табрикларингизни қолдиринг',
-      namePlaceholder: 'Исмингиз',
-      wishPlaceholder: 'Тилакларингиз',
-      confirm: 'ТИЛАКНИ ЮБОРИШ',
-      sending: 'ЮБОРИЛМОҚДА...',
-      thanks: 'Раҳмат! Тилагингиз қабул қилинди.',
-      successMsg: "Муваффақиятли! Тилагингиз юборилди.",
+      welcome: 'Xush kelibsiz!',
+      welcomeSub: 'Sizni to‘yimizda ko‘rishdan memnunmiz',
+      wishesTitle: 'Mehmonlar tilaklari',
+      noWishes: 'Hozircha tilaklar yo‘q.',
+      rsvpTitle: 'Tilaklaringizni yuboring',
+      rsvpSubtitle: 'Nikoh kunimiz uchun o‘z tabriklaringizni qoldiring',
+      namePlaceholder: 'Ismingiz',
+      wishPlaceholder: 'Tilaklaringiz',
+      confirm: 'TILAKNI YUBORISH',
+      sending: 'YUBORILMOQDA...',
+      thanks: 'Rahmat! Tilagingiz qabul qilindi.',
+      successMsg: "Muvaffaqiyatli! Tilagingiz yuborildi.",
     },
     tj: {
       welcome: 'Хуш омадед!',
@@ -204,7 +204,7 @@ const MainContent = ({ data }) => {
               const parts = String(data?.date || '12.09.2026').split('.');
               const d = new Date(`${parts[2] || 2026}-${(parts[1] || '09').padStart(2,'0')}-${(parts[0] || '12').padStart(2,'0')}`);
               const days = {
-                uz_cyrl: ['Якшанба','Душанба','Сешанба','Чоршанба','Пайшанба','Жума','Шанба'],
+                uz_cyrl: ['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'],
                 tj: ['Якшанбе','Душанбе','Сешанбе','Чоршанбе','Панҷшанбе','Ҷумъа','Шанбе'],
                 ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],
                 en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
@@ -218,7 +218,7 @@ const MainContent = ({ data }) => {
             {(() => {
               const parts = String(data?.date || '12.09.2026').split('.');
               const months = {
-                uz_cyrl: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+                uz_cyrl: ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'],
                 tj: ['Январ','Феврал','Март','Апрел','Май','Июн','Июл','Август','Сентябр','Октябр','Ноябр','Декабр'],
                 ru: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
                 en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
@@ -450,42 +450,52 @@ const MainContent = ({ data }) => {
                   width: '100%',
                 }}
               >
-                <input
-                  type="text"
-                  placeholder={tr.namePlaceholder}
-                  required
-                  value={form.name}
-                  onChange={e => setForm({ ...form, name: e.target.value })}
-                  style={{
-                    padding: '16px 20px',
-                    border: '1px solid rgba(184,170,138,0.4)',
-                    borderRadius: '12px',
-                    background: '#ffffff',
-                    outline: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Cormorant Garamond', serif",
-                    color: '#3d3028',
-                    transition: 'border-color 0.3s ease',
-                  }}
-                />
-                <textarea
-                  placeholder={tr.wishPlaceholder}
-                  rows="4"
-                  value={form.wish}
-                  onChange={e => setForm({ ...form, wish: e.target.value })}
-                  style={{
-                    padding: '16px 20px',
-                    border: '1px solid rgba(184,170,138,0.4)',
-                    borderRadius: '12px',
-                    background: '#ffffff',
-                    outline: 'none',
-                    resize: 'none',
-                    fontSize: '1rem',
-                    fontFamily: "'Cormorant Garamond', serif",
-                    color: '#3d3028',
-                    transition: 'border-color 0.3s ease',
-                  }}
-                />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: DARK_SAGE, opacity: 0.85 }}>
+                    {tr.namePlaceholder}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder=""
+                    required
+                    value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
+                    style={{
+                      padding: '16px 20px',
+                      border: '1px solid rgba(184,170,138,0.4)',
+                      borderRadius: '12px',
+                      background: '#ffffff',
+                      outline: 'none',
+                      fontSize: '1rem',
+                      fontFamily: "'Cormorant Garamond', serif",
+                      color: '#3d3028',
+                      transition: 'border-color 0.3s ease',
+                    }}
+                  />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <label style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: DARK_SAGE, opacity: 0.85 }}>
+                    {tr.wishPlaceholder}
+                  </label>
+                  <textarea
+                    placeholder=""
+                    rows="4"
+                    value={form.wish}
+                    onChange={e => setForm({ ...form, wish: e.target.value })}
+                    style={{
+                      padding: '16px 20px',
+                      border: '1px solid rgba(184,170,138,0.4)',
+                      borderRadius: '12px',
+                      background: '#ffffff',
+                      outline: 'none',
+                      resize: 'none',
+                      fontSize: '1rem',
+                      fontFamily: "'Cormorant Garamond', serif",
+                      color: '#3d3028',
+                      transition: 'border-color 0.3s ease',
+                    }}
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={rsvpLoading}
@@ -580,7 +590,7 @@ const MainContent = ({ data }) => {
             {language === 'en' ? 'We are honored to celebrate this day surrounded by the people we love most.' : 
              language === 'ru' ? 'Для нас большая честь праздновать этот день в окружении самых близких людей.' : 
              language === 'tj' ? 'Ҷашн гирифтани ин рӯз дар иҳотаи наздиктарин инсонҳоямон барои мо боиси ифтихор аст.' : 
-             language === 'uz_cyrl' ? 'Бу кунни энг яқин инсонларимиз даврасида нишонлаш биз учун шарафдир.' : 
+             language === 'uz_cyrl' ? 'Bu kunni eng yaqin insonlarimiz davrasida nishonlash biz uchun sharafdir.' : 
              'Bu kunni eng yaqin insonlarimiz davrasida nishonlash biz uchun sharafdir.'}
           </p>
         </div>
@@ -594,7 +604,7 @@ const MainContent = ({ data }) => {
           {language === 'en' ? 'Create your own digital invitation' : 
            language === 'ru' ? 'Создайте свое цифровое приглашение' : 
            language === 'tj' ? 'Даъватномаи электронии худро созед' : 
-           language === 'uz_cyrl' ? 'Ўзингизнинг рақамли таклифномангизни яратинг' : 
+           language === 'uz_cyrl' ? 'O‘zingizning raqamli taklifnomangizni yarating' : 
            "O'zingizning raqamli taklifnomangizni yarating"}
         </div>
       </footer>

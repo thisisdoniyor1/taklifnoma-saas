@@ -13,7 +13,7 @@ const INK   = '#3b1a28';
 const VENUE_SUBTITLE = {
   en: 'A Royal Ceremony Venue',
   ru: 'Королевский зал торжеств',
-  uz_cyrl: 'Шоҳона маросим маскани',
+  uz_cyrl: 'Shohona marosim maskani',
   tj: 'Макони боҳашамати маросим',
 };
 
@@ -22,7 +22,7 @@ export default function LocationLinks({ location, locationUrl, time }) {
   const timeLabels = {
     en: 'Time',
     ru: 'Время',
-    uz_cyrl: 'Вақт',
+    uz_cyrl: 'Vaqt',
     tj: 'Вақт'
   };
   const timeLabel = timeLabels[language] || 'Time';

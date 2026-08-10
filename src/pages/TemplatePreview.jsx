@@ -244,9 +244,6 @@ const TemplatePreview = () => {
               </span>
             )}
           </div>
-          <p className="text-sm lg:text-base mb-4 leading-relaxed max-w-sm text-emerald-900/50">
-            {activePreview.description || t('templates_modal.desc') || 'Every love story is unique. Choose this design and personalize it in minutes for a truly magical experience.'}
-          </p>
 
           <motion.button
             whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(16,185,129,0.28)" }}

@@ -20,7 +20,7 @@ const MONTH_NAMES = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
   uz: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
-  uz_cyrl: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентабр', 'Октабр', 'Ноябр', 'Декабр'],
+  uz_cyrl: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
   tg: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],
   tj: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],
 };
@@ -533,11 +533,11 @@ export default function JeweledMandalaTemplate({ data, isThumbnail }) {
                   <form onSubmit={handleRsvp} style={{ maxWidth: 560, margin: '34px auto 0', padding: 'clamp(24px, 5vw, 42px)', background: 'rgba(255,250,240,0.76)', border: '1px solid rgba(184,135,53,0.28)', boxShadow: '0 22px 44px rgba(85,61,26,0.09)', display: 'flex', flexDirection: 'column', gap: 20, textAlign: 'left' }}>
                     <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: GOLD, fontWeight: 800 }}>
                       {t('invitation.rsvp_name') || 'Your Name'}
-                      <input type="text" required placeholder={t('invitation.rsvp_name_placeholder') || 'Your full name'} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ ...inputStyle, marginTop: 10 }} />
+                      <input type="text" required placeholder="" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ ...inputStyle, marginTop: 10 }} />
                     </label>
                     <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: GOLD, fontWeight: 800 }}>
                       {t('invitation.rsvp_wish') || 'Leave a wish'}
-                      <textarea rows={4} placeholder={t('invitation.rsvp_wish_placeholder') || 'Leave your message...'} value={form.wish} onChange={(e) => setForm({ ...form, wish: e.target.value })} style={{ ...inputStyle, marginTop: 10, resize: 'vertical', lineHeight: 1.5 }} />
+                      <textarea rows={4} placeholder="" value={form.wish} onChange={(e) => setForm({ ...form, wish: e.target.value })} style={{ ...inputStyle, marginTop: 10, resize: 'vertical', lineHeight: 1.5 }} />
                     </label>
                     {rsvpError && <p style={{ color: '#9f3d36', textAlign: 'center', margin: 0 }}>{rsvpError}</p>}
                     <motion.button

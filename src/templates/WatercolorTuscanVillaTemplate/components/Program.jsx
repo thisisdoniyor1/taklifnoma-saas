@@ -12,10 +12,10 @@ const DEFAULT_SCHEDULE = {
     { time: '20:00', title: 'Bazm', desc: "Tongga qadar o'yin-kulgu!" },
   ],
   uz_cyrl: [
-    { time: '12:00', title: 'Келиш & Кутиб олиш', desc: "Финкада хуш келибсиз ичимлиги ва қабул" },
-    { time: '14:00', title: 'Никоҳ маросими', desc: "Куннинг энг муҳим лаҳзаси" },
-    { time: '15:00', title: 'Аппетайзлар & Зиёфат', desc: "Очиқ ҳавода дастурхон" },
-    { time: '20:00', title: 'Базм', desc: "Тонгга қадар ўйин-кулгу!" },
+    { time: '12:00', title: 'Kelish & Kutib olish', desc: "Fincada xush kelibsiz ichimligi va qabul" },
+    { time: '14:00', title: 'Nikoh marosimi', desc: "Kunning eng muhim lahzasi" },
+    { time: '15:00', title: 'Appetayzlar & Ziyofat', desc: "Ochiq havoda dasturxon" },
+    { time: '20:00', title: 'Bazm', desc: "Tongga qadar o‘yin-kulgu!" },
   ],
   tj: [
     { time: '12:00', title: 'Расидан & Хуш омадед', desc: "Мошруботи хуш омадед дар Финка" },
@@ -39,7 +39,7 @@ const DEFAULT_SCHEDULE = {
 
 const TITLES = {
   uz:      { heading: "Kun dasturi", sub: "Siz uchun tayyorlagan narsalarimiz" },
-  uz_cyrl: { heading: "Кун дастури", sub: "Сиз учун тайёрлаган нарсаларимиз" },
+  uz_cyrl: { heading: "Kun dasturi", sub: "Siz uchun tayyorlagan narsalarimiz" },
   tj:      { heading: "Барномаи рӯз", sub: "Он чизе ки барои шумо омода кардаем" },
   ru:      { heading: "Программа дня", sub: "Что мы приготовили для вас" },
   en:      { heading: "Day Program", sub: "What we have prepared for you" },

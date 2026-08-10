@@ -46,7 +46,7 @@ function calcTimeLeft(dateStr, timeStr) {
 const MONTH_NAMES = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-  uz_cyrl: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентабр', 'Октабр', 'Ноябр', 'Декабр'],
+  uz_cyrl: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
   tj: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],
 };
 
@@ -91,9 +91,9 @@ const DUMMY_WISHES_BY_LANG = {
     { name: 'Елена', wish: 'Пусть ваша совместная жизнь будет полна радости и тепла.' }
   ],
   uz_cyrl: [
-    { name: 'Азиз ва Малика', wish: 'Сизларга умрбод севги ва оилавий бахт тилаймиз!' },
-    { name: 'Каримовлар оиласи', wish: 'Ушбу гўзал кунни сизлар билан нишонлашдан жуда мамнунмиз.' },
-    { name: 'Дилором', wish: 'Келажак ҳаётингиз доимо қувонч ва бахтга тўла бўлсин.' }
+    { name: 'Aziz va Malika', wish: 'Sizlarga umrbod sevgi va oilaviy baxt tilaymiz!' },
+    { name: 'Karimovlar oilasi', wish: 'Ushbu go‘zal kunni sizlar bilan nishonlashdan juda mamnunmiz.' },
+    { name: 'Dilorom', wish: 'Kelajak hayotingiz doimo quvonch va baxtga to‘la bo‘lsin.' }
   ],
   tj: [
     { name: 'Азиз ва Малика', wish: 'Ба шумо ишқу муҳаббати ҷовидона ва бахти оилавӣ таманно дорем!' },
@@ -111,14 +111,14 @@ export default function MainContent({ data }) {
   const WRITE_WISH_HEADING = {
     en: "Write Your Wishes",
     ru: "Напишите свои пожелания",
-    uz_cyrl: "Тилакларингизни ёзинг",
+    uz_cyrl: "Tilaklaringizni yuboring",
     tj: "Таманниёти худро нависед"
   };
 
   const SEND_WISH_BTN = {
     en: "Send Wish",
     ru: "Отправить пожелание",
-    uz_cyrl: "Тилакни юбориш",
+    uz_cyrl: "Tilakni yuborish",
     tj: "Таманниётро ирсол кунед"
   };
 
@@ -173,9 +173,8 @@ export default function MainContent({ data }) {
   const mapsUrl = `https://maps.google.com/?q=${encodeURIComponent(location)}`;
   const appleMapsUrl = `http://maps.apple.com/?q=${encodeURIComponent(location)}`;
 
-  const isCyrillicFallback = language === 'uz_cyrl' || language === 'tj';
-  const currentFont = isCyrillicFallback ? 'Georgia, serif' : FONT;
-  const currentTitleFont = isCyrillicFallback ? 'Georgia, serif' : "'Playfair Display', serif";
+  const currentFont = "'Playfair Display', 'Cormorant Garamond', Georgia, serif";
+  const currentTitleFont = "'Playfair Display', 'Cormorant Garamond', Georgia, serif";
 
   return (
     <motion.div key={language} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ fontFamily: currentFont, color: DARK_BRONZE, backgroundColor: ROYAL_IVORY }}>
@@ -317,7 +316,7 @@ export default function MainContent({ data }) {
       <Section bg={CREAM}>
         <div style={{ position: 'relative' }}>
           <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 30 }} transition={{ duration: 1 }} viewport={{ once: true }}>
-            <p style={{ fontFamily: FONT, fontSize: 'clamp(1.1rem,2vw,1.5rem)', fontStyle: 'italic', lineHeight: 1.9, color: DARK_BRONZE, opacity: 0.9, maxWidth: 700, margin: '0 auto', textAlign: 'center', padding: '0 20px', paddingBottom: '60px' }}>
+            <p style={{ fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", fontSize: 'clamp(1.1rem, 3.2vw, 1.45rem)', fontStyle: 'italic', lineHeight: 1.85, color: DARK_BRONZE, opacity: 0.95, maxWidth: 700, margin: '0 auto', textAlign: 'center', padding: '0 20px', paddingBottom: '60px' }}>
               {welcomeText}
             </p>
           </motion.div>
@@ -404,8 +403,9 @@ export default function MainContent({ data }) {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3 }} viewport={{ once: true }} style={{ textAlign: 'center', marginTop: 50 }}>
             <h3 
               className="location-title"
-              style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(1.8rem,5vw,2.4rem)', color: DARK_BRONZE, marginBottom: 24, fontWeight: 700, letterSpacing: 1 }}
+              style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(1.8rem,5vw,2.4rem)', color: DARK_BRONZE, marginBottom: 24, fontWeight: 700, letterSpacing: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
             >
+              <MapPin size={26} color={DARK_BRONZE} style={{ flexShrink: 0 }} />
               {t('invitation.location')}
             </h3>
 
@@ -430,7 +430,6 @@ export default function MainContent({ data }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginBottom: 32 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap', maxWidth: '90%' }}>
-                <MapPin size={24} color={DARK_BRONZE} style={{ flexShrink: 0 }} />
                 <p style={{ fontFamily: FONT, fontStyle: 'italic', fontSize: 'clamp(1.5rem, 4.8vw, 2.1rem)', fontWeight: 600, color: DARK_BRONZE, lineHeight: 1.5, opacity: 0.95, margin: 0, textAlign: 'center' }}>
                   {location}
                 </p>
@@ -503,7 +502,7 @@ export default function MainContent({ data }) {
                     initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: i * 0.1 }} viewport={{ once: true }}
                     style={{ background: 'white', padding: 20, borderRadius: 15, boxShadow: '0 10px 30px rgba(0,0,0,0.05)', borderTop: `5px solid ${GOLD}`, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                    <p style={{ fontFamily: isCyrillicFallback ? 'Georgia, serif' : "'Lato',sans-serif", fontSize: '0.95rem', color: DARK_BRONZE, lineHeight: 1.6, fontStyle: 'italic', marginBottom: 12 }}>"{w.wish}"</p>
+                    <p style={{ fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", fontSize: '0.95rem', color: DARK_BRONZE, lineHeight: 1.6, fontStyle: 'italic', marginBottom: 12 }}>"{w.wish}"</p>
                     <span style={{ fontFamily: currentTitleFont, fontSize: '0.95rem', color: GOLD, fontWeight: 600 }}>— {w.name}</span>
                   </motion.div>
                 ))}

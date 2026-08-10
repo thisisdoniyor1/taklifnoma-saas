@@ -262,21 +262,21 @@ const Templates = () => {
       </motion.div>
     );
   };  const WHATSAPP_NUMBER = '992985140212';
-  const WHATSAPP_MSG = encodeURIComponent("Салом! Мен Taklifnoma.vip орқали махсус индивидуал тўй таклифномаси буюртма қилмоқчиман.");
+  const WHATSAPP_MSG = encodeURIComponent("Salom! Men Taklifnoma.vip orqali maxsus individual to‘y taklifnomasi buyurtma qilmoqchiman.");
   const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`;
 
   const premiumTexts = {
-    badge: language === 'en' ? "Exclusive Service" : language === 'ru' ? "Эксклюзивная Услуга" : language === 'tj' ? "Хизмати Эксклюзивӣ" : "Махсус хизмат",
-    title: language === 'en' ? "Individual Invitation" : language === 'ru' ? "Индивидуальное Приглашение" : language === 'tj' ? "Даъватномаи Инфиродӣ" : "Индивидуал Таклифнома",
-    desc: language === 'en' ? "Your wedding is a once-in-a-lifetime event! Our individual invitation creation service includes:" : language === 'ru' ? "Ваша свадьба — неповторимое событие! Создание индивидуального приглашения включает в себя:" : language === 'tj' ? "Тӯи шумо – рӯйдоди фаромӯшнашаванда аст! Сохтани даъватномаи инфиродӣ дар бар мегирад:" : "Тўйингиз – ҳаётингиздаги энг гўзал тарих! Сиз учун индивидуал таклифнома яратиш қуйидагиларни ўз ичига олади:",
-    features: language === 'en' ? ["Custom Design & Colors", "Your Choice of Music", "Unique Animations", "Unlimited Edits"] : language === 'ru' ? ["Уникальный дизайн", "Ваша любимая музыка", "Специальные анимации", "Безлимитные правки"] : language === 'tj' ? ["Дизайни дилхоҳи шумо", "Мусиқии дӯстдошта", "Аниматсияҳои махсус", "Тағйироти бемаҳдуд"] : ["Сиз истаган ноёб дизайн", "Ёқтирган мусиқангиз", "Махсус анимациялар", "Чексиз таҳрир қилиш"],
-    button: language === 'en' ? "Order now" : language === 'ru' ? "Заказать" : language === 'tj' ? "Фармоиш додан" : "Буюртма бериш",
-    priceLabel: language === 'en' ? "Price" : language === 'ru' ? "Стоимость" : language === 'tj' ? "Нархи" : "Нархи",
-    currency: language === 'en' ? "Somoni" : language === 'ru' ? "сомони" : language === 'tj' ? "сомонӣ" : "сомони"
+    badge: language === 'en' ? "Exclusive Service" : language === 'ru' ? "Эксклюзивная Услуга" : language === 'tj' ? "Хизмати Эксклюзивӣ" : "Maxsus xizmat",
+    title: language === 'en' ? "Individual Invitation" : language === 'ru' ? "Индивидуальное Приглашение" : language === 'tj' ? "Даъватномаи Инфиродӣ" : "Individual Taklifnoma",
+    desc: language === 'en' ? "Your wedding is a once-in-a-lifetime event! Our individual invitation creation service includes:" : language === 'ru' ? "Ваша свадьба — неповторимое событие! Создание индивидуального приглашения включает в себя:" : language === 'tj' ? "Тӯи шумо – рӯйдоди фаромӯшнашаванда аст! Сохтани даъватномаи инфиродӣ дар бар мегирад:" : "To‘yingiz – hayotingizdagi eng go‘zal tarix! Siz uchun individual taklifnoma yaratish quyidagilarni o‘z ichiga oladi:",
+    features: language === 'en' ? ["Custom Design & Colors", "Your Choice of Music", "Unique Animations", "Unlimited Edits"] : language === 'ru' ? ["Уникальный дизайн", "Ваша любимая музыка", "Специальные анимации", "Безлимитные правки"] : language === 'tj' ? ["Дизайни дилхоҳи шумо", "Мусиқии дӯстдошта", "Аниматсияҳои махсус", "Тағйироти бемаҳдуд"] : ["Siz istagan noyob dizayn", "Yoqtirgan musiqangiz", "Maxsus animatsiyalar", "Cheksiz tahrir qilish"],
+    button: language === 'en' ? "Order now" : language === 'ru' ? "Заказать" : language === 'tj' ? "Фармоиш додан" : "Buyurtma berish",
+    priceLabel: language === 'en' ? "Price" : language === 'ru' ? "Стоимость" : language === 'tj' ? "Нархи" : "Narxi",
+    currency: language === 'en' ? "Somoni" : language === 'ru' ? "сомони" : language === 'tj' ? "сомонӣ" : "somoni"
   };
 
-  const standardTitle = language === 'en' ? "STANDARD" : language === 'ru' ? "СТАНДАРТ" : language === 'tj' ? "СТАНДАРТ" : "СТАНДАРТ";
-  const premiumTitle = language === 'en' ? "PREMIUM" : language === 'ru' ? "ПРЕМИУМ" : language === 'tj' ? "ПРЕМИУМ" : "ПРЕМИУМ";
+  const standardTitle = language === 'en' ? "STANDARD" : language === 'ru' ? "СТАНДАРТ" : language === 'tj' ? "СТАНДАРТ" : "STANDART";
+  const premiumTitle = language === 'en' ? "PREMIUM" : language === 'ru' ? "ПРЕМИУМ" : language === 'tj' ? "ПРЕМИУМ" : "PREMIUM";
 
   const PremiumCustomCard = ({ fullWidth = false }) => (
     <motion.div 

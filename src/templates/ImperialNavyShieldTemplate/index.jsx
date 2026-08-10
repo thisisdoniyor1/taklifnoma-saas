@@ -12,24 +12,34 @@ const COVER_LABELS = {
   en: { received: 'You Have', invite: 'An Invitation', open: 'Click to Open' },
   ru: { received: 'ВАМ ПРИШЛО', invite: 'Приглашение', open: 'НАЖМИТЕ, ЧТОБЫ ОТКРЫТЬ' },
   uz: { received: 'SIZGA', invite: 'Taklifnoma bor', open: 'ОЧИШ УЧУН ТУГМАНИ БОСИНГ' },
-  uz_cyrl: { received: 'СИЗГА', invite: 'Таклифнома бор', open: 'ОЧИШ УЧУН ТУГМАНИ БОСИНГ' },
+  uz_cyrl: { received: 'SIZGA', invite: 'Taklifnoma bor', open: 'OCHISH UCHUN TUGMANI BOSING' },
   tj: { received: 'БА ШУМО', invite: 'Даъватнома хаст', open: 'БАРОИ КУШОДАН ПАХШ КУНЕД' }
 };
 
 function NavyBookCover({ data, onOpen, isThumbnail = false }) {
   const { language } = useLanguage();
   const tr = COVER_LABELS[language] || COVER_LABELS.en;
+  const [opening, setOpening] = useState(false);
+
+  const handleClick = () => {
+    if (opening || isThumbnail) return;
+    window.dispatchEvent(new Event('open-invitation'));
+    setOpening(true);
+    setTimeout(() => {
+      onOpen && onOpen();
+    }, 450);
+  };
 
   return (
     <motion.div
-      onClick={onOpen}
-      initial={{ y: 0, opacity: 1 }}
-      exit={{ y: '-100%', opacity: 0, transition: { duration: 1.0, ease: [0.4, 0, 0.2, 1] } }}
+      onClick={handleClick}
+      initial={{ scale: 1, opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.04, transition: { duration: 0.65, ease: [0.4, 0, 0.2, 1] } }}
       style={{
         position: 'absolute',
         inset: 0,
         zIndex: isThumbnail ? 1 : 50,
-        pointerEvents: isThumbnail ? 'none' : 'auto',
+        pointerEvents: isThumbnail || opening ? 'none' : 'auto',
         cursor: isThumbnail ? 'default' : 'pointer',
         background: 'radial-gradient(circle at center, #1b315b 0%, #0a1324 100%)', // Rich dark blue gradient
         display: 'flex',
@@ -48,7 +58,8 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
         backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
         backgroundPosition: 'center',
-        opacity: 0.65,
+        opacity: opening ? 0 : 0.65,
+        transition: 'opacity 0.35s ease',
         pointerEvents: 'none',
         zIndex: 1
       }} />
@@ -59,6 +70,8 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
         inset: '16px',
         border: '1px solid rgba(255, 255, 255, 0.08)',
         borderRadius: '8px',
+        opacity: opening ? 0 : 1,
+        transition: 'opacity 0.35s ease',
         pointerEvents: 'none',
         zIndex: 2
       }} />
@@ -67,6 +80,8 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
         inset: '22px',
         border: '1px solid rgba(255, 255, 255, 0.04)',
         borderRadius: '6px',
+        opacity: opening ? 0 : 1,
+        transition: 'opacity 0.35s ease',
         pointerEvents: 'none',
         zIndex: 2
       }} />
@@ -74,8 +89,8 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
       <motion.div
         key={language}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        animate={{ opacity: opening ? 0 : 1 }}
+        transition={{ duration: opening ? 0.35 : 0.5 }}
         style={{
           width: '100%',
           display: 'flex',
@@ -101,7 +116,7 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
             {tr.received}
           </span>
           <h2 style={{
-            fontFamily: (language === 'uz_cyrl' || language === 'tj') ? 'Georgia, serif' : "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
+            fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif",
             fontSize: isThumbnail ? '2.4rem' : 'clamp(2.4rem, 9vw, 3.4rem)',
             fontWeight: 400,
             fontStyle: 'italic',
@@ -210,7 +225,7 @@ const ImperialNavyShieldTemplate = ({ data, isThumbnail }) => {
       minHeight: isThumbnail ? '100%' : '100dvh',
       height: isThumbnail ? '100%' : (opened ? 'auto' : '100dvh'),
       backgroundColor: IVORY_BACKGROUND, 
-      fontFamily: (language === 'uz_cyrl' || language === 'tj') ? 'Georgia, serif' : "'Playfair Display', serif", 
+      fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", 
       color: '#1a2b4b',
       position: 'relative',
       isolation: 'isolate',

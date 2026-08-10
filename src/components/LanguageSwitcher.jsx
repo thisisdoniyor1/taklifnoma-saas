@@ -6,7 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 const LANGUAGE_OPTIONS = [
   { code: 'en', name: 'English', flag: '🇬🇧', label: 'EN' },
   { code: 'ru', name: 'Русский', flag: '🇷🇺', label: 'RU' },
-  { code: 'uz_cyrl', name: 'Ўзбекча', flag: '🇺🇿', label: 'ЎЗ' },
+  { code: 'uz_cyrl', name: 'O‘zbekcha', flag: '🇺🇿', label: 'UZ' },
   { code: 'tj', name: 'Тоҷикӣ', flag: '🇹🇯', label: 'ТО' },
 ];
 

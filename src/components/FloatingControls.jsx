@@ -8,7 +8,7 @@ import defaultMusicFile from '../music/AUDIO-2026-06-03-19-11-34.mp3';
 const DEFAULT_MUSIC = defaultMusicFile;
 
 const LANGUAGES = [
-  { code: 'uz_cyrl', label: 'УЗ', name: 'Ўзбекча 🇺🇿' },
+  { code: 'uz_cyrl', label: 'UZ', name: 'O‘zbekcha 🇺🇿' },
   { code: 'tj',      label: 'TJ', name: 'Тоҷикӣ 🇹🇯'  },
   { code: 'ru',      label: 'RU', name: 'Русский 🇷🇺'  },
   { code: 'en',      label: 'EN', name: 'English 🇬🇧'  },
@@ -47,6 +47,19 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
     return () => window.removeEventListener('click', close);
   }, []);
 
+  // Autoplay music when user opens invitation cover/envelope
+  useEffect(() => {
+    const handleOpen = () => {
+      if (audioRef.current) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+    };
+    window.addEventListener('open-invitation', handleOpen);
+    return () => window.removeEventListener('open-invitation', handleOpen);
+  }, []);
+
   const btnStyle = {
     width: 44, height: 44,
     borderRadius: '50%',
@@ -70,12 +83,13 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
 
       <div style={{
         position: 'fixed',
-        top: 20, left: 20, right: 20,
+        top: 20,
+        right: 20,
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
         gap: '12px',
-        zIndex: 9999,
+        zIndex: 99999,
         pointerEvents: 'none',
       }}>
         {/* ── Music button ── */}
@@ -111,7 +125,7 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
             whileTap={{ scale: 0.93 }}
             style={btnStyle}
           >
-            {LANGUAGES.find(l => l.code === language)?.label ?? 'УЗ'}
+            {LANGUAGES.find(l => l.code === language)?.label ?? 'UZ'}
           </motion.button>
 
           <AnimatePresence>

@@ -23,7 +23,7 @@ if (rawApiUrl && !rawApiUrl.startsWith('http://') && !rawApiUrl.startsWith('http
 export const API_URL = rawApiUrl;
 
 export const PAYMENT_CONFIG = {
-  whatsappNumber: '992900000000', // Update with your WhatsApp number (e.g. 992XXXXXXXXX)
+  whatsappNumber: '992985140212',
   banks: [
     {
       id: 'dc',

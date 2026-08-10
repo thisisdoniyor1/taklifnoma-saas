@@ -8,7 +8,7 @@ import coverBg from '../../../assets/embossed_envelope_blue.png';
 const LABELS = {
   en: { invite: 'You have an invitation', open: 'Click to open' },
   ru: { invite: 'У вас есть приглашение', open: 'Нажмите, чтобы открыть' },
-  uz_cyrl: { invite: 'Сизга таклифнома бор', open: 'Очиш учун босинг' },
+  uz_cyrl: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun bosing' },
   tj: { invite: 'Барои шумо даъватнома аст', open: 'Барои кушодан пахш кунед' },
   uz: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun bosing' }
 };
@@ -88,7 +88,7 @@ const RoyalEnvelope = ({ onOpen, children, isThumbnail = false }) => {
             style={{ textAlign: 'center', padding: '0 2rem' }}
           >
             <p style={{
-              fontFamily: (language === 'uz_cyrl' || language === 'tj') ? 'Georgia, serif' : '"Cormorant Garamond", "Playfair Display", Georgia, serif',
+              fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
               fontSize: isThumbnail ? '1.8rem' : 'clamp(2.5rem, 8vw, 4rem)',
               fontStyle: 'italic',
               fontWeight: 300,

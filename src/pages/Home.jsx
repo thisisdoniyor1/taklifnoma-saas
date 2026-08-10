@@ -157,9 +157,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-10 sm:mb-16 flex flex-col items-center text-center">
           <Label centered>{t('templates.label')}</Label>
           <H2>{t('templates.title')}</H2>
-          <p className="text-emerald-900/50 font-medium text-base sm:text-lg max-w-2xl mt-2 lowercase">
-            {t('templates.subtitle')}
-          </p>
         </div>
         <Templates />
       </section>
@@ -239,10 +236,7 @@ export default function Home() {
               <a href="https://www.instagram.com/taklifnoma.vip/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noreferrer" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:border-transparent transition-all duration-500 group">
                 <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
               </a>
-              <a href="#" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2AABEE] hover:to-[#229ED9] hover:border-transparent hover:shadow-[0_0_15px_rgba(42,171,238,0.45)] transition-all duration-500 group">
-                <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
-              </a>
-              <a href="#" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#25D366] hover:to-[#128C7E] hover:border-transparent hover:shadow-[0_0_15px_rgba(37,211,102,0.45)] transition-all duration-500 group">
+              <a href="https://wa.me/992985140212?text=Salom!%20Yordam%20kerak%20edi" target="_blank" rel="noreferrer" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#25D366] hover:to-[#128C7E] hover:border-transparent hover:shadow-[0_0_15px_rgba(37,211,102,0.45)] transition-all duration-500 group" title="Support">
                 <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
               </a>
             </div>
@@ -257,6 +251,9 @@ export default function Home() {
               <button onClick={() => slowScroll('templates')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.templates')}</button>
               <button onClick={() => slowScroll('features')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.features')}</button>
               <button onClick={() => slowScroll('faq')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.faq') || 'FAQ'}</button>
+              <a href="https://wa.me/992985140212?text=Salom!%20Yordam%20kerak%20edi" target="_blank" rel="noreferrer" className="text-[9px] font-bold text-left text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-[1px] flex items-center gap-1.5 mt-1">
+                <span>💬 {t('nav.support') || 'Qo‘llab-quvvatlash'}</span>
+              </a>
             </div>
 
             {/* Legal Links & Socials */}
@@ -269,10 +266,7 @@ export default function Home() {
                 <a href="https://www.instagram.com/taklifnoma.vip/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noreferrer" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:border-transparent transition-all duration-500 group">
                   <Instagram className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
                 </a>
-                <a href="#" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2AABEE] hover:to-[#229ED9] hover:border-transparent hover:shadow-[0_0_15px_rgba(42,171,238,0.45)] transition-all duration-500 group">
-                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
-                </a>
-                <a href="#" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#25D366] hover:to-[#128C7E] hover:border-transparent hover:shadow-[0_0_15px_rgba(37,211,102,0.45)] transition-all duration-500 group">
+                <a href="https://wa.me/992985140212?text=Salom!%20Yordam%20kerak%20edi" target="_blank" rel="noreferrer" className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#25D366] hover:to-[#128C7E] hover:border-transparent hover:shadow-[0_0_15px_rgba(37,211,102,0.45)] transition-all duration-500 group">
                   <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-100 group-hover:text-white" />
                 </a>
               </div>

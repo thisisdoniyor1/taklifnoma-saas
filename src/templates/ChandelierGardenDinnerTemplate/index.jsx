@@ -41,10 +41,10 @@ const COPY = {
     wishes: 'Guest Wishes',
     noWishes: 'Be the first to leave a wish.',
     rsvp: 'RSVP',
-    rsvpSub: 'Confirm your attendance',
+    rsvpSub: 'Leave a Wish',
     name: 'Your name',
-    wish: 'Leave a wish',
-    confirm: 'Confirm your attendance',
+    wish: 'Your wish',
+    confirm: 'Send Wish',
     sending: 'Sending...',
     success: 'Thank you. Your response has been received.',
     footer: 'We look forward to celebrating this beautiful moment with you. ♥',
@@ -70,43 +70,43 @@ const COPY = {
     wishes: 'Пожелания гостей',
     noWishes: 'Будьте первым, кто оставит пожелание.',
     rsvp: 'RSVP',
-    rsvpSub: 'Подтвердите ваше участие',
+    rsvpSub: 'Оставьте пожелания',
     name: 'Ваше имя',
-    wish: 'Оставьте пожелание',
-    confirm: 'Подтвердить участие',
+    wish: 'Ваше пожелание',
+    confirm: 'Отправить пожелание',
     sending: 'Отправка...',
     success: 'Спасибо. Ваш ответ получен.',
     footer: 'Мы с нетерпением ждём этого прекрасного момента вместе с вами. ♥',
     time: 'Время',
   },
   uz_cyrl: {
-    coverInvite: 'Сизга таклифнома бор',
-    open: 'Таклифномани очиш',
-    ceremony: 'Тўй таклифномаси',
-    welcome: 'Хуш келибсиз',
-    dateTitle: 'Тўй санаси',
-    details: 'Тафсилотлар',
-    location: 'Манзил',
-    locationValue: 'Форель тўйхонаси, Хўжанд',
-    googleMaps: 'Google Харита',
-    appleMaps: 'Apple Харита',
-    countdown: 'Ҳар лаҳзани санаяпмиз',
-    days: 'Кун',
-    hours: 'Соат',
-    minutes: 'Дақ',
-    seconds: 'Сон',
-    photo: 'Бизнинг лаҳза',
-    wishes: 'Меҳмонлар тилаклари',
-    noWishes: 'Биринчи бўлиб тилак қолдиринг.',
-    rsvp: 'Ташрифни тасдиқлаш',
-    rsvpSub: 'Иштирокингизни тасдиқланг',
-    name: 'Исмингиз',
-    wish: 'Тилак қолдиринг',
-    confirm: 'Тасдиқлаш',
-    sending: 'Юборилмоқда...',
-    success: 'Раҳмат. Жавобингиз қабул қилинди.',
-    footer: 'Биз сиз билан бу гўзал лаҳзани бирга нишонлашни интиқлик билан кутамиз. ♥',
-    time: 'Вақт',
+    coverInvite: 'Sizga taklifnoma bor',
+    open: 'Taklifnomani ochish',
+    ceremony: 'To‘y taklifnomasi',
+    welcome: 'Xush kelibsiz',
+    dateTitle: 'To‘y sanasi',
+    details: 'Tafsilotlar',
+    location: 'Manzil',
+    locationValue: 'Forel to‘yxonasi, Xo‘jand',
+    googleMaps: 'Google Xarita',
+    appleMaps: 'Apple Xarita',
+    countdown: 'Har lahzani sanayapmiz',
+    days: 'Kun',
+    hours: 'Soat',
+    minutes: 'Daq',
+    seconds: 'Son',
+    photo: 'Bizning lahza',
+    wishes: 'Tilaklaringizni yuboring',
+    noWishes: 'Birinchi bo‘lib tilak qoldiring.',
+    rsvp: 'Tilaklaringizni yuboring',
+    rsvpSub: 'Tilaklaringizni yuboring',
+    name: 'Ismingiz',
+    wish: 'Tilaklaringiz',
+    confirm: 'Tasdiqlash',
+    sending: 'Yuborilmoqda...',
+    success: 'Rahmat. Javobingiz qabul qilindi.',
+    footer: 'Biz siz bilan bu go‘zal lahzani birga nishonlashni intiqlik bilan kutamiz. ♥',
+    time: 'Vaqt',
   },
   tj: {
     coverInvite: 'БА ШУМО ДАЪВАТНОМА ХАСТ',
@@ -142,14 +142,14 @@ const COPY = {
 const MONTHS = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-  uz_cyrl: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+  uz_cyrl: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
   tj: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр'],
 };
 
 const WEEKDAYS = {
   en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   ru: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-  uz_cyrl: ['Якшанба', 'Душанба', 'Сешанба', 'Чоршанба', 'Пайшанба', 'Жума', 'Шанба'],
+  uz_cyrl: ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
   tj: ['Якшанбе', 'Душанбе', 'Сешанбе', 'Чоршанбе', 'Панҷшанбе', 'Ҷумъа', 'Шанбе'],
 };
 
@@ -391,8 +391,8 @@ function DecorationStyles() {
 const COVER_LABELS = {
   en: { invite: 'You have an invitation', open: 'Click to Open' },
   ru: { invite: 'У вас есть приглашение', open: 'Нажмите, чтобы открыть' },
-  uz: { invite: 'Sizga taklifnoma bor', open: 'ОЧИШ УЧУН ТУГМАНИ БОСИНГ' },
-  uz_cyrl: { invite: 'Сизга таклифнома бор', open: 'ОЧИШ УЧУН ТУГМАНИ БОСИНГ' },
+  uz: { invite: 'Sizga taklifnoma bor', open: 'OCHISH UCHUN TUGMANI BOSING' },
+  uz_cyrl: { invite: 'Sizga taklifnoma bor', open: 'OCHISH UCHUN TUGMANI BOSING' },
   tj: { invite: 'Ба шумо даъватнома хаст', open: 'Барои кушодан пахш кунед' }
 };
 
@@ -406,6 +406,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
 
   const handleOpenClick = () => {
     if (isThumbnail || opening) return;
+    window.dispatchEvent(new Event('open-invitation'));
     setOpening(true);
     setTimeout(() => {
       onOpen();
@@ -496,7 +497,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
                         en:      ['You have an', 'invitation'],
                         ru:      ['У вас есть', 'приглашение'],
                         uz:      ['Sizga', 'taklifnoma bor'],
-                        uz_cyrl: ['Сизга', 'таклифнома бор'],
+                        uz_cyrl: ['Sizga', 'taklifnoma bor'],
                         tj:      ['Барои шумо', 'даъватнома ҳаст'],
                       };
                       const [line1, line2] = splits[language] || splits.en;
@@ -597,7 +598,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
         initial={{ opacity: 0, y: 24 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 1.2, delay: opened ? 0.5 : 0 }} 
-        style={{ position: 'relative', zIndex: 10, padding: '2rem' }}
+        style={{ position: 'relative', zIndex: 10, padding: '2rem', marginTop: '8vh' }}
       >
         <motion.div key={language} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <h1 className="chandelier-script" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 4px 12px rgba(255,255,255,0.9)' }}>{bride}</h1>
@@ -614,7 +615,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
       >
         <motion.div key={language} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
           <span className="chandelier-eyebrow" style={{ color: '#fff', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'ПАСТГА СУРИНГ' : 'PASTGA SURING'}
+            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'PASTGA SURING' : 'PASTGA SURING'}
           </span>
           <ChevronDown size={28} color="#fff" style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.8))' }} strokeWidth={2.5} />
         </motion.div>
@@ -837,9 +838,15 @@ function WishesAndRsvp({ data, isThumbnail }) {
         <motion.div className="section-card" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ borderRadius: '2rem', padding: '2.5rem 2rem' }}>
           {!done ? (
             <form onSubmit={submit} style={{ display: 'grid', gap: '1.2rem' }}>
-              <h2 className="chandelier-title" style={{ fontSize: '2.2rem' }}>{t('invitation.confirmAttendance') || tr.rsvpSub}</h2>
-              <input required value={form.name} onChange={(event) => setForm((value) => ({ ...value, name: event.target.value }))} placeholder={tr.name} style={fieldStyle} />
-              <textarea rows={4} value={form.wish} onChange={(event) => setForm((value) => ({ ...value, wish: event.target.value }))} placeholder={tr.wish} style={{ ...fieldStyle, resize: 'none' }} />
+              <h2 className="chandelier-title" style={{ fontSize: '2.2rem' }}>{tr.rsvpSub}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', textAlign: 'left' }}>
+                <label style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: MOSS, opacity: 0.85 }}>{tr.name}</label>
+                <input required value={form.name} onChange={(event) => setForm((value) => ({ ...value, name: event.target.value }))} placeholder="" style={fieldStyle} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', textAlign: 'left' }}>
+                <label style={{ fontFamily: "'Lato', sans-serif", fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: MOSS, opacity: 0.85 }}>{tr.wish}</label>
+                <textarea rows={4} value={form.wish} onChange={(event) => setForm((value) => ({ ...value, wish: event.target.value }))} placeholder="" style={{ ...fieldStyle, resize: 'none' }} />
+              </div>
               <button type="submit" className="ornate-button" disabled={loading} style={{ width: '100%' }}>
                 <Send size={16} /> {loading ? tr.sending : tr.confirm}
               </button>
@@ -929,7 +936,7 @@ function MainContent({ data, isThumbnail, opened }) {
           {language === 'en' ? 'Create your own digital invitation' : 
            language === 'ru' ? 'Создайте свое цифровое приглашение' : 
            language === 'tj' ? 'Даъватномаи электронии худро созед' : 
-           language === 'uz_cyrl' ? 'Ўзингизнинг рақамли таклифномангизни яратинг' : 
+           language === 'uz' ? 'O‘zingizning raqamli taklifnomangizni yarating' : 
            "O'zingizning raqamli taklifnomangizni yarating"}
         </div>
       </footer>

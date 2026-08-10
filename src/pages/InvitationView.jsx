@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import TemplateManager from '../components/TemplateManager';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 const InvitationView = () => {
@@ -67,6 +68,7 @@ const InvitationView = () => {
           welcomeText: backendData.welcome_text,
           musicUrl: backendData.music_url,
           image_url: backendData.image_url,
+          status: backendData.status,
           rsvps
         };
 
@@ -161,6 +163,43 @@ const InvitationView = () => {
           }}
         >
           Qaytadan urinib ko'rish
+        </button>
+      </div>
+    );
+  }
+
+  const isPreviewMode = window.location.search.includes('preview=true');
+  const isDeactivated = (data.status === 'deactivated' || data.status === 'inactive') && !isPreviewMode;
+
+  if (isDeactivated) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0a1a14', color: '#fff', padding: '24px', textAlign: 'center' }}>
+        <div style={{ width: '72px', height: '72px', borderRadius: '50%', backgroundColor: 'rgba(212,175,55,0.15)', border: '1.5px solid #d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', boxShadow: '0 0 30px rgba(212,175,55,0.2)' }}>
+          <Clock size={34} color="#d4af37" />
+        </div>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.6rem', color: '#fbe8a6', marginBottom: '12px', fontWeight: 800 }}>
+          Taklifnoma havolasi faollashtirilmoqda
+        </h2>
+        <p style={{ color: 'rgba(255,255,255,0.78)', maxWidth: '440px', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '28px' }}>
+          To‘lovni tasdiqlaganimizdan so‘ng taxminan 1 soat ichida havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          style={{
+            padding: '13px 30px',
+            backgroundColor: '#d4af37',
+            color: '#0a1a14',
+            border: 'none',
+            borderRadius: '24px',
+            fontWeight: 800,
+            cursor: 'pointer',
+            fontSize: '0.8rem',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            boxShadow: '0 8px 24px rgba(212,175,55,0.3)'
+          }}
+        >
+          Qayta tekshirish
         </button>
       </div>
     );

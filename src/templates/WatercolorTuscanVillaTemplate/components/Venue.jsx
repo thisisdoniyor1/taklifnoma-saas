@@ -15,10 +15,10 @@ const TR = {
     address: "«Foreli» to’yxonasi, Xujand"
   },
   uz_cyrl: {
-    label: "Манзил",
-    googleMaps: "Google Харита",
-    appleMaps: "Apple Харита",
-    address: "«Форель» тўйхонаси, Хўжанд"
+    label: "Manzil",
+    googleMaps: "Google Xarita",
+    appleMaps: "Apple Xarita",
+    address: "«Forel» to‘yxonasi, Xo‘jand"
   },
   tj: {
     label: "Манзил",
@@ -108,7 +108,6 @@ const Venue = ({ data }) => {
             fontWeight: 400, color: '#ffffff', margin: 0, letterSpacing: '0.05em',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px'
           }}>
-            <MapPin size={46} color="#ffffff" />
             {location}
           </h2>
           {data?.time && (

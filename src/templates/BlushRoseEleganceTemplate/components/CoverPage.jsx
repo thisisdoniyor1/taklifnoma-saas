@@ -9,6 +9,7 @@ export default function CoverPage({ data, onOpen, isThumbnail = false }) {
 
   const handleClick = () => {
     if (isThumbnail || opening) return;
+    window.dispatchEvent(new Event('open-invitation'));
     setOpening(true);
     setTimeout(onOpen, 800);
   };
@@ -16,7 +17,7 @@ export default function CoverPage({ data, onOpen, isThumbnail = false }) {
   const LABELS = {
     en:      { invite: 'You have an invitation', open: 'Click to Open' },
     ru:      { invite: 'У вас есть приглашение',  open: 'Нажмите, чтобы открыть' },
-    uz_cyrl: { invite: 'Сизга таклифнома бор',    open: 'Очиш учун тугмани босинг' },
+    uz_cyrl: { invite: 'Sizga taklifnoma bor',    open: 'Ochish uchun tugmani bosing' },
     tj:      { invite: 'Ба шумо даъватнома хаст', open: 'Барои кушодан пахш кунед' },
   };
   const { invite } = LABELS[language] || LABELS.en;
@@ -62,7 +63,7 @@ export default function CoverPage({ data, onOpen, isThumbnail = false }) {
                 const splits = {
                   en:      ['You have an', 'invitation'],
                   ru:      ['У вас есть', 'приглашение'],
-                  uz_cyrl: ['Сизга', 'таклифнома бор'],
+                  uz_cyrl: ['Sizga', 'taklifnoma bor'],
                   tj:      ['Ба шумо', 'даъватнома хаст'],
                 };
                 const [line1, line2] = splits[language] || splits.en;
@@ -156,7 +157,7 @@ export default function CoverPage({ data, onOpen, isThumbnail = false }) {
                   en:      ['You have an', 'invitation'],
                   ru:      ['У вас есть', 'приглашение'],
                   uz:      ['Sizga', 'taklifnoma bor'],
-                  uz_cyrl: ['Сизга', 'таклифнома бор'],
+                  uz_cyrl: ['Sizga', 'taklifnoma bor'],
                   tj:      ['Барои шумо', 'даъватнома ҳаст'],
                 };
                 const [line1, line2] = splits[language] || splits.en;

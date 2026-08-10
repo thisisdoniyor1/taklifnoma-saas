@@ -36,12 +36,12 @@ import m6 from '../music/Electronic_Wedding_Invitation_Video_Virtual_Wedding_Inv
 const DEFAULT_WELCOME_TEXT = 'We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.';
 
 const MUSIC_OPTIONS = [
-  { id: 'romantic-audio-1', name: { en: 'Audio 1', ru: 'Аудио 1', uz_cyrl: 'Аудио 1', tj: 'Аудио 1' }, url: m1 },
-  { id: 'romantic-audio-2', name: { en: 'Audio 2', ru: 'Аудио 2', uz_cyrl: 'Аудио 2', tj: 'Аудио 2' }, url: m2 },
-  { id: 'british-floral', name: { en: 'Audio 3', ru: 'Аудио 3', uz_cyrl: 'Аудио 3', tj: 'Аудио 3' }, url: m3 },
-  { id: 'calming-relaxing', name: { en: 'Audio 4', ru: 'Аудио 4', uz_cyrl: 'Аудио 4', tj: 'Аудио 4' }, url: m4 },
-  { id: 'destination-animated', name: { en: 'Audio 5', ru: 'Аудио 5', uz_cyrl: 'Аудио 5', tj: 'Аудио 5' }, url: m5 },
-  { id: 'electronic-rustic', name: { en: 'Audio 6', ru: 'Аудио 6', uz_cyrl: 'Аудио 6', tj: 'Аудио 6' }, url: m6 },
+  { id: 'romantic-audio-1', name: { en: 'Audio 1', ru: 'Аудио 1', uz_cyrl: 'Audio 1', tj: 'Аудио 1' }, url: m1 },
+  { id: 'romantic-audio-2', name: { en: 'Audio 2', ru: 'Аудио 2', uz_cyrl: 'Audio 2', tj: 'Аудио 2' }, url: m2 },
+  { id: 'british-floral', name: { en: 'Audio 3', ru: 'Аудио 3', uz_cyrl: 'Audio 3', tj: 'Аудио 3' }, url: m3 },
+  { id: 'calming-relaxing', name: { en: 'Audio 4', ru: 'Аудио 4', uz_cyrl: 'Audio 4', tj: 'Аудио 4' }, url: m4 },
+  { id: 'destination-animated', name: { en: 'Audio 5', ru: 'Аудио 5', uz_cyrl: 'Audio 5', tj: 'Аудио 5' }, url: m5 },
+  { id: 'electronic-rustic', name: { en: 'Audio 6', ru: 'Аудио 6', uz_cyrl: 'Audio 6', tj: 'Аудио 6' }, url: m6 },
 ];
 
 const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
@@ -568,7 +568,8 @@ const Editor = () => {
             <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               <input
                 readOnly
-                value={hasSentReceipt ? shareUrl : copyText('editor.payment.unlockHint', 'Click "Send Screenshot via WhatsApp" above to unlock link')}
+                value={hasSentReceipt ? shareUrl : ''}
+                placeholder=""
                 className={`flex-1 h-14 rounded-2xl border-2 px-4 text-xs sm:text-sm font-semibold outline-none shadow-sm transition-all ${
                   hasSentReceipt
                     ? 'border-emerald-900/20 bg-white text-emerald-950'
@@ -592,6 +593,22 @@ const Editor = () => {
                 {copied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyBtn', 'Copy link')}
               </motion.button>
             </div>
+
+            {hasSentReceipt && (
+              <div className="mt-4 p-4 rounded-2xl bg-[#ecfdf5] border border-emerald-500/30 text-emerald-950 flex items-start gap-3 shadow-xs">
+                <div className="p-2 rounded-xl bg-emerald-100 text-emerald-800 shrink-0 mt-0.5">
+                  <Clock size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-emerald-950 mb-1">
+                    Taklifnoma havolasi yaratildi!
+                  </p>
+                  <p className="text-xs font-semibold leading-relaxed text-emerald-900/80">
+                    To‘lovni tasdiqlaganimizdan so‘ng taxminan 1 soat ichida havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* ── Action buttons ── */}

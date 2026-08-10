@@ -16,8 +16,8 @@ const NAVY = '#1a2b4b';
 
 const DUMMY_WISHES_BY_LANG = {
   uz_cyrl: [
-    { name: 'Шавкат ва Гулнора', wish: 'Бахтли бўлинглар! Қўша қаринглар, оилавий хотиржамлик тилаймиз.' },
-    { name: 'Дилшод оиласи билан', wish: 'Тўйлар муборак! Ёшлар бахтли бўлсин, шириндан-шакар фарзандлар кўринглар.' }
+    { name: 'Shavkat va Gulnora', wish: 'Baxtli bo‘linglar! Qo‘sha qaringlar, oilaviy xotirjamlik tilaymiz.' },
+    { name: 'Dilshod oilasi bilan', wish: 'To‘ylar muborak! Yoshlar baxtli bo‘lsin, shirindan-shakar farzandlar ko‘ringlar.' }
   ],
   tj: [
     { name: 'Фарҳод ва Мадина', wish: 'Хушбахт бошед! Зиндагии ширин ва хушбахтӣ таманно дорем.' },
@@ -60,7 +60,7 @@ function calcLeft(tgt) {
 
 const WEEKDAYS = {
   uz: ['DU', 'SE', 'CHOR', 'PAY', 'JU', 'SHA', 'YA'],
-  uz_cyrl: ['ДУ', 'СЕ', 'ЧОР', 'ПАЙ', 'ЖУ', 'ША', 'Я'],
+  uz_cyrl: ['DU', 'SE', 'CHOR', 'PAY', 'JU', 'SHA', 'YAK'],
   tj: ['ДУ', 'СЕ', 'ЧОР', 'ПАЙ', 'ҶУ', 'ША', 'ЯК'],
   ru: ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'],
   en: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
@@ -83,13 +83,13 @@ const Section = ({ children, style = {} }) => (
 
 const MainContent = ({ data }) => {
   const { t, language } = useLanguage();
-  const getFontFamily = (lang) => (lang === 'uz_cyrl' || lang === 'tj') ? 'Georgia, serif' : "'Playfair Display', serif";
+  const getFontFamily = () => "'Playfair Display', 'Cormorant Garamond', Georgia, serif";
   const params = useParams();
   const invRef = params['*'] || params.id || '';
 
   const WELCOME_FALLBACKS = {
     uz: "Biz sizni hayotimizning eng quvonchli kunida — nikoh to'yimizda ko'rishdan baxtiyor bo'lamiz.",
-    uz_cyrl: "Биз сизни ҳаётимизнинг энг қувончли кунида — никоҳ тўйимизда кўришдан бахтиёр бўламиз.",
+    uz_cyrl: "Biz sizni hayotimizning eng quvonchli kunida — nikoh to‘yimizda ko‘rishdan baxtiyor bo‘lamiz.",
     tj: "Мо сиро ба ҷашни хурсандии худ — тӯйи арӯсӣ самимона даъват менамоем.",
     ru: "Будем искренне рады видеть вас на самом радостном событии в нашей жизни — нашей свадьбе.",
     en: "We would be honored to have you join us for the celebration of our wedding day."
@@ -97,15 +97,16 @@ const MainContent = ({ data }) => {
 
   const TIME_LABELS = {
     uz: "Vaqti",
-    uz_cyrl: "Вақти",
+    uz_cyrl: "Vaqti",
     tj: "Вақт",
     ru: "Время",
     en: "Time"
   };
 
+
   const RSVP_SUBTITLES = {
     uz: "Ishtirokni tasdiqlash",
-    uz_cyrl: "Иштирокни тасдиқлаш",
+    uz_cyrl: "Ishtirokni tasdiqlash",
     tj: "Тасдиқи иштирок",
     ru: "Подтверждение участия",
     en: "Confirm attendance"
@@ -113,7 +114,7 @@ const MainContent = ({ data }) => {
 
   const RSVP_SUCCESS_LABELS = {
     uz: "Rahmat! Biz sizni kutamiz.",
-    uz_cyrl: "Раҳмат! Биз сизни кутамиз.",
+    uz_cyrl: "Rahmat! Biz sizni kutamiz.",
     tj: "Ташаккур! Мо шуморо интизорем.",
     ru: "Спасибо! Мы ждем вас.",
     en: "Thank you! We look forward to seeing you."
@@ -165,7 +166,7 @@ const MainContent = ({ data }) => {
 
   const monthNames = {
     uz: ['YANVAR', 'FEVRAL', 'MART', 'APREL', 'MAY', 'IYUN', 'IYUL', 'AVGUST', 'SENTYABR', 'OKTYABR', 'NOYABR', 'DEKABR'],
-    uz_cyrl: ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'],
+    uz_cyrl: ['YANVAR', 'FEVRAL', 'MART', 'APREL', 'MAY', 'IYUN', 'IYUL', 'AVGUST', 'SENTABR', 'OKTABR', 'NOYABR', 'DEKABR'],
     tj: ['ЯНВАР', 'ФЕВРАЛ', 'МАРТ', 'АПРЕЛ', 'МАЙ', 'ИЮН', 'ИЮЛ', 'АВГУСТ', 'СЕНТЯБР', 'ОКТЯБР', 'НОЯБР', 'ДЕКАБР'],
     ru: ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'],
     en: ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER']
@@ -233,7 +234,7 @@ const MainContent = ({ data }) => {
             textAlign: 'center',
             marginBottom: '12px'
           }}>
-            {language === 'en' ? 'Wedding Date' : language === 'ru' ? 'Дата свадьбы' : language === 'tj' ? 'Санаи тӯй' : language === 'uz_cyrl' ? 'Тўй санаси' : 'To\'y sanasi'}
+            {language === 'en' ? 'Wedding Date' : language === 'ru' ? 'Дата свадьбы' : language === 'tj' ? 'Сана' : language === 'uz_cyrl' ? 'To‘y sanasi' : "To'y sanasi"}
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: '24px' }}>
@@ -260,7 +261,7 @@ const MainContent = ({ data }) => {
                    en:      ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
                    ru:      ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],
                    uz:      ['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'],
-                   uz_cyrl: ['Якшанба','Душанба','Сешанба','Чоршанба','Пайшанба','Жума','Шанба'],
+                   uz_cyrl: ['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'],
                    tj:      ['Якшанбе','Душанбе','Сешанбе','Чоршанбе','Панҷшанбе','Ҷумъа','Шанбе'],
                  }[language || 'en'][new Date(year, month - 1, day).getDay()]
                }
@@ -368,7 +369,8 @@ const MainContent = ({ data }) => {
             justifyContent: 'center',
             gap: '10px'
           }}>
-            {t('invitation.location') || (language === 'en' ? 'LOCATION' : language === 'ru' ? 'МЕСТО' : language === 'tj' ? 'МАНЗИЛ' : language === 'uz_cyrl' ? 'МАНЗИЛ' : 'Manzil')}
+            <MapPin size={22} color={GOLD} style={{ flexShrink: 0 }} />
+            {t('invitation.location') || (language === 'en' ? 'LOCATION' : language === 'ru' ? 'МЕСТО' : language === 'tj' ? 'МАНЗИЛ' : language === 'uz_cyrl' ? 'MANZIL' : 'Manzil')}
           </h2>
 
           <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -468,10 +470,10 @@ const MainContent = ({ data }) => {
             marginBottom: '40px'
           }}>
             {[
-              { val: tl.days, label: language === 'en' ? 'DAYS' : language === 'ru' ? 'ДНЕЙ' : language === 'tj' ? 'РӮЗ' : language === 'uz_cyrl' ? 'КУН' : 'Kun' },
-              { val: tl.hours, label: language === 'en' ? 'HOURS' : language === 'ru' ? 'ЧАСОВ' : language === 'tj' ? 'СОАТ' : language === 'uz_cyrl' ? 'СОАТ' : 'Soat' },
-              { val: tl.minutes, label: language === 'en' ? 'MIN' : language === 'ru' ? 'МИН' : language === 'tj' ? 'ДАҚИҚА' : language === 'uz_cyrl' ? 'ДАҚИҚА' : 'Daqiqa' },
-              { val: tl.seconds, label: language === 'en' ? 'SEC' : language === 'ru' ? 'СЕК' : language === 'tj' ? 'СОНИЯ' : language === 'uz_cyrl' ? 'СОНИЯ' : 'Soniya' }
+              { val: tl.days, label: language === 'en' ? 'DAYS' : language === 'ru' ? 'ДНЕЙ' : language === 'tj' ? 'РӮЗ' : language === 'uz_cyrl' ? 'KUN' : 'Kun' },
+              { val: tl.hours, label: language === 'en' ? 'HOURS' : language === 'ru' ? 'ЧАСОВ' : language === 'tj' ? 'СОАТ' : language === 'uz_cyrl' ? 'SOAT' : 'Soat' },
+              { val: tl.minutes, label: language === 'en' ? 'MIN' : language === 'ru' ? 'МИН' : language === 'tj' ? 'ДАҚИҚА' : language === 'uz_cyrl' ? 'DAQIQA' : 'Daqiqa' },
+              { val: tl.seconds, label: language === 'en' ? 'SEC' : language === 'ru' ? 'СЕК' : language === 'tj' ? 'СОНИЯ' : language === 'uz_cyrl' ? 'SONIYA' : 'Soniya' }
             ].map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -490,7 +492,7 @@ const MainContent = ({ data }) => {
           </div>
 
           <p style={{ fontFamily: getFontFamily(language), fontSize: '1.1rem', fontStyle: 'italic', marginBottom: '10px' }}>
-            {language === 'en' ? "We look forward to celebrating with you!" : language === 'ru' ? "С нетерпением ждем встречи с вами!" : language === 'tj' ? "Мо шуморо интизорем!" : language === 'uz_cyrl' ? "Сизни интиқлик билан кутамиз!" : "Sizni intiqlik bilan kutamiz."}
+            {language === 'en' ? "We look forward to celebrating with you!" : language === 'ru' ? "С нетерпением ждем встречи с вами!" : language === 'tj' ? "Мо шуморо интизорем!" : language === 'uz_cyrl' ? "Sizni intiqlik bilan kutamiz!" : "Sizni intiqlik bilan kutamiz."}
           </p>
 
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '0px' }}>
@@ -512,7 +514,7 @@ const MainContent = ({ data }) => {
           textTransform: 'uppercase',
           whiteSpace: 'nowrap'
         }}>
-          {language === 'en' ? 'GUEST WISHES' : language === 'ru' ? 'ПОЖЕЛАНИЯ ГОСТЕЙ' : language === 'tj' ? 'ТАМАННИЁТИ МЕҲМОНОН' : language === 'uz_cyrl' ? 'МЕҲМОНЛАР ТИЛАКЛАРИ' : 'Mehmonlar tilaklari'}
+          {language === 'en' ? 'GUEST WISHES' : language === 'ru' ? 'ПОЖЕЛАНИЯ ГОСТЕЙ' : language === 'tj' ? 'ТАМАННИЁТИ МЕҲМОНОН' : language === 'uz_cyrl' ? 'MEHMONLAR TILAKLARI' : 'Mehmonlar tilaklari'}
         </h2>
         {displayWishes.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', maxWidth: '500px' }}>
@@ -538,7 +540,7 @@ const MainContent = ({ data }) => {
             color: NAVY,
             margin: '20px 0'
           }}>
-            {language === 'uz' ? "Hozircha tilaklar yo'q." : language === 'uz_cyrl' ? "Ҳозирча тилаклар йўқ." : language === 'tj' ? "Ҳоло таманниёт нест." : language === 'ru' ? "Пока нет пожеланий." : "No wishes yet."}
+            {language === 'uz' ? "Hozircha tilaklar yo'q." : language === 'uz_cyrl' ? "Hozircha tilaklar yo‘q." : language === 'tj' ? "Ҳоло таманниёт нест." : language === 'ru' ? "Пока нет пожеланий." : "No wishes yet."}
           </p>
         )}
       </Section>
@@ -549,16 +551,16 @@ const MainContent = ({ data }) => {
           <h2 style={{
             fontFamily: getFontFamily(language),
             fontStyle: 'italic',
-            fontSize: 'clamp(1.1rem, 4.8vw, 1.5rem)',
+            fontSize: language === 'tj' ? 'clamp(0.68rem, 3.1vw, 1.05rem)' : 'clamp(0.82rem, 3.5vw, 1.25rem)',
             fontWeight: 400,
-            letterSpacing: '0.1em',
+            letterSpacing: '0.05em',
             color: NAVY,
             marginBottom: '30px',
             textTransform: 'uppercase',
             textAlign: 'center',
-            whiteSpace: 'nowrap'
+            maxWidth: '100%'
           }}>
-            {language === 'en' ? 'Confirm Attendance' : language === 'ru' ? 'Подтверждение участия' : language === 'tj' ? 'Тасдиқи иштирок' : language === 'uz_cyrl' ? 'Иштирокни тасдиқлаш' : 'Ishtirokni tasdiqlash'}
+            {language === 'en' ? 'Leave Your Wishes' : language === 'ru' ? 'Оставьте пожелания' : language === 'tj' ? 'Таманниёти худро бигзоред' : 'Tilaklaringizni yuboring'}
           </h2>
 
           {rsvpDone ? (
@@ -567,21 +569,31 @@ const MainContent = ({ data }) => {
             </div>
           ) : (
             <form onSubmit={handleRsvp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <input
-                type="text"
-                placeholder={language === 'en' ? 'Your Name' : language === 'ru' ? 'Ваше имя' : language === 'tj' ? 'Номи шумо' : language === 'uz_cyrl' ? 'Исмингиз' : 'Ismingiz'}
-                required
-                value={form.name}
-                onChange={e => setForm({ ...form, name: e.target.value })}
-                style={{ padding: '16px', border: '1px solid rgba(26, 43, 75, 0.1)', background: IVORY_BACKGROUND, outline: 'none', borderRadius: '12px', fontSize: '0.9rem' }}
-              />
-              <textarea
-                placeholder={t('invitation.rsvp_wish') || 'Leave a wish'}
-                rows="4"
-                value={form.wish}
-                onChange={e => setForm({ ...form, wish: e.target.value })}
-                style={{ padding: '16px', border: '1px solid rgba(26, 43, 75, 0.1)', background: IVORY_BACKGROUND, outline: 'none', borderRadius: '12px', resize: 'none', fontSize: '0.9rem' }}
-              />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: NAVY, opacity: 0.7 }}>
+                  {language === 'en' ? 'Your Name' : language === 'ru' ? 'Ваше имя' : language === 'tj' ? 'Номи шумо' : 'Ismingiz'}
+                </label>
+                <input
+                  type="text"
+                  placeholder=""
+                  required
+                  value={form.name}
+                  onChange={e => setForm({ ...form, name: e.target.value })}
+                  style={{ padding: '16px', border: '1px solid rgba(26, 43, 75, 0.1)', background: IVORY_BACKGROUND, outline: 'none', borderRadius: '12px', fontSize: '0.9rem' }}
+                />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <label style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: NAVY, opacity: 0.7 }}>
+                  {language === 'en' ? 'Your Wishes' : language === 'ru' ? 'Ваши пожелания' : language === 'tj' ? 'Таманниёти шумо' : 'Tilaklaringiz'}
+                </label>
+                <textarea
+                  placeholder=""
+                  rows="4"
+                  value={form.wish}
+                  onChange={e => setForm({ ...form, wish: e.target.value })}
+                  style={{ padding: '16px', border: '1px solid rgba(26, 43, 75, 0.1)', background: IVORY_BACKGROUND, outline: 'none', borderRadius: '12px', resize: 'none', fontSize: '0.9rem' }}
+                />
+              </div>
               <button
                 type="submit"
                 disabled={rsvpLoading}
@@ -602,8 +614,8 @@ const MainContent = ({ data }) => {
                 }}
               >
                 {rsvpLoading
-                  ? (language === 'en' ? 'SENDING...' : language === 'ru' ? 'ОТПРАВКА...' : language === 'tj' ? 'ИРСОЛ...' : language === 'uz_cyrl' ? 'ЮБОРИЛМОҚДА...' : 'YUBORILMOQDA...')
-                  : (language === 'en' ? 'CONFIRM' : language === 'ru' ? 'ПОДТВЕРДИТЬ' : language === 'tj' ? 'ТАСДИҚ КУНЕД' : language === 'uz_cyrl' ? 'ТАСДИҚЛАШ' : 'TASDIQLASH')
+                  ? (language === 'en' ? 'SENDING...' : language === 'ru' ? 'ОТПРАВКА...' : language === 'tj' ? 'ИРСОЛ...' : language === 'uz_cyrl' ? 'YUBORILMOQDA...' : 'YUBORILMOQDA...')
+                  : (language === 'en' ? 'SEND WISH' : language === 'ru' ? 'ОТПРАВИТЬ ПОЖЕЛАНИЕ' : language === 'tj' ? 'ИРСОЛИ ТАМАННИЁТ' : language === 'uz_cyrl' ? 'TILAKNI YUBORISH' : 'TILAKNI YUBORISH')
                 }
               </button>
             </form>
@@ -641,7 +653,7 @@ const MainContent = ({ data }) => {
             {language === 'en' ? 'We are honored to celebrate this day surrounded by the people we love most.' : 
              language === 'ru' ? 'Для нас большая честь праздновать этот день в окружении самых близких людей.' : 
              language === 'tj' ? 'Ҷашн гирифтани ин рӯз дар иҳотаи наздиктарин инсонҳоямон барои мо боиси ифтихор аст.' : 
-             language === 'uz_cyrl' ? 'Бу кунни энг яқин инсонларимиз даврасида нишонлаш биз учун шарафдир.' : 
+             language === 'uz_cyrl' ? 'Bu kunni eng yaqin insonlarimiz davrasida nishonlash biz uchun sharafdir.' : 
              'Bu kunni eng yaqin insonlarimiz davrasida nishonlash biz uchun sharafdir.'}
           </p>
         </div>

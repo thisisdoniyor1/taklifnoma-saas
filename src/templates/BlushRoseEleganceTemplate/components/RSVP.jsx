@@ -14,17 +14,17 @@ export default function RSVP() {
   const { t, language } = useLanguage();
 
   const SECTION_HEADING = {
-    en: "Confirm Your Attendance",
-    ru: "Подтвердите ваше присутствие",
-    uz_cyrl: "Иштирокингизни тасдиқланг",
-    tj: "Иштироки худро тасдиқ кунед"
+    en: "Send a Wish",
+    ru: "Оставить пожелание",
+    uz_cyrl: "Tilaklaringizni yuboring",
+    tj: "Ирсоли таманниёт"
   };
 
   const CONFIRM_BTN = {
-    en: "Send Confirmation",
-    ru: "Отправить подтверждение",
-    uz_cyrl: "Тасдиқни юбориш",
-    tj: "Тасдиқро ирсол кунед"
+    en: "Send Wish",
+    ru: "Отправить пожелание",
+    uz_cyrl: "Tilakni yuborish",
+    tj: "Фиристодани таманниёт"
   };
 
   const heading = SECTION_HEADING[language] || SECTION_HEADING.en;
@@ -133,7 +133,7 @@ export default function RSVP() {
                 type="text" required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder={t('invitation.rsvp_name_placeholder')}
+                placeholder=""
                 style={inputStyle}
                 onFocus={e => e.target.style.borderColor = ROSE}
                 onBlur={e  => e.target.style.borderColor = 'rgba(176,84,112,0.25)'}
@@ -149,7 +149,7 @@ export default function RSVP() {
                 rows="3"
                 value={formData.wish}
                 onChange={(e) => setFormData({ ...formData, wish: e.target.value })}
-                placeholder={t('invitation.rsvp_wish_placeholder')}
+                placeholder=""
                 style={{ ...inputStyle, resize: 'none' }}
                 onFocus={e => e.target.style.borderColor = ROSE}
                 onBlur={e  => e.target.style.borderColor = 'rgba(176,84,112,0.25)'}

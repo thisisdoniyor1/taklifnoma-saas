@@ -75,7 +75,7 @@ export default function RSVP({ theme }) {
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full border-b py-4 focus:outline-none transition-all bg-transparent text-lg"
               style={{ fontFamily: "'Playfair Display', serif", borderColor: activeTheme.border || '#e5e7eb', color: activeTheme.text }} 
-              placeholder={t('invitation.rsvp_name_placeholder') || "Your full name"}
+              placeholder=""
             />
           </div>
           <div className="relative group">
@@ -88,7 +88,7 @@ export default function RSVP({ theme }) {
               onChange={(e) => setFormData({ ...formData, wish: e.target.value })}
               className="w-full border-b py-4 focus:outline-none transition-all bg-transparent resize-none text-lg"
               style={{ fontFamily: "'Playfair Display', serif", borderColor: activeTheme.border || '#e5e7eb', color: activeTheme.text }} 
-              placeholder={t('invitation.rsvp_wish_placeholder') || "Leave your message..."}
+              placeholder=""
             ></textarea>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 mb-12">

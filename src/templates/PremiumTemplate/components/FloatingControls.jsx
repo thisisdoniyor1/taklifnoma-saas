@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '../../../context/LanguageContext';
 
@@ -15,6 +15,18 @@ export default function FloatingControls() {
     }
     setIsPlaying(!isPlaying);
   };
+
+  useEffect(() => {
+    const handleOpen = () => {
+      if (audioRef.current) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+    };
+    window.addEventListener('open-invitation', handleOpen);
+    return () => window.removeEventListener('open-invitation', handleOpen);
+  }, []);
 
   return (
     <>

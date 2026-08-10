@@ -5,8 +5,8 @@ import gatesImg from '../assets/royal_gates_cover.png';
 
 const TR = {
   uz_cyrl: {
-    enter: "ОЧИШ УЧУН\nТУГМАНИ БОСИНГ",
-    title: "СИЗГА ТАКЛИФНОМА БОР"
+    enter: "OCHISH UCHUN\nTUGMANI BOSING",
+    title: "SIZGA TAKLIFNOMA BOR"
   },
   tj: {
     enter: "БАРОИ КУШОДАН ПАХШ КУНЕД",
@@ -29,6 +29,7 @@ export default function EnvelopeIntro({ onOpen, isThumbnail = false }) {
 
   const handleOpen = useCallback(() => {
     if (opening || isThumbnail) return;
+    window.dispatchEvent(new Event('open-invitation'));
     setOpening(true);
     setTimeout(onOpen, 1000);
   }, [opening, isThumbnail, onOpen]);

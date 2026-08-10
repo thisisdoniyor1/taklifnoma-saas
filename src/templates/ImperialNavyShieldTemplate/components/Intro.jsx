@@ -21,7 +21,7 @@ const Intro = ({ data, isThumbnail }) => {
   const month = dateParts[1] || '12';
   const year = dateParts[2]?.slice(-2) || '26';
 
-  const getFontFamily = (lang) => (lang === 'uz_cyrl' || lang === 'tj') ? 'Georgia, serif' : "'Playfair Display', serif";
+  const getFontFamily = () => "'Playfair Display', 'Cormorant Garamond', Georgia, serif";
 
   const maxLen = Math.max(groomName.length, brideName.length);
   const nameFontSize = isThumbnail
@@ -73,7 +73,7 @@ const Intro = ({ data, isThumbnail }) => {
             {language === 'en' ? <>You have an<br />invitation</>
               : language === 'ru' ? <>У вас есть<br />приглашение</>
               : language === 'tj' ? <>Ба шумо<br />даъватнома хаст</>
-              : language === 'uz_cyrl' ? <>Сизга<br />таклифнома бор</>
+              : language === 'uz_cyrl' ? <>Sizga<br />taklifnoma bor</>
               : <>Sizga<br />taklifnoma bor</>}
           </p>
         </div>
@@ -106,7 +106,7 @@ const Intro = ({ data, isThumbnail }) => {
             {language === 'en' ? 'Click to Open'
               : language === 'ru' ? 'Нажмите, чтобы открыть'
               : language === 'tj' ? 'Барои кушодан пахш кунед'
-              : language === 'uz_cyrl' ? 'Очиш учун босинг'
+              : language === 'uz_cyrl' ? 'Ochish uchun bosing'
               : 'Ochish uchun bosing'}
           </span>
         </div>
@@ -184,7 +184,7 @@ const Intro = ({ data, isThumbnail }) => {
               color: '#ffffff',
               textTransform: 'uppercase'
             }}>
-              {language === 'en' ? 'and' : language === 'ru' ? 'и' : language === 'tj' ? 'ва' : language === 'uz_cyrl' ? 'ва' : 'va'}
+              {language === 'en' ? 'and' : language === 'ru' ? 'и' : language === 'tj' ? 'ва' : language === 'uz_cyrl' ? 'va' : 'va'}
             </span>
             <h1 style={{ 
               fontFamily: getFontFamily(language), 
@@ -273,7 +273,7 @@ const Intro = ({ data, isThumbnail }) => {
             fontWeight: 700,
             opacity: 0.5
           }}>
-            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'ПАСТГА СУРИНГ' : 'PASTGA SURING'}
+            {language === 'en' ? 'SCROLL DOWN' : language === 'ru' ? 'ЛИСТАЙТЕ ВНИЗ' : language === 'tj' ? 'БА ПОЁН ГУЗАРЕД' : language === 'uz_cyrl' ? 'PASTGA SURING' : 'PASTGA SURING'}
           </span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
             <path d="M7 13l5 5 5-5" />

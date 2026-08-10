@@ -5,14 +5,14 @@ import { useLanguage } from '../../../context/LanguageContext';
 const WEEK_DAYS_BY_LANG = {
   en: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
   ru: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-  uz_cyrl: ['Ду', 'Се', 'Чо', 'Па', 'Жу', 'Ша', 'Як'],
+  uz_cyrl: ['Du', 'Se', 'Cho', 'Pa', 'Ju', 'Sha', 'Yak'],
   tj: ['Дш', 'Сш', 'Чш', 'Пш', 'Ҷм', 'Шн', 'Як'],
 };
 
 const JUNE_BY_LANG = {
   en: 'June',
   ru: 'Июнь',
-  uz_cyrl: 'Июнь',
+  uz_cyrl: 'Iyun',
   tj: 'Июн',
 };
 

@@ -12,10 +12,12 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { db } from '../lib/db';
 
 export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
   const { applySession } = useAuth();
+  const { t } = useLanguage();
   const [currentPassword, setCurrentPassword] = useState('');
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -25,14 +27,14 @@ export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
   const isEmailMode = mode === 'email';
   const title = isEmailMode
     ? (isAdmin ? 'Change Admin Email' : 'Change Email')
-    : (isAdmin ? 'Change Admin Password' : 'Change Password');
+    : (isAdmin ? (t('password.changeAdminTitle') || 'Change Admin Password') : (t('password.changeTitle') || 'Change Password'));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     if (!currentPassword) {
-      setError('Current password is required');
+      setError(t('password.currentPasswordRequired') || 'Current password is required');
       return;
     }
 
@@ -43,12 +45,12 @@ export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
       }
     } else {
       if (!newPassword) {
-        setError('New password is required');
+        setError(t('password.newPasswordRequired') || 'New password is required');
         return;
       }
 
       if (newPassword !== confirmPassword) {
-        setError('Passwords do not match');
+        setError(t('password.passwordsMismatch') || 'Passwords do not match');
         return;
       }
     }
@@ -129,27 +131,27 @@ export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
                 <>
                   <div>
                     <label className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
-                      New Password
+                      {t('password.newPassword') || 'New Password'}
                     </label>
                     <input
                       type="password"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                       className="w-full rounded-2xl border border-emerald-900/10 bg-emerald-50/70 px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400 focus:bg-white"
-                      placeholder="Enter a new password"
+                      placeholder={t('password.newPasswordPlaceholder') || 'Enter a new password'}
                       required
                     />
                   </div>
                   <div>
                     <label className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
-                      Confirm Password
+                      {t('password.confirmPassword') || 'Confirm Password'}
                     </label>
                     <input
                       type="password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       className="w-full rounded-2xl border border-emerald-900/10 bg-emerald-50/70 px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400 focus:bg-white"
-                      placeholder="Repeat the new password"
+                      placeholder={t('password.confirmPasswordPlaceholder') || 'Repeat the new password'}
                       required
                     />
                   </div>
@@ -158,14 +160,14 @@ export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
 
               <div>
                 <label className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
-                  Current Password
+                  {t('password.currentPassword') || 'Current Password'}
                 </label>
                 <input
                   type="password"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   className="w-full rounded-2xl border border-emerald-900/10 bg-emerald-50/70 px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400 focus:bg-white"
-                  placeholder="Enter your current password"
+                  placeholder={t('password.currentPasswordPlaceholder') || 'Enter your current password'}
                   required
                 />
               </div>
@@ -176,14 +178,14 @@ export const AccountSettingsModal = ({ mode, isAdmin, onClose, onSuccess }) => {
                   disabled={loading}
                   className="flex-1 rounded-2xl bg-emerald-900 px-5 py-3 text-[11px] font-black uppercase tracking-[2px] text-white transition-colors hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {loading ? 'Saving...' : 'Save Changes'}
+                  {loading ? (t('password.savingBtn') || 'Saving...') : (t('password.saveBtn') || 'Save Changes')}
                 </button>
                 <button
                   type="button"
                   onClick={onClose}
                   className="rounded-2xl border border-emerald-900/10 bg-white px-5 py-3 text-[11px] font-black uppercase tracking-[2px] text-emerald-900 transition-colors hover:bg-emerald-50"
                 >
-                  Cancel
+                  {t('auth.goBack') || 'Cancel'}
                 </button>
               </div>
             </form>
@@ -366,7 +368,7 @@ const AccountMenu = ({
                       className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-colors ${isDashboardVariant ? 'text-white hover:bg-white/10' : 'text-emerald-900 hover:bg-emerald-50'}`}
                     >
                       <KeyRound size={17} className={isDashboardVariant ? 'text-[#f5d989]' : 'text-emerald-700'} />
-                      Change Password
+                      {t('password.changeTitle') || 'Change Password'}
                     </button>
                   </>
                 )}

@@ -5,7 +5,7 @@ import envelopeCover from '../assets/tuscany_envelope_portrait.png';
 
 const LABELS = {
   uz: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun tugmani bosing' },
-  uz_cyrl: { invite: 'Сизга таклифнома бор', open: 'Очиш учун тугмани босинг' },
+  uz_cyrl: { invite: 'Sizga taklifnoma bor', open: 'Ochish uchun tugmani bosing' },
   tj: { invite: 'Барои шумо даъватнома аст', open: 'Барои кушодан пахш кунед' },
   ru: { invite: 'У вас есть приглашение', open: 'Нажмите, чтобы открыть' },
   en: { invite: 'You have an invitation', open: 'Click to Open' },
@@ -26,9 +26,10 @@ const Cover = ({ data, onOpen, isThumbnail }) => {
   const tr = LABELS[language] || LABELS.en;
 
   const handleClick = () => {
-    if (isThumbnail || opening) return;
+    if (opening) return;
+    window.dispatchEvent(new Event('open-invitation'));
     setOpening(true);
-    setTimeout(() => onOpen(), 800);
+    setTimeout(() => onOpen && onOpen(), 800);
   };
 
   const coverStyle = {
@@ -75,7 +76,7 @@ const Cover = ({ data, onOpen, isThumbnail }) => {
               en:      ['You have an', 'invitation'],
               ru:      ['У вас есть', 'приглашение'],
               uz:      ['Sizga', 'taklifnoma bor'],
-              uz_cyrl: ['Сизга', 'таклифнома бор'],
+              uz_cyrl: ['Sizga', 'taklifnoma bor'],
               tj:      ['Барои шумо', 'даъватнома аст'],
             };
             const [line1, line2] = splits[language] || splits.en;
@@ -167,7 +168,7 @@ const Cover = ({ data, onOpen, isThumbnail }) => {
                   en:      ['You have an', 'invitation'],
                   ru:      ['У вас есть', 'приглашение'],
                   uz:      ['Sizga', 'taklifnoma bor'],
-                  uz_cyrl: ['Сизга', 'таклифнома бор'],
+                  uz_cyrl: ['Sizga', 'taklifnoma bor'],
                   tj:      ['Барои шумо', 'даъватнома аст'],
                 };
                 const [line1, line2] = splits[language] || splits.en;
