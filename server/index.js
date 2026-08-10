@@ -744,40 +744,26 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const smtpUser = process.env.SMTP_USER || 'thedoniyor17@gmail.com';
     const smtpPass = process.env.SMTP_PASS;
     const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const smtpPort = Number(process.env.SMTP_PORT || 465);
+    const smtpPort = Number(process.env.SMTP_PORT || 587);
 
     const origin = req.headers.origin || 'https://taklifnoma.vip';
     const resetUrl = `${origin}/reset-password?token=${resetToken}`;
 
     if (smtpPass) {
-      const isGmail = smtpHost.includes('gmail') || smtpUser.endsWith('@gmail.com');
       const cleanPass = String(smtpPass).replace(/\s+/g, '');
 
-      const transporter = nodemailer.createTransport(
-        isGmail
-          ? {
-              service: 'gmail',
-              auth: {
-                user: smtpUser,
-                pass: cleanPass,
-              },
-              connectionTimeout: 10000,
-              greetingTimeout: 10000,
-              socketTimeout: 10000,
-            }
-          : {
-              host: smtpHost,
-              port: smtpPort,
-              secure: smtpPort === 465,
-              auth: {
-                user: smtpUser,
-                pass: cleanPass,
-              },
-              connectionTimeout: 10000,
-              greetingTimeout: 10000,
-              socketTimeout: 10000,
-            }
-      );
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465,
+        auth: {
+          user: smtpUser,
+          pass: cleanPass,
+        },
+        connectionTimeout: 15000,
+        greetingTimeout: 15000,
+        socketTimeout: 15000,
+      });
 
       const mailOptions = {
         from: `"Taklifnoma" <${smtpUser}>`,
