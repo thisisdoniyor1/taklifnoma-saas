@@ -272,8 +272,7 @@ const sortByNewestId = (items) => [...items].sort((a, b) => (Number(b.id) || 0) 
 
 const issueToken = (user) => jwt.sign(
   { id: user.id, email: user.email, isAdmin: Boolean(user.isAdmin) },
-  JWT_SECRET,
-  { expiresIn: '30d' }
+  JWT_SECRET
 );
 
 const userResponse = (user) => ({
