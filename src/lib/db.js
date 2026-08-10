@@ -154,6 +154,18 @@ export const db = {
     auth: false,
   }),
 
+  forgotPassword: async (email) => request('/auth/forgot-password', {
+    method: 'POST',
+    body: { email },
+    auth: false,
+  }),
+
+  resetPassword: async (token, newPassword) => request('/auth/reset-password', {
+    method: 'POST',
+    body: { token, newPassword },
+    auth: false,
+  }),
+
   updateAccountEmail: async (email, currentPassword) => request('/account/email', {
     method: 'PATCH',
     body: { email, currentPassword },

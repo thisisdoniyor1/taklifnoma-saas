@@ -8,6 +8,7 @@ import InvitationView from './pages/InvitationView'
 import Admin from './pages/Admin'
 import Auth from './pages/Auth'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Dashboard'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
@@ -86,6 +87,7 @@ function App() {
                 <Route path="/signup" element={null} />
               </Route>
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/create" element={<Navigate to="/#templates" replace />} />
               <Route path="/templates/preview/:templateId" element={<TemplatePreview />} />
               <Route path="/terms" element={<Terms />} />

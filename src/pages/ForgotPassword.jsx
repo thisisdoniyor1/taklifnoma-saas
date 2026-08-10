@@ -2,21 +2,27 @@ import React, { useState } from 'react';
 import { Mail, CheckCircle2, ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { db } from '../lib/db';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Mimic API delay
-    setTimeout(() => {
+    setErrorMsg('');
+    try {
+      await db.forgotPassword(email.trim());
       setSent(true);
+    } catch (err) {
+      setErrorMsg(err.message || 'Failed to request recovery link. Please try again.');
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -42,6 +48,11 @@ const ForgotPassword = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMsg && (
+                  <div className="p-4 rounded-2xl bg-red-50 text-red-600 text-xs font-semibold border border-red-100/60 text-center">
+                    {errorMsg}
+                  </div>
+                )}
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none group-focus-within:text-cyan-500 transition-colors text-slate-400">
                      <Mail size={18} />

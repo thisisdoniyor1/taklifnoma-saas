@@ -7,6 +7,7 @@ import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -689,6 +690,182 @@ app.post('/api/auth/login', async (req, res) => {
     return res.json({ token: issueToken(responseUser), user: responseUser });
   } catch (error) {
     return res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+app.post('/api/auth/forgot-password', async (req, res) => {
+  const email = normalizeEmail(req.body?.email);
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  try {
+    const data = await getDatabase();
+    const adminAccount = getAdminAccount(data);
+
+    let targetUser = null;
+    let isTargetAdmin = false;
+
+    if (email === normalizeEmail(adminAccount.email)) {
+      targetUser = adminAccount;
+      isTargetAdmin = true;
+    } else {
+      targetUser = data.users.find((u) => normalizeEmail(u.email) === email && !u.is_deleted);
+    }
+
+    if (!targetUser) {
+      return res.status(404).json({ error: 'No user registered with this email address' });
+    }
+
+    // Generate secure token and expiry (1 hour)
+    const resetToken = randomUUID();
+    const resetTokenExpiry = Date.now() + 3600000;
+
+    await updateDatabase((dbData) => {
+      if (isTargetAdmin) {
+        dbData.admin = {
+          ...(dbData.admin || {}),
+          reset_token: resetToken,
+          reset_token_expiry: resetTokenExpiry,
+        };
+      } else {
+        const uIdx = dbData.users.findIndex((u) => normalizeEmail(u.email) === email);
+        if (uIdx !== -1) {
+          dbData.users[uIdx] = {
+            ...dbData.users[uIdx],
+            reset_token: resetToken,
+            reset_token_expiry: resetTokenExpiry,
+          };
+        }
+      }
+    });
+
+    // Send email using SMTP
+    const smtpUser = process.env.SMTP_USER || 'thedoniyor17@gmail.com';
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+    const smtpPort = Number(process.env.SMTP_PORT || 465);
+
+    const origin = req.headers.origin || 'https://taklifnoma.vip';
+    const resetUrl = `${origin}/reset-password?token=${resetToken}`;
+
+    if (smtpPass) {
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      });
+
+      const mailOptions = {
+        from: `"Taklifnoma" <${smtpUser}>`,
+        to: email,
+        subject: 'Reset Password — Taklifnoma.vip',
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 16px; background-color: #ffffff;">
+            <div style="text-align: center; margin-bottom: 24px;">
+              <h2 style="color: #064e3b; margin: 0; font-size: 24px; font-weight: bold; letter-spacing: -0.02em;">Taklifnoma<span style="color: #c5a017;">.vip</span></h2>
+            </div>
+            <p style="font-size: 15px; color: #1f2937; line-height: 1.5;">Assalomu alaykum,</p>
+            <p style="font-size: 15px; color: #4b5563; line-height: 1.5;">You requested a password reset for your Taklifnoma account. Click the button below to recover and change your password:</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${resetUrl}" style="background-color: #064e3b; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(6,78,59,0.15);">Reset Password</a>
+            </div>
+            <p style="font-size: 13px; color: #9ca3af; line-height: 1.5;">This recovery link is valid for 1 hour. If you did not request this email, please ignore it or contact support.</p>
+            <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
+            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin: 0;">© 2026 Taklifnoma.vip. All rights reserved.</p>
+          </div>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log(`Password reset link sent to ${email}`);
+    } else {
+      console.warn(`[SMTP Warning] SMTP_PASS not set. Reset link printed to console: ${resetUrl}`);
+    }
+
+    res.json({ success: true, message: 'Recovery link sent successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message || 'Failed to send recovery link' });
+  }
+});
+
+app.post('/api/auth/reset-password', async (req, res) => {
+  const token = normalizeText(req.body?.token);
+  const newPassword = normalizeText(req.body?.newPassword);
+
+  if (!token || !newPassword) {
+    return res.status(400).json({ error: 'Token and new password are required' });
+  }
+
+  try {
+    const data = await getDatabase();
+    const adminAccount = getAdminAccount(data);
+
+    let targetUser = null;
+    let isTargetAdmin = false;
+
+    // Check if it matches admin's token
+    const adminResetToken = data?.admin?.reset_token;
+    const adminResetExpiry = data?.admin?.reset_token_expiry;
+
+    if (adminResetToken && adminResetToken === token) {
+      if (Date.now() > Number(adminResetExpiry)) {
+        return res.status(400).json({ error: 'Reset token has expired' });
+      }
+      targetUser = adminAccount;
+      isTargetAdmin = true;
+    } else {
+      // Find normal user with matching token
+      targetUser = data.users.find(
+        (u) => u.reset_token === token && !u.is_deleted
+      );
+      if (targetUser && Date.now() > Number(targetUser.reset_token_expiry)) {
+        return res.status(400).json({ error: 'Reset token has expired' });
+      }
+    }
+
+    if (!targetUser) {
+      return res.status(400).json({ error: 'Invalid or expired reset token' });
+    }
+
+    // Hash the new password
+    const password_hash = await bcrypt.hash(newPassword, 10);
+
+    await updateDatabase((dbData) => {
+      if (isTargetAdmin) {
+        dbData.admin = {
+          ...(dbData.admin || {}),
+          password_hash,
+          reset_token: null,
+          reset_token_expiry: null,
+        };
+        // Also clear plain password if stored
+        if (dbData.admin.password) {
+          delete dbData.admin.password;
+        }
+      } else {
+        const uIdx = dbData.users.findIndex((u) => u.id === targetUser.id);
+        if (uIdx !== -1) {
+          dbData.users[uIdx] = {
+            ...dbData.users[uIdx],
+            password_hash,
+            reset_token: null,
+            reset_token_expiry: null,
+          };
+          if (dbData.users[uIdx].password) {
+            delete dbData.users[uIdx].password;
+          }
+        }
+      }
+    });
+
+    res.json({ success: true, message: 'Password reset successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message || 'Failed to reset password' });
   }
 });
 
