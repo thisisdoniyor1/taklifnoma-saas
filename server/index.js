@@ -761,6 +761,9 @@ app.post('/api/auth/forgot-password', async (req, res) => {
                 user: smtpUser,
                 pass: cleanPass,
               },
+              connectionTimeout: 10000,
+              greetingTimeout: 10000,
+              socketTimeout: 10000,
             }
           : {
               host: smtpHost,
@@ -770,6 +773,9 @@ app.post('/api/auth/forgot-password', async (req, res) => {
                 user: smtpUser,
                 pass: cleanPass,
               },
+              connectionTimeout: 10000,
+              greetingTimeout: 10000,
+              socketTimeout: 10000,
             }
       );
 
