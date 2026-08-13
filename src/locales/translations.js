@@ -79,7 +79,7 @@ export const translations = {
       select: "SELECT TEMPLATE",
       price: "Price",
       free: "Free",
-      price_somoni: "149 Somoni",
+      price_somoni: "99 Somoni",
       price_somoni_old: "200 Somoni"
     },
     auth: {
@@ -519,7 +519,7 @@ export const translations = {
       rsvpSub: "ПОДТВЕРДИТЕ ПРИСУТСТВИЕ",
       confirmAttendance: "Подтвердить присутствие",
       free: "Бесплатно",
-      price_somoni: "149 сомони",
+      price_somoni: "99 сомони",
       price_somoni_old: "200 сомони"
     },
     auth: {
@@ -860,7 +860,7 @@ export const translations = {
       rsvpSub: "ISHTIROKNI TASDIQLASH",
       confirmAttendance: "Ishtirokni tasdiqlash",
       free: "Bepul",
-      price_somoni: "149 somoni",
+      price_somoni: "99 somoni",
       price_somoni_old: "200 somoni"
     },
     payment: {
@@ -1540,7 +1540,7 @@ export const translations = {
       rsvpSub: "ИШТИРОКНИ ТАСДИҚЛАШ",
       confirmAttendance: "Иштирокни тасдиқлаш",
       free: "Ройгон",
-      price_somoni: "149 сомонӣ",
+      price_somoni: "99 сомонӣ",
       price_somoni_old: "200 сомонӣ"
     },
     auth: { loginFirst: "Лутфан аввал ворид шавед", logout: "Хуруҷ", welcomeBack: "Хуш омадед", createAccount: "Рӯйхатгирӣ", loginSubtitle: "ба кабинети шахсии худ дохил шавед", signupSubtitle: "даъватномаи тӯи худ созед", fullName: "Номи пурра", emailAddress: "Почтаи электронӣ", password: "Парол", confirmPassword: "Паролро тасдиқ кунед", logIn: "Воридшавӣ", signUp: "Рӯйхатгирӣ", orContinueWith: "ё бо тариқа давом", newToApp: "Бори шумо?", alreadyHaveAccount: "Аллакай ҳисоб доред?", forgotPassword: "Паролро фаромӯш кардед?", agreeTerms: "Ман бо шартҳои", termsOfUse: "Шартҳои истифода", and: "ва", privacyPolicy: "Сиёсати маҳфият", processing: "Ҳолло кароришг...", secureLogin: "Воридшавӣи амн", invalidEmail: "Нишони электронии дурустро ворид кунед", goBack: "Ақиб" },

@@ -327,10 +327,10 @@ const Templates = () => {
           <div className="flex items-baseline gap-2.5">
             <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-900/40">{premiumTexts.priceLabel}:</span>
             <span className="text-3xl sm:text-4xl font-extrabold text-emerald-950 tracking-tight font-sans">
-              199 <span className="text-base font-bold text-gold-600">{premiumTexts.currency}</span>
+              149 <span className="text-base font-bold text-gold-600">{premiumTexts.currency}</span>
             </span>
             <span className="text-xs sm:text-sm font-semibold text-emerald-900/30 line-through">
-              300 {premiumTexts.currency}
+              250 {premiumTexts.currency}
             </span>
           </div>
 
