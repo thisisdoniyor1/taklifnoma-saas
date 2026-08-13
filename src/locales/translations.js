@@ -939,7 +939,7 @@ export const translations = {
     editor: {
       steps: { basic: "ASOSIY", timeLocation: "VAQT & JOY", design: "DIZAYN", photo: "FOTALAR", finish: "YAKUNLASH" },
       fields: { groom: "KUYOV ISMI", bride: "KELIN ISMI", welcome: "XUSH KELIBSIZ MATNI", date: "SANA", time: "VAQT", location: "MANZIL", locationUrl: "MANZIL HAVOLASI", changeTemplate: "ANDOZANI O‘ZGARTIRISH", music: "MUSIQA HAVOLASI", photo: "FOTO YUKLASH (IXTIYORIY)", photoLink: "YOKI RASM HAVOLASINI QO‘YING", coupleSection: "Juft", eventSection: "Tadbir tafsilotlari", photoMusicSection: "Musiqa" },
-      placeholders: { groom: "Doniyor", bride: "Iroda", welcome: "Qalbimizda cheksiz quvonch bilan sizni nikoh to‘yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.", date: "26.02.2027", time: "18:00", location: "Manzilni kiriting", music: "", photo: "" },
+      placeholders: { groom: "Rustam", bride: "Tahmina", welcome: "Qalbimizda cheksiz quvonch bilan sizni nikoh to‘yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.", date: "26.02.2027", time: "18:00", location: "Manzilni kiriting", music: "", photo: "" },
       errors: {
         names: "Iltimos, ismlarni to‘liq kiriting!",
         details: "Iltimos, sana va manzil ma'lumotlarini kiritishni unutmang!",

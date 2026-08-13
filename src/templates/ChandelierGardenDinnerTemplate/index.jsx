@@ -400,7 +400,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
   const { language } = useLanguage();
   const tr = COVER_LABELS[language] || COVER_LABELS.en;
   const groom = localizedName(data?.groomName || 'Rustam', language);
-  const bride = localizedName(data?.brideName || 'Sevara', language);
+  const bride = localizedName(data?.brideName || 'Tahmina', language);
 
   const [opening, setOpening] = useState(false);
 
@@ -929,7 +929,7 @@ function MainContent({ data, isThumbnail, opened }) {
             color: '#ffffff',
             margin: 0
           }}>
-            {localizedName(data?.groomName || 'Rustam', language)} & {localizedName(data?.brideName || 'Sevara', language)}
+            {localizedName(data?.groomName || 'Rustam', language)} & {localizedName(data?.brideName || 'Tahmina', language)}
           </h2>
           <p style={{
             fontFamily: "'Cormorant Garamond', serif",

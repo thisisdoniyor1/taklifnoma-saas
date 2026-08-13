@@ -656,7 +656,7 @@ const MainContent = ({ data }) => {
             color: GOLD,
             margin: 0
           }}>
-            {localizedName(data?.groomName || 'Rustam', language)} & {localizedName(data?.brideName || 'Sevara', language)}
+            {localizedName(data?.groomName || 'Rustam', language)} & {localizedName(data?.brideName || 'Tahmina', language)}
           </h2>
           <p style={{
             fontFamily: getFontFamily(language),

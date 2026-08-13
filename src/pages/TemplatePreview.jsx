@@ -182,7 +182,7 @@ const TemplatePreview = () => {
 
   const dummyData = {
     groomName: 'Rustam',
-    brideName: 'Sevara',
+    brideName: 'Tahmina',
     date: '26.02.2027',
     time: '18:00',
     location: 'Wedding house Forel, Khujand',

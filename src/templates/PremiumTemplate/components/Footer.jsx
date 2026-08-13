@@ -4,8 +4,8 @@ import { useLanguage } from '../../../context/LanguageContext';
 
 export default function Footer({ data, theme }) {
   const { t } = useLanguage();
-  const groomName = data?.groomName || 'Doniyor';
-  const brideName = data?.brideName || 'Iroda';
+  const groomName = data?.groomName || 'Rustam';
+  const brideName = data?.brideName || 'Tahmina';
   const activeTheme = theme || {
     accent: '#c9a84c',
     sectionBg: '#f8f4eb',

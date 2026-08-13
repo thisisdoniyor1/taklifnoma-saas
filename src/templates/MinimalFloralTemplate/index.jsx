@@ -313,7 +313,7 @@ export default function MinimalFloralTemplate({ data }) {
   const invRef = params['*'] || params.id || (params.slugPrefix && params.slugName ? `${params.slugPrefix}/${params.slugName}` : '');
 
   const groomName = data?.groomName || 'Rustam';
-  const brideName = data?.brideName || 'Sevara';
+  const brideName = data?.brideName || 'Tahmina';
   const { day, month, year } = parseDate(data?.date);
   const monthName = (MONTH_NAMES[language] || MONTH_NAMES.en)[month - 1];
   const location = data?.location || '';

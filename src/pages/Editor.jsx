@@ -798,7 +798,7 @@ const Editor = () => {
                   name="groomName"
                   value={invitationData.groomName}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.groom', 'Doniyor')}
+                  placeholder={copyText('editor.placeholders.groom', 'Rustam')}
                   invalid={invalidFields.includes('groomName')}
                 />
               </div>
@@ -810,7 +810,7 @@ const Editor = () => {
                   name="brideName"
                   value={invitationData.brideName}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.bride', 'Iroda')}
+                  placeholder={copyText('editor.placeholders.bride', 'Tahmina')}
                   invalid={invalidFields.includes('brideName')}
                 />
               </div>

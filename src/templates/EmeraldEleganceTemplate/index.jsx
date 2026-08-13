@@ -110,7 +110,7 @@ const EmeraldEleganceTemplate = ({ data, isThumbnail }) => {
             <div className="w-12 h-[1px] bg-[#10B981]/30" />
           </div>
           <h1 className="text-5xl md:text-6xl font-light text-white tracking-tight mt-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-            {brideName || 'Sevara'}
+            {brideName || 'Tahmina'}
           </h1>
 
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-8 h-px bg-gradient-to-r from-transparent via-[#FCD34D] to-transparent" />
