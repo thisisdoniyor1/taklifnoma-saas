@@ -802,6 +802,22 @@ function WishesAndRsvp({ data, isThumbnail }) {
       .catch(() => {});
   }, [invitationRef]);
 
+  useEffect(() => {
+    const handleNewWish = (e) => {
+      const newRsvp = e.detail;
+      if (newRsvp && newRsvp.wish && newRsvp.wish.trim()) {
+        setWishes((prev) => {
+          if (prev.some(w => w.name === newRsvp.name && w.wish === newRsvp.wish)) return prev;
+          // Filter out dummy wishes if any still exist
+          const filteredPrev = prev.filter(w => w.name !== 'John' && w.name !== 'Sardor');
+          return [newRsvp, ...filteredPrev].slice(0, 8);
+        });
+      }
+    };
+    window.addEventListener('rsvp-submitted', handleNewWish);
+    return () => window.removeEventListener('rsvp-submitted', handleNewWish);
+  }, []);
+
   const submit = async (event) => {
     event.preventDefault();
     if (!form.name.trim() || !invitationRef) return;

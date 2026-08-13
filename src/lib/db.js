@@ -125,11 +125,17 @@ export const db = {
     auth: false,
   }),
 
-  addRSVP: async (orderIdOrSlug, rsvpData) => request(`/orders/lookup/rsvps?ref=${encodeURIComponent(String(orderIdOrSlug).trim())}`, {
-    method: 'POST',
-    body: rsvpData,
-    auth: false,
-  }),
+  addRSVP: async (orderIdOrSlug, rsvpData) => {
+    const res = await request(`/orders/lookup/rsvps?ref=${encodeURIComponent(String(orderIdOrSlug).trim())}`, {
+      method: 'POST',
+      body: rsvpData,
+      auth: false,
+    });
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('rsvp-submitted', { detail: rsvpData }));
+    }
+    return res;
+  },
 
   incrementView: async (idOrSlug) => request(`/orders/lookup/view?ref=${encodeURIComponent(String(idOrSlug).trim())}`, {
     method: 'POST',

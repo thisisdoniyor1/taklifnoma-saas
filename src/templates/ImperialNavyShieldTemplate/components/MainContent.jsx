@@ -145,6 +145,20 @@ const MainContent = ({ data }) => {
     fetchWishes();
   }, [invRef]);
 
+  useEffect(() => {
+    const handleNewWish = (e) => {
+      const newRsvp = e.detail;
+      if (newRsvp && newRsvp.wish && newRsvp.wish.trim()) {
+        setWishes((prev) => {
+          if (prev.some(w => w.name === newRsvp.name && w.wish === newRsvp.wish)) return prev;
+          return [newRsvp, ...prev].slice(0, 10);
+        });
+      }
+    };
+    window.addEventListener('rsvp-submitted', handleNewWish);
+    return () => window.removeEventListener('rsvp-submitted', handleNewWish);
+  }, []);
+
   const handleRsvp = async (e) => {
     e.preventDefault();
     if (!form.name.trim()) return;

@@ -153,6 +153,27 @@ export default function MainContent({ data }) {
   const [form, setForm] = useState({ name: '', wish: '' });
   const [rsvpDone, setRsvpDone] = useState(false);
   const [rsvpLoading, setRsvpLoading] = useState(false);
+  
+  const [localWishes, setLocalWishes] = useState(() => Array.isArray(data?.rsvps) ? data.rsvps.filter(r => r.wish) : []);
+
+  useEffect(() => {
+    setLocalWishes(Array.isArray(data?.rsvps) ? data.rsvps.filter(r => r.wish) : []);
+  }, [data?.rsvps]);
+
+  useEffect(() => {
+    const handleNewWish = (e) => {
+      const newRsvp = e.detail;
+      if (newRsvp && newRsvp.wish && newRsvp.wish.trim()) {
+        setLocalWishes((prev) => {
+          if (prev.some(w => w.name === newRsvp.name && w.wish === newRsvp.wish)) return prev;
+          return [newRsvp, ...prev];
+        });
+      }
+    };
+    window.addEventListener('rsvp-submitted', handleNewWish);
+    return () => window.removeEventListener('rsvp-submitted', handleNewWish);
+  }, []);
+
   const handleRsvp = async (e) => {
     e.preventDefault();
     if (!form.name.trim()) return;
@@ -164,7 +185,7 @@ export default function MainContent({ data }) {
     setRsvpLoading(false);
   };
 
-  let wishes = Array.isArray(data?.rsvps) ? data.rsvps.filter(r => r.wish) : [];
+  let wishes = localWishes;
   const isPreview = !invRef || data?.isPreview;
   if (isPreview && wishes.length === 0) {
     wishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;

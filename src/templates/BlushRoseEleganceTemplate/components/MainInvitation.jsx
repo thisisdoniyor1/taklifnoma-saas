@@ -236,7 +236,7 @@ export default function MainInvitation({ data }) {
         </motion.div>
       </section>
 
-      <GuestWishes rsvps={data?.rsvps} />
+      <GuestWishes rsvps={data?.rsvps} isRealInvitation={data?.isRealInvitation} />
       <RSVP />
       <Footer groomName={data?.groomName} brideName={data?.brideName} />
     </motion.div>

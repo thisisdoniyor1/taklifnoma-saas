@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../../context/LanguageContext';
 
@@ -18,13 +18,13 @@ const SECTION_TITLES = {
 const DEFAULT_WISHES = {
   en: [
     { name: "John & Sarah", wish: "Wishing you a lifetime of love and happiness! May your journey together be filled with joy and sweet memories." },
-    { name: "The Miller Family", wish: "So thrilled to celebrate your special day with you! Sending you all our love and warmest blessings." },
-    { name: "Emily & David", wish: "May your love grow stronger each and every day. Cheers to a beautiful couple and a wonderful future!" }
+    { name: "The Millers", wish: "So honored to share in your special day. Wishing you a beautiful future together filled with laughter." },
+    { name: "David & Lily", wish: "May your love grow stronger with each passing year. Congratulations on this beautiful union!" }
   ],
   ru: [
-    { name: "Иван и Мария", wish: "Желаем вам бесконечной любви и огромного счастья! Пусть ваш совместный путь будет полон радости и тепла." },
-    { name: "Семья Смирновых", wish: "Очень рады разделить с вами этот особенный день! От всей души поздравляем с созданием прекрасной семьи!" },
-    { name: "Дмитрий и Елена", wish: "Пусть ваша любовь крепнет с каждым днем! Счастья, взаимопонимания и гармонии вашему дому!" }
+    { name: "Иван и Мария", wish: "Желаем вам бесконечной любви, семейного тепла и счастья! Пусть каждый день совместной жизни будет полон радости." },
+    { name: "Семья Петровых", wish: "Для нас большая честь разделить этот праздничный день с вами! Желаем вашей молодой семье гармонии и благополучия." },
+    { name: "Дмитрий и Анна", wish: "Пусть ваша любовь крепнет с каждым годом! Счастливого и долгого совместного пути!" }
   ],
   uz_cyrl: [
     { name: "Farhod va Shahnoza", wish: "Sizlarga bir umrlik baxt va muhabbat tilaymiz! Hayotingiz quvonch va go‘zal lahzalarga boy bo‘lsin." },
@@ -38,15 +38,39 @@ const DEFAULT_WISHES = {
   ]
 };
 
-export default function GuestWishes({ rsvps }) {
+const NO_WISHES_TEXT = {
+  en: "No wishes yet. Be the first to leave a wish!",
+  ru: "Пока нет пожеланий. Будьте первым, кто оставит пожелание!",
+  uz: "Hozircha tilaklar yo‘q. Birinchi bo‘lib tilak qoldiring!",
+  uz_cyrl: "Ҳозирча тилаклар йўқ. Биринчи бўлиб тилак қолдиринг!",
+  tj: "Ҳоло таманниёт нест. Аввалин шуда таманно нависед!"
+};
+
+export default function GuestWishes({ rsvps, isRealInvitation }) {
   const { language } = useLanguage();
   
-  // Get real wishes if any
-  const realWishes = Array.isArray(rsvps) ? rsvps.filter(r => r.wish && r.wish.trim()) : [];
-  
-  // Use real wishes, or fallback to localized dummy wishes so the section is always populated
+  const getRealWishes = (items) => Array.isArray(items) ? items.filter(r => r.wish && r.wish.trim()) : [];
+  const [localWishes, setLocalWishes] = useState(() => getRealWishes(rsvps));
+
+  useEffect(() => {
+    setLocalWishes(getRealWishes(rsvps));
+  }, [rsvps]);
+
+  useEffect(() => {
+    const handleNewWish = (e) => {
+      const newRsvp = e.detail;
+      if (newRsvp && newRsvp.wish && newRsvp.wish.trim()) {
+        setLocalWishes(prev => [newRsvp, ...prev]);
+      }
+    };
+    window.addEventListener('rsvp-submitted', handleNewWish);
+    return () => window.removeEventListener('rsvp-submitted', handleNewWish);
+  }, []);
+
   const currentLang = DEFAULT_WISHES[language] ? language : 'en';
-  const wishesToShow = realWishes.length > 0 ? realWishes : DEFAULT_WISHES[currentLang];
+  const wishesToShow = isRealInvitation 
+    ? localWishes 
+    : (localWishes.length > 0 ? localWishes : DEFAULT_WISHES[currentLang]);
   const sectionTitle = SECTION_TITLES[language] || SECTION_TITLES.en;
 
   return (
@@ -77,12 +101,13 @@ export default function GuestWishes({ rsvps }) {
         </div>
 
         {/* Wishes Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
-          gap: 16,
-        }}>
-          {wishesToShow.slice(0, 6).map((item, i) => (
+        {wishesToShow.length > 0 ? (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+            gap: 16,
+          }}>
+            {wishesToShow.slice(0, 6).map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 24 }}
@@ -151,6 +176,19 @@ export default function GuestWishes({ rsvps }) {
             </motion.div>
           ))}
         </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
+            <p style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: '1.25rem',
+              color: '#8b7a80',
+              fontStyle: 'italic',
+              margin: 0
+            }}>
+              {NO_WISHES_TEXT[language] || NO_WISHES_TEXT.en}
+            </p>
+          </div>
+        )}
       </motion.div>
     </section>
   );

@@ -71,6 +71,7 @@ const InvitationView = () => {
           musicUrl: backendData.music_url,
           image_url: backendData.image_url,
           status: backendData.status,
+          isRealInvitation: true,
           rsvps
         };
 

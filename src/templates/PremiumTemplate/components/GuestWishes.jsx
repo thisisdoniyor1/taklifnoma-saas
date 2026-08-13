@@ -1,11 +1,33 @@
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../../context/LanguageContext';
 
 
 export default function GuestWishes({ data, theme }) {
   const { t } = useLanguage();
-  const rsvps = data?.rsvps || [];
-  const wishesToShow = rsvps.filter(r => r.wish);
+  
+  const getRealWishes = (items) => Array.isArray(items) ? items.filter(r => r.wish && r.wish.trim()) : [];
+  const [localWishes, setLocalWishes] = useState(() => getRealWishes(data?.rsvps));
+
+  useEffect(() => {
+    setLocalWishes(getRealWishes(data?.rsvps));
+  }, [data?.rsvps]);
+
+  useEffect(() => {
+    const handleNewWish = (e) => {
+      const newRsvp = e.detail;
+      if (newRsvp && newRsvp.wish && newRsvp.wish.trim()) {
+        setLocalWishes(prev => {
+          if (prev.some(w => w.name === newRsvp.name && w.wish === newRsvp.wish)) return prev;
+          return [newRsvp, ...prev];
+        });
+      }
+    };
+    window.addEventListener('rsvp-submitted', handleNewWish);
+    return () => window.removeEventListener('rsvp-submitted', handleNewWish);
+  }, []);
+
+  const wishesToShow = localWishes;
   const activeTheme = theme || {
     accent: '#c9a84c',
     sectionBg: '#f8f4eb',
