@@ -106,7 +106,7 @@ const Auth = () => {
           size: 'large',
           type: 'standard',
           shape: 'pill',
-          width: 320,
+          width: 260,
           text: isLogin ? 'signin_with' : 'signup_with',
           locale: googleLocaleMap[language] || 'en',
         });
@@ -396,7 +396,7 @@ const Auth = () => {
           </form>
 
           {!isAdminLogin && (
-            <div className="max-w-[320px] mx-auto w-full">
+            <div className="max-w-[290px] mx-auto w-full">
               {/* Google Sign-In split-line divider */}
               <div className="mt-5 pt-2">
                 <div className="relative flex py-3 items-center">
