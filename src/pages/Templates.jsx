@@ -330,7 +330,7 @@ const Templates = () => {
               149 <span className="text-base font-bold text-gold-600">{premiumTexts.currency}</span>
             </span>
             <span className="text-xs sm:text-sm font-semibold text-emerald-900/30 line-through">
-              250 {premiumTexts.currency}
+              199 {premiumTexts.currency}
             </span>
           </div>
 
