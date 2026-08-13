@@ -1186,7 +1186,7 @@ const EditorInput = ({ label, name, value, onChange, placeholder, invalid = fals
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`h-full w-full bg-transparent text-sm font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40 ${type === 'date' || type === 'time' ? 'cursor-pointer' : ''}`}
+          className={`h-full w-full bg-transparent text-base font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40 ${type === 'date' || type === 'time' ? 'cursor-pointer' : ''}`}
         />
       </div>
     </label>
@@ -1203,7 +1203,7 @@ const EditorSelect = ({ label, name, value, onChange, options, required = false 
         name={name}
         value={value}
         onChange={onChange}
-        className="h-full w-full bg-transparent text-sm font-semibold text-emerald-950 outline-none cursor-pointer"
+        className="h-full w-full bg-transparent text-base font-semibold text-emerald-950 outline-none cursor-pointer"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -1226,7 +1226,7 @@ const EditorTextarea = ({ label, name, value, onChange, placeholder, required = 
       onChange={onChange}
       placeholder={placeholder}
       rows={5}
-      className="w-full rounded-[20px] border-[1.5px] border-emerald-900/30 bg-white px-4 py-4 text-sm font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40"
+      className="w-full rounded-[20px] border-[1.5px] border-emerald-900/30 bg-white px-4 py-4 text-base font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40"
     />
   </label>
 );

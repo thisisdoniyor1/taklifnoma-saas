@@ -780,7 +780,7 @@ const EditorField = ({ label, value, onChange, placeholder }) => (
       value={value}
       placeholder={placeholder}
       onChange={(event) => onChange(event.target.value)}
-      className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
+      className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-base font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
     />
   </div>
 );
@@ -794,7 +794,7 @@ const EditorArea = ({ label, value, onChange }) => (
       rows={4}
       value={value}
       onChange={(event) => onChange(event.target.value)}
-      className="w-full rounded-[24px] border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
+      className="w-full rounded-[24px] border border-emerald-900/10 bg-white px-4 py-3 text-base font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
     />
   </div>
 );
@@ -807,7 +807,7 @@ const EditorSelect = ({ label, value, onChange, options }) => (
     <select
       value={value}
       onChange={(event) => onChange(event.target.value)}
-      className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors focus:border-emerald-400 cursor-pointer"
+      className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-base font-semibold text-emerald-950 outline-none transition-colors focus:border-emerald-400 cursor-pointer"
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
