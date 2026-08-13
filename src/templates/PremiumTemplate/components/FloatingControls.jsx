@@ -30,7 +30,7 @@ export default function FloatingControls() {
 
   return (
     <>
-      <audio ref={audioRef} loop
+      <audio ref={audioRef} loop preload="metadata"
         src="https://archive.org/download/ShahriyarImomov/ShahriyarImomov_Tajik_01.mp3"
       />
       {/* Music - Left */}

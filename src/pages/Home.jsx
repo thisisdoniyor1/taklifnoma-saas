@@ -153,7 +153,7 @@ export default function Home() {
       {/* ═══════════════════════
           TEMPLATES
       ═══════════════════════ */}
-      <section id="templates" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 bg-white">
+      <section id="templates" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 bg-white lazy-render">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-10 sm:mb-16 flex flex-col items-center text-center">
           <Label centered>{t('templates.label')}</Label>
           <H2>{t('templates.title')}</H2>
@@ -164,7 +164,7 @@ export default function Home() {
       {/* ═══════════════════════
           FEATURES
       ═══════════════════════ */}
-      <section id="features" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 relative bg-[#F8FAF9] overflow-hidden uppercase tracking-[3px]">
+      <section id="features" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 relative bg-[#F8FAF9] overflow-hidden uppercase tracking-[3px] lazy-render">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-20 items-end mb-12 sm:mb-24">
             <div>
@@ -199,7 +199,7 @@ export default function Home() {
       {/* ═══════════════════════
           FAQ
       ═══════════════════════ */}
-      <section id="faq" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 relative bg-[#FDFCF8] overflow-hidden uppercase tracking-[3px]">
+      <section id="faq" className="scroll-mt-32 py-14 sm:py-20 lg:py-32 relative bg-[#FDFCF8] overflow-hidden uppercase tracking-[3px] lazy-render">
         {/* Luxury Backdrop Assets */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-100/30 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-[-10%] w-[600px] h-[600px] bg-gold-100/20 blur-[130px] rounded-full pointer-events-none" />

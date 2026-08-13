@@ -280,3 +280,9 @@
 .shake {
   animation: shake 0.3s cubic-bezier(.36, .07, .19, .97) both;
 }
+
+/* ── Performance Optimization Utilities ── */
+.lazy-render {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}

@@ -79,7 +79,7 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
 
   return (
     <>
-      <audio ref={audioRef} src={src} loop />
+      <audio ref={audioRef} src={src} loop preload="metadata" />
 
       <div style={{
         position: 'fixed',

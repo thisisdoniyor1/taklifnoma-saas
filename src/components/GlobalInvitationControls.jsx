@@ -70,7 +70,7 @@ const MusicPlayer = ({ musicUrl }) => {
       {youTubeVideoId ? (
         <div id="yt-player-global" className="hidden" />
       ) : (
-        <audio ref={audioRef} src={finalMusicUrl} loop className="hidden" />
+        <audio ref={audioRef} src={finalMusicUrl} loop className="hidden" preload="metadata" />
       )}
       
       <motion.button

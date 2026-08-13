@@ -51,6 +51,50 @@ const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
   reader.readAsDataURL(file);
 });
 
+const compressImage = (file, maxWidth = 1200, maxHeight = 1200, quality = 0.75) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = String(event.target?.result || '');
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('Canvas context not available'));
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+        // Export to compressed JPEG to save bandwidth and load 10x faster
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error('Failed to load image for compression'));
+    };
+    reader.onerror = () => reject(new Error('Failed to read image file'));
+  });
+};
+
 const buildInvitationUrl = (reference) => {
   if (!reference || typeof window === 'undefined') {
     return '';
@@ -170,7 +214,7 @@ const Editor = () => {
     setUploadingImage(true);
 
     try {
-      const dataUrl = await readFileAsDataUrl(file);
+      const dataUrl = await compressImage(file);
       const response = await db.uploadImage({
         dataUrl,
         fileName: file.name || 'invitation-photo.png',
