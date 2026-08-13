@@ -165,7 +165,7 @@ const TemplatePreview = () => {
     }
     updateInvitation({ templateId });
     navigate('/create/details', {
-      state: { templateId },
+      state: { templateId, startNew: true },
     });
   };
 

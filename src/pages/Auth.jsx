@@ -54,7 +54,7 @@ const Auth = () => {
   const completeAuthNavigation = useCallback(() => {
     navigate(from, {
       replace: true,
-      state: templateId ? { templateId } : undefined,
+      state: templateId ? { templateId, startNew: true } : undefined,
     });
   }, [navigate, from, templateId]);
 

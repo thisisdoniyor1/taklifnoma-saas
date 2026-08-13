@@ -127,6 +127,30 @@ const Editor = () => {
   const [copiedBankId, setCopiedBankId] = useState(null);
   const [hasSentReceipt, setHasSentReceipt] = useState(false);
 
+  // Handle new creation requests to clear out old order sessions
+  useEffect(() => {
+    if (location.state?.startNew) {
+      try {
+        sessionStorage.removeItem('editor_orderId');
+        sessionStorage.removeItem('editor_orderSlug');
+        sessionStorage.removeItem('editor_groomName');
+        sessionStorage.removeItem('editor_brideName');
+      } catch {}
+      setOrderId(null);
+      setOrderSlug(null);
+      setHasSentReceipt(false);
+      
+      // Update history state to disable startNew flag on refresh
+      navigate(location.pathname, {
+        replace: true,
+        state: {
+          ...location.state,
+          startNew: false,
+        }
+      });
+    }
+  }, [location.state, location.pathname, navigate]);
+
   // Persist orderId/orderSlug to sessionStorage so payment page survives refresh
   useEffect(() => {
     try {
