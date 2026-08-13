@@ -27,7 +27,7 @@ export const PAYMENT_CONFIG = {
       id: 'dc',
       name: 'Dushanbe City Bank',
       accountName: 'Taklifnoma VIP',
-      cardNumber: '9771 0000 0000 0000',
+      cardNumber: '9762 0001 2984 4139',
     },
     {
       id: 'alif',
