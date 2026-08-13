@@ -606,7 +606,7 @@ const Editor = () => {
           </div>
 
           {/* ── Share link row ── */}
-          <div className="px-6 py-6 border-b border-emerald-900/8 bg-[#fafdfb]">
+          <div className="px-4 py-6 sm:px-6 border-b border-emerald-900/8 bg-[#fafdfb]">
             <p className="text-[9px] font-black uppercase tracking-[3px] text-emerald-900/35 mb-3">
               {copyText('editor.payment.couple', 'Your link')}
             </p>
@@ -657,7 +657,7 @@ const Editor = () => {
           </div>
 
           {/* ── Action buttons ── */}
-          <div className="flex flex-col sm:flex-row gap-4 px-6 py-6 bg-white">
+          <div className="flex flex-col sm:flex-row gap-3 px-4 py-6 sm:px-6 bg-white">
             <motion.a
               whileHover={hasSentReceipt ? { scale: 1.02, y: -2 } : {}}
               whileTap={hasSentReceipt ? { scale: 0.97 } : {}}

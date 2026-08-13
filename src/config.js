@@ -36,8 +36,8 @@ export const PAYMENT_CONFIG = {
       cardNumber: '5058 2702 8850 9044',
     },
     {
-      id: 'ekhata',
-      name: 'Ekhata',
+      id: 'eskhata',
+      name: 'Eskhata Bank',
       accountName: 'Taklifnoma VIP',
       cardNumber: '5058 2704 3661 4407',
     },
