@@ -481,7 +481,8 @@ const Editor = () => {
   const handleWhatsAppSend = () => {
     const groom = invitationData.groomName || 'Groom';
     const bride = invitationData.brideName || 'Bride';
-    const text = `Assalomu alaykum! I have made the payment for this invitation (${groom} & ${bride}):\n${shareUrl}\n\nHere is my payment screenshot.`;
+    const templateMsg = copyText('editor.payment.whatsappMessage', `Assalomu alaykum! Men bu taklifnoma uchun to'lov qildim ({groom} & {bride}):\n{link}\n\nMana to'lov skrinshotim.`);
+    const text = templateMsg.replace('{groom}', groom).replace('{bride}', bride).replace('{link}', shareUrl);
     const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
     
     window.open(whatsappUrl, '_blank');
@@ -566,26 +567,26 @@ const Editor = () => {
                     key={bank.id}
                     className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-emerald-900/12 shadow-xs flex flex-col justify-between hover:border-emerald-700/30 transition-all"
                   >
-                    <div>
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-[10px] sm:text-[11px] font-black text-emerald-950 uppercase tracking-wide">
                           {bank.name}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm font-mono font-bold text-emerald-950 tracking-wider mb-2.5 sm:mb-3 select-all bg-emerald-50/60 py-1.5 px-2 rounded-lg sm:rounded-xl border border-emerald-900/5 text-center">
-                        {bank.cardNumber}
-                      </p>
-                    </div>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      type="button"
-                      onClick={() => handleCopyBankCard(bank.cardNumber, bank.id)}
-                      className="w-full py-2 sm:py-2.5 px-2.5 rounded-lg sm:rounded-xl border border-emerald-900/15 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 text-[9px] sm:text-[10px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-xs"
-                    >
-                      {isCopied ? <Check size={13} className="text-emerald-700" /> : <Copy size={13} />}
-                      {isCopied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyCard', 'Copy Card Number')}
-                    </motion.button>
+                      <div className="flex items-center gap-2 bg-emerald-50/60 py-2 px-3 rounded-lg sm:rounded-xl border border-emerald-900/5">
+                        <p className="flex-1 text-xs sm:text-sm font-mono font-bold text-emerald-950 tracking-wider select-all text-center">
+                          {bank.cardNumber}
+                        </p>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          type="button"
+                          onClick={() => handleCopyBankCard(bank.cardNumber, bank.id)}
+                          className="shrink-0 p-1.5 rounded-lg hover:bg-emerald-200/60 transition-colors"
+                          title={copyText('editor.payment.copyCard', 'Copy')}
+                        >
+                          {isCopied ? <Check size={16} className="text-emerald-700" /> : <Copy size={16} className="text-emerald-900/50" />}
+                        </motion.button>
+                      </div>
                   </div>
                 );
               })}
@@ -645,10 +646,10 @@ const Editor = () => {
                 </div>
                 <div>
                   <p className="text-xs font-black uppercase tracking-wider text-emerald-950 mb-1">
-                    Taklifnoma havolasi yaratildi!
+                    {copyText('editor.payment.activationPendingTitle', 'Invitation link is being activated')}
                   </p>
                   <p className="text-xs font-semibold leading-relaxed text-emerald-900/80">
-                    To‘lovni tasdiqlaganimizdan so‘ng taxminan 1 soat ichida havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.
+                    {copyText('editor.payment.activationPendingDesc', 'Your link will be activated after we confirm the payment. You will be notified about confirmation on WhatsApp.')}
                   </p>
                 </div>
               </div>
