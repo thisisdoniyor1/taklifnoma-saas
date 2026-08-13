@@ -95,8 +95,9 @@ const Auth = () => {
         });
 
         const googleLocaleMap = {
-          uz_cyrl: 'ru', // Fallback to Russian (fully supported by Google and understood in Uzbekistan)
-          tj: 'ru',      // Fallback to Russian (fully supported by Google and understood in Tajikistan)
+          uz_cyrl: 'uz',
+          tj: 'uz',
+          uz: 'tg',
           ru: 'ru',
           en: 'en'
         };
@@ -106,7 +107,7 @@ const Auth = () => {
           size: 'large',
           type: 'standard',
           shape: 'pill',
-          width: 260,
+          width: 280,
           text: isLogin ? 'signin_with' : 'signup_with',
           locale: googleLocaleMap[language] || 'en',
         });
@@ -148,11 +149,6 @@ const Auth = () => {
       if (!confirmPassword) {
         nextErrors.confirmPassword = 'Fill in this blank';
         nextShake.confirmPassword = true;
-        hasEmpty = true;
-      }
-      if (!termsAccepted) {
-        nextErrors.terms = 'Fill in this blank';
-        nextShake.terms = true;
         hasEmpty = true;
       }
     }
@@ -351,26 +347,7 @@ const Auth = () => {
               )}
             </div>
 
-            {!isLogin && !isAdminLogin && (
-              <div className="pt-1 space-y-1.5">
-                {fieldErrors.terms && (
-                  <div className="flex justify-end px-1 pb-1">
-                    <span className="text-red-400 text-[9px] font-extrabold uppercase tracking-[2px] animate-pulse">
-                      * {fieldErrors.terms}
-                    </span>
-                  </div>
-                )}
-                <label className="flex items-start gap-3 cursor-pointer group select-none">
-                  <div className={`mt-0.5 w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors ${termsAccepted ? 'bg-gold-500 border-gold-500' : fieldErrors.terms ? 'border-red-400 shake-input' : 'border-emerald-900/20 group-hover:border-gold-500'}`}>
-                    {termsAccepted && <Check size={14} className="text-white" />}
-                  </div>
-                  <input type="checkbox" className="hidden" checked={termsAccepted} onChange={(e) => { setTermsAccepted(e.target.checked); setFieldErrors({...fieldErrors, terms: ''}); }} />
-                  <span className="text-[10.5px] font-semibold text-emerald-950/80 leading-normal tracking-[0.5px] group-hover:text-emerald-950 transition-colors">
-                    {t('auth.agreeTerms') || 'I agree to the'} <Link to="/terms" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-600 hover:text-sky-700 transition-colors font-bold underline" style={{ color: '#0284c7' }}>{t('auth.termsOfUse') || 'Terms of Use'}</Link> {t('auth.and') || 'and'} <Link to="/privacy" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-sky-600 hover:text-sky-700 transition-colors font-bold underline" style={{ color: '#0284c7' }}>{t('auth.privacyPolicy') || 'Privacy Policy'}</Link>
-                  </span>
-                </label>
-              </div>
-            )}
+
 
             {isLogin && (
               <div className="flex justify-end pt-0.5">
@@ -396,7 +373,7 @@ const Auth = () => {
           </form>
 
           {!isAdminLogin && (
-            <div className="max-w-[290px] mx-auto w-full">
+            <div className="max-w-[320px] mx-auto w-full">
               {/* Google Sign-In split-line divider */}
               <div className="mt-5 pt-2">
                 <div className="relative flex py-3 items-center">
