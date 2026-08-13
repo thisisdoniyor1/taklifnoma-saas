@@ -54,6 +54,7 @@ export const translations = {
     },
     faq: {
       label: "FAQ",
+      subtitle: "Got questions? We've got answers.",
       title: "Frequently Asked Questions",
       q1: "How do I create an invitation?",
       a1: "It's simple! Click 'Create Now', sign up, choose your favorite template, and fill in your wedding details.",
@@ -498,6 +499,7 @@ export const translations = {
     },
     faq: {
       label: "FAQ",
+      subtitle: "Есть вопросы? У нас есть ответы.",
       title: "Часто задаваемые вопросы",
       q1: "Как создать приглашение?",
       a1: "Очень просто! Нажмите 'Создать', зарегистрируйтесь, выберите шаблон и заполните детали свадьбы.",
@@ -839,6 +841,7 @@ export const translations = {
     },
     faq: {
       label: "FAQ",
+      subtitle: "Savollaringiz bormi? Bizda javoblar tayyor.",
       title: "Ko‘p beriladigan savollar",
       q1: "Taklifnomani qanday yarataman?",
       a1: "Bu juda oddiy! 'Yaratish' tugmasini bosing, ro‘yxatdan o‘ting, shablonni tanlang va to‘y tafsilotlarini kiriting.",
@@ -1522,6 +1525,7 @@ export const translations = {
     },
     faq: {
       label: "FAQ",
+      subtitle: "Саволҳо доред? Мо ҷавобҳо дорем.",
       title: "Саволҳои зиёд додашаванда",
       q1: "Чӣ гуна даъватнома созам?",
       a1: "Ин хеле осон аст! Тугмаи 'Сохтан'-ро пахш кунед, сабти ном кунед, тарҳро интихоб кунед ва маълумоти тӯйро ворид кунед.",

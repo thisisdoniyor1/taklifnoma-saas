@@ -208,7 +208,7 @@ export default function Home() {
           <div className="text-center mb-12 sm:mb-20">
             <H2>{t('faq.label') || "FAQ"}</H2>
             <p className="text-emerald-900/40 font-medium lowercase tracking-normal text-base sm:text-lg max-w-xl mx-auto mt-6">
-              Got questions? We've got answers.
+              {t('faq.subtitle') || "Got questions? We've got answers."}
             </p>
           </div>
           <div className="space-y-2">
@@ -251,9 +251,6 @@ export default function Home() {
               <button onClick={() => slowScroll('templates')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.templates')}</button>
               <button onClick={() => slowScroll('features')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.features')}</button>
               <button onClick={() => slowScroll('faq')} className="text-[9px] font-bold text-left text-emerald-100/40 hover:text-emerald-400 transition-colors uppercase tracking-[1px]">{t('nav.faq') || 'FAQ'}</button>
-              <a href="https://wa.me/992985140212?text=Salom!%20Yordam%20kerak%20edi" target="_blank" rel="noreferrer" className="text-[9px] font-bold text-left text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-[1px] flex items-center gap-1.5 mt-1">
-                <span>💬 {t('nav.support') || 'Qo‘llab-quvvatlash'}</span>
-              </a>
             </div>
 
             {/* Legal Links & Socials */}

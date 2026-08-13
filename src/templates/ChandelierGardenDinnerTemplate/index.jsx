@@ -425,8 +425,8 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        justifyContent: 'flex-start', 
-        paddingTop: '28vh', 
+        justifyContent: 'center', 
+        paddingTop: '0', 
         textAlign: 'center',
         width: '100%'
       }}
@@ -598,7 +598,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
         initial={{ opacity: 0, y: 24 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 1.2, delay: opened ? 0.5 : 0 }} 
-        style={{ position: 'relative', zIndex: 10, padding: '2rem', marginTop: '8vh' }}
+        style={{ position: 'relative', zIndex: 10, padding: '2rem' }}
       >
         <motion.div key={language} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <h1 className="chandelier-script" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 4px 12px rgba(255,255,255,0.9)' }}>{bride}</h1>

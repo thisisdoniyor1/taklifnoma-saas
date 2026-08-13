@@ -231,20 +231,21 @@ const Templates = () => {
             </ErrorBoundary>
           </div>
           <div className="absolute inset-0 bg-black/5 mix-blend-overlay pointer-events-none" />
-          <motion.p
-            className="absolute bottom-3 w-full text-center text-[7px] uppercase tracking-[0.35em] font-bold z-20"
-            style={{ color: theme.accent || '#8f7740', textShadow: '0 0 10px rgba(255,255,255,0.8)' }}
-            animate={{ y: [0, -4, 0], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            ↑ {t('templates_modal.liveDemo')}
-          </motion.p>
         </div>
 
         <div
           className="p-5 border-t flex flex-col items-center text-center w-full mt-auto"
           style={{ borderColor: theme.border, backgroundColor: theme.surface || '#ffffff' }}
         >
+          {/* Live Demo text below the thumbnail image container */}
+          <motion.p
+            className="text-[7.5px] uppercase tracking-[0.3em] font-extrabold mb-3.5"
+            style={{ color: theme.accent || '#8f7740' }}
+            animate={{ y: [0, -2, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {t('templates_modal.liveDemo')}
+          </motion.p>
           <h3 className="text-sm font-extrabold tracking-tight uppercase leading-tight mb-2" style={{ color: theme.text }}>
             {template.name}
           </h3>
