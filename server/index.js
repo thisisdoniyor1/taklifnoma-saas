@@ -6,8 +6,10 @@ import jwt from 'jsonwebtoken';
 import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 import nodemailer from 'nodemailer';
+import https from 'node:https';
+import http from 'node:http';
 
 dotenv.config();
 
@@ -28,6 +30,69 @@ const DEFAULT_DB = {
   rsvps: [],
   admin: null,
 };
+
+function resolveRedirectUrl(urlStr) {
+  return new Promise((resolve) => {
+    if (!urlStr) return resolve('');
+    
+    // Only resolve if it looks like a shortened URL
+    const isShortened = /maps\.app\.goo\.gl|yandex\.ru\/maps\/\-|bit\.ly|t\.co|goo\.gl/i.test(urlStr);
+    if (!isShortened) return resolve(urlStr);
+
+    let currentUrl = urlStr;
+    let redirectCount = 0;
+    const maxRedirects = 5;
+
+    function follow(urlVal) {
+      if (redirectCount >= maxRedirects) {
+        return resolve(urlVal);
+      }
+      
+      try {
+        const parsedUrl = new URL(urlVal);
+        const client = parsedUrl.protocol === 'https:' ? https : http;
+        
+        const req = client.request(
+          urlVal,
+          {
+            method: 'GET',
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+          },
+          (res) => {
+            if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+              redirectCount++;
+              // Location header can be relative, resolve it against current URL
+              const nextUrl = new URL(res.headers.location, urlVal).toString();
+              follow(nextUrl);
+            } else {
+              resolve(urlVal);
+            }
+          }
+        );
+        
+        req.on('error', (err) => {
+          console.error('Error resolving URL redirect:', err.message);
+          resolve(urlVal);
+        });
+        
+        // Timeout handling to prevent hanging
+        req.setTimeout(4000, () => {
+          req.destroy();
+          resolve(urlVal);
+        });
+        
+        req.end();
+      } catch (err) {
+        console.error('Error parsing URL:', err.message);
+        resolve(urlVal);
+      }
+    }
+
+    follow(currentUrl);
+  });
+}
 
 const ADMIN_ACCOUNT = {
   id: 999,
@@ -1297,6 +1362,10 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
   }
 
   try {
+    if (orderData.location_url) {
+      orderData.location_url = await resolveRedirectUrl(orderData.location_url);
+    }
+
     const createdOrder = await updateDatabase(async (data) => {
       const invite_uuid = randomUUID();
       const slug = ensureUniqueSlug(
@@ -1452,6 +1521,9 @@ app.patch('/api/orders/:uuid', authenticateToken, async (req, res) => {
       const updates = buildOrderUpdatePayload(req.body || {}, {
         allowAdminFields: Boolean(req.user?.isAdmin),
       });
+      if (updates.location_url) {
+        updates.location_url = await resolveRedirectUrl(updates.location_url);
+      }
       const nextOrder = {
         ...existingOrder,
         ...updates,

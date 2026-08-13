@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../../../context/LanguageContext';
 import venueImg from '../assets/tuscany_venue.png';
 import { MapPin } from 'lucide-react';
+import { getMapUrls } from '../../../utils/mapUtils';
 
 const SAGE = '#8a9e7a';
 const DARK_SAGE = '#6b7c5a';
@@ -46,8 +47,7 @@ const Venue = ({ data }) => {
 
   const defaultLocation = tr.address || 'Wedding house Forel, Khujand';
   const location = data?.location && data.location !== 'Wedding house Forel, Khujand' ? data.location : defaultLocation;
-  const locationUrl = data?.locationUrl || `https://maps.google.com/?q=${encodeURIComponent(location)}`;
-  const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(location)}`;
+  const { googleMaps: locationUrl, appleMaps: appleMapsUrl } = getMapUrls(location, data?.locationUrl);
 
   return (
     <div style={{

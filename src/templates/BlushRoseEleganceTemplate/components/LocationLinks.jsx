@@ -4,6 +4,7 @@ import { MapPin, Navigation, Clock } from 'lucide-react';
 import { useLanguage } from '../../../context/LanguageContext';
 import palaceImg from '../assets/drawn_pink_palace.png';
 import { translateLocation } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { getMapUrls } from '../../../utils/mapUtils';
 
 const ROSE  = '#b05470';
 const PINK  = '#d4849a';
@@ -27,8 +28,7 @@ export default function LocationLinks({ location, locationUrl, time }) {
   };
   const timeLabel = timeLabels[language] || 'Time';
   const displayName = translateLocation(location, language) || t('invitation.location');
-  const googleMapsUrl = locationUrl || `https://maps.google.com/?q=${encodeURIComponent(location || displayName)}`;
-  const appleMapsUrl = `http://maps.apple.com/?q=${encodeURIComponent(location || displayName)}`;
+  const { googleMaps: googleMapsUrl, appleMaps: appleMapsUrl } = getMapUrls(displayName, locationUrl);
 
   return (
     <section style={{ padding: '5rem 1.5rem', backgroundColor: '#fff', position: 'relative' }}>

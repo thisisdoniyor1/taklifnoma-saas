@@ -6,6 +6,7 @@ import FloatingControls from '../../components/FloatingControls';
 import { useLanguage } from '../../context/LanguageContext';
 import { db } from '../../lib/db';
 import { localizedName, getWelcomeText } from '../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { getMapUrls } from '../../utils/mapUtils';
 
 import heroBg from './assets/chandelier_hero_bg.png';
 import coverTexture from './assets/sage_floral_texture.png';
@@ -742,8 +743,7 @@ function Venue({ data }) {
     ? tr.locationValue 
     : rawLocation;
 
-  const googleUrl = data?.locationUrl || `https://maps.google.com/?q=${encodeURIComponent(location)}`;
-  const appleUrl = `https://maps.apple.com/?q=${encodeURIComponent(location)}`;
+  const { googleMaps: googleUrl, appleMaps: appleUrl } = getMapUrls(location, data?.locationUrl);
 
   return (
     <section className="chandelier-section">

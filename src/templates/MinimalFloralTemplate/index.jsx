@@ -4,6 +4,7 @@ import { Calendar, ChevronDown, Clock, Heart, MapPin } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { db } from '../../lib/db';
+import { getMapUrls } from '../../utils/mapUtils';
 
 const RED = '#8f1118';
 const RED_DARK = '#4f070b';
@@ -317,9 +318,7 @@ export default function MinimalFloralTemplate({ data }) {
   const { day, month, year } = parseDate(data?.date);
   const monthName = (MONTH_NAMES[language] || MONTH_NAMES.en)[month - 1];
   const location = data?.location || '';
-  const mapQuery = encodeURIComponent(location || 'Wedding venue');
-  const googleMapUrl = data?.locationUrl || `https://maps.google.com/?q=${mapQuery}`;
-  const appleMapUrl = `http://maps.apple.com/?q=${mapQuery}`;
+  const { googleMaps: googleMapUrl, appleMaps: appleMapUrl } = getMapUrls(location, data?.locationUrl);
   const wishes = Array.isArray(data?.rsvps) ? data.rsvps.filter((item) => item?.wish) : [];
 
   const [timeLeft, setTimeLeft] = useState(() => calcTimeLeft(data?.date, data?.time));

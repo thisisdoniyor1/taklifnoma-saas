@@ -4,6 +4,7 @@ import { useLanguage } from '../../../context/LanguageContext';
 import { db } from '../../../lib/db';
 import { useParams } from 'react-router-dom';
 import { translateLocation, localizedName, getWelcomeText } from '../../WatercolorTuscanVillaTemplate/utils/transliterate';
+import { getMapUrls } from '../../../utils/mapUtils';
 
 // Asset imports
 import palaceImg from '../../../assets/royal_navy/palace.png';
@@ -414,46 +415,51 @@ const MainContent = ({ data }) => {
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: '25px', width: '100%', maxWidth: '360px', margin: '25px auto 0', justifyContent: 'center', flexWrap: 'nowrap' }}>
-            <a href={`https://maps.apple.com/?q=${encodeURIComponent(data?.location || "OQ SAROY To'yxonasi")}`} target="_blank" rel="noreferrer" style={{
-              padding: '12px 16px',
-              backgroundColor: NAVY,
-              color: '#ffffff',
-              borderRadius: '12px',
-              textDecoration: 'none',
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              boxShadow: '0 4px 15px rgba(26, 43, 75, 0.15)',
-              textAlign: 'center',
-              flex: 1,
-              maxWidth: 180,
-              whiteSpace: 'nowrap'
-            }}>
-              <MapPin size={14} style={{ marginRight: '6px', display: 'inline', verticalAlign: 'text-bottom' }} />
-              {t('invitation.apple_maps') || 'APPLE MAPS'}
-            </a>
-            <a href={data?.locationUrl || "https://maps.google.com/?q=OQ+SAROY"} target="_blank" rel="noreferrer" style={{
-              padding: '12px 16px',
-              backgroundColor: NAVY,
-              color: '#ffffff',
-              borderRadius: '12px',
-              textDecoration: 'none',
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              boxShadow: '0 4px 15px rgba(26, 43, 75, 0.15)',
-              textAlign: 'center',
-              flex: 1,
-              maxWidth: 180,
-              whiteSpace: 'nowrap'
-            }}>
-              <MapPin size={14} style={{ marginRight: '6px', display: 'inline', verticalAlign: 'text-bottom' }} />
-              {t('invitation.google_maps') || 'GOOGLE MAPS'}
-            </a>
-          </div>
+          {(() => {
+            const { googleMaps: googleUrl, appleMaps: appleUrl } = getMapUrls(data?.location || "OQ SAROY", data?.locationUrl);
+            return (
+              <div style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: '25px', width: '100%', maxWidth: '360px', margin: '25px auto 0', justifyContent: 'center', flexWrap: 'nowrap' }}>
+                <a href={appleUrl} target="_blank" rel="noreferrer" style={{
+                  padding: '12px 16px',
+                  backgroundColor: NAVY,
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 4px 15px rgba(26, 43, 75, 0.15)',
+                  textAlign: 'center',
+                  flex: 1,
+                  maxWidth: 180,
+                  whiteSpace: 'nowrap'
+                }}>
+                  <MapPin size={14} style={{ marginRight: '6px', display: 'inline', verticalAlign: 'text-bottom' }} />
+                  {t('invitation.apple_maps') || 'APPLE MAPS'}
+                </a>
+                <a href={googleUrl} target="_blank" rel="noreferrer" style={{
+                  padding: '12px 16px',
+                  backgroundColor: NAVY,
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 4px 15px rgba(26, 43, 75, 0.15)',
+                  textAlign: 'center',
+                  flex: 1,
+                  maxWidth: 180,
+                  whiteSpace: 'nowrap'
+                }}>
+                  <MapPin size={14} style={{ marginRight: '6px', display: 'inline', verticalAlign: 'text-bottom' }} />
+                  {t('invitation.google_maps') || 'GOOGLE MAPS'}
+                </a>
+              </div>
+            );
+          })()}
         </motion.div>
       </Section>
 

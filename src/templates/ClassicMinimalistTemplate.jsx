@@ -6,6 +6,7 @@ import { db } from '../lib/db';
 import FloatingControls from '../components/FloatingControls';
 import { useLanguage } from '../context/LanguageContext';
 import { getWelcomeText } from './WatercolorTuscanVillaTemplate/utils/transliterate';
+import { getMapUrls } from '../utils/mapUtils';
 
 import coverBg from './ClassicMinimalistAssets/cover_bg.png';
 import sectionBg from './ClassicMinimalistAssets/section_bg.png';
@@ -696,8 +697,7 @@ function Countdown({ data }) {
 // ─── Venue / Location ─────────────────────────────────────────────────────────
 function Venue({ data }) {
   const location = data?.location || 'Tashkent, "Oltin Saroy"';
-  const googleUrl = data?.locationUrl || `https://maps.google.com/?q=${encodeURIComponent(location)}`;
-  const appleUrl  = `https://maps.apple.com/?q=${encodeURIComponent(location)}`;
+  const { googleMaps: googleUrl, appleMaps: appleUrl } = getMapUrls(location, data?.locationUrl);
 
   return (
     <section style={{ padding: '5rem 2rem', background: LIGHT, textAlign: 'center' }}>
