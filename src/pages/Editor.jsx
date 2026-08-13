@@ -598,7 +598,7 @@ const Editor = () => {
               whileTap={{ scale: 0.97 }}
               type="button"
               onClick={handleWhatsAppSend}
-              className="w-full py-3.5 sm:py-4 px-5 rounded-xl sm:rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer"
+              className="w-full h-14 px-5 rounded-xl sm:rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-[2px] shadow-md flex items-center justify-center gap-2.5 transition-all cursor-pointer"
             >
               <MessageCircle size={18} className="fill-current" />
               <span>{copyText('editor.payment.sendWhatsApp', 'Send Screenshot via WhatsApp')}</span>
@@ -667,7 +667,7 @@ const Editor = () => {
               onClick={(e) => {
                 if (!hasSentReceipt) e.preventDefault();
               }}
-              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl border-3 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl border-2 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
                 hasSentReceipt
                   ? 'border-emerald-900/30 bg-[#f7fdf9] text-emerald-900 shadow-sm cursor-pointer'
                   : 'border-gray-200 bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed pointer-events-none'
