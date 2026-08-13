@@ -106,7 +106,7 @@ const Auth = () => {
           size: 'large',
           type: 'standard',
           shape: 'pill',
-          width: 260,
+          width: 320,
           text: isLogin ? 'signin_with' : 'signup_with',
           locale: googleLocaleMap[language] || 'en',
         });
@@ -244,10 +244,7 @@ const Auth = () => {
             >
               {/* Logo / Header */}
           <div className="text-center mb-6">
-            <h1
-              className="text-3xl font-extrabold text-emerald-950 tracking-tight mb-2"
-              style={{ fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif", fontWeight: 800 }}
-            >
+            <h1 className="text-2xl font-black text-emerald-950 uppercase tracking-[2px] mb-1.5">
               {isAdminLogin ? 'Admin Portal' : isLogin ? (t('auth.welcomeBack') || 'Qaytib keldingiz') : (t('auth.createAccount') || 'Ro‘yxatdan o‘tish')}
             </h1>
             {(isAdminLogin || isLogin) && (
@@ -399,7 +396,7 @@ const Auth = () => {
           </form>
 
           {!isAdminLogin && (
-            <div className="max-w-[260px] mx-auto">
+            <div className="max-w-[320px] mx-auto w-full">
               {/* Google Sign-In split-line divider */}
               <div className="mt-5 pt-2">
                 <div className="relative flex py-3 items-center">
