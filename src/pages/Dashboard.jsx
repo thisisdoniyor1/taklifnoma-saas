@@ -41,7 +41,8 @@ const Dashboard = () => {
   const { user } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [invitations, setInvitations] = useState([]);
+  const [activeInvitations, setActiveInvitations] = useState([]);
+  const [deletedInvitations, setDeletedInvitations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [showDeleted, setShowDeleted] = useState(false);
@@ -56,19 +57,26 @@ const Dashboard = () => {
         return;
       }
       setLoading(true);
-      const data = await db.getMyInvitations(showDeleted);
-      setInvitations(Array.isArray(data) ? data : []);
+      const [activeData, deletedData] = await Promise.all([
+        db.getMyInvitations(false),
+        db.getMyInvitations(true)
+      ]);
+      setActiveInvitations(Array.isArray(activeData) ? activeData : []);
+      setDeletedInvitations(Array.isArray(deletedData) ? deletedData : []);
     } catch (error) {
       console.error('Fetch failed:', error);
-      setInvitations([]);
+      setActiveInvitations([]);
+      setDeletedInvitations([]);
     } finally {
       setLoading(false);
     }
-  }, [user, showDeleted]);
+  }, [user]);
 
   useEffect(() => {
     fetchMyInvites();
   }, [fetchMyInvites]);
+
+  const displayedInvitations = showDeleted ? deletedInvitations : activeInvitations;
 
 
   return (
@@ -138,14 +146,14 @@ const Dashboard = () => {
                 <StatCard
                   icon={<Plus size={16} className="text-emerald-600" />}
                   label={t('dashboard.section.viewActive')}
-                  value={!showDeleted ? invitations.length : '-'}
+                  value={activeInvitations.length}
                   active={!showDeleted}
                   onClick={() => setShowDeleted(false)}
                 />
                 <StatCard
                   icon={<Trash2 size={16} className="text-emerald-600" />}
                   label={t('dashboard.section.viewDeleted')}
-                  value={showDeleted ? invitations.length : '-'}
+                  value={deletedInvitations.length}
                   active={showDeleted}
                   onClick={() => setShowDeleted(true)}
                 />
@@ -162,7 +170,7 @@ const Dashboard = () => {
                 </h2>
                 <div className="h-px flex-1 bg-gradient-to-r from-emerald-900/15 to-transparent" />
                 <span className="rounded-full border border-emerald-900/10 bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
-                  {invitations.length} {showDeleted ? 'deleted' : 'invitations'}
+                  {displayedInvitations.length} {showDeleted ? 'deleted' : 'invitations'}
                 </span>
               </div>
 
@@ -173,9 +181,9 @@ const Dashboard = () => {
                     <div className="absolute inset-0 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
                   </div>
                 </div>
-              ) : invitations.length > 0 ? (
+              ) : displayedInvitations.length > 0 ? (
                 <div className="mt-3 space-y-2">
-                  {invitations.map((invite) => (
+                  {displayedInvitations.map((invite) => (
                     <InvitationStudioCard
                       key={invite.id}
                       invite={invite}

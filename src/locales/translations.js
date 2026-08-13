@@ -763,7 +763,45 @@ export const translations = {
         deleted: "Удаленные"
       },
       section: {
-        invitationsTitle: "Список приглашений"
+        invitationsTitle: "Список приглашений",
+        signupsTitle: "Списки регистраций",
+        viewsTitle: "Статистика просмотров",
+        invitationsCount: "приглашений",
+        usersCount: "пользователей",
+        creatorsCount: "создателей",
+        viewsCount: "просмотров"
+      },
+      invitation: {
+        createdBy: "Создано",
+        unknownUser: "Неизвестный пользователь",
+        welcomeFallback: "Детали приглашения готовы к просмотру, редактированию или отправке.",
+        date: "Дата",
+        location: "Локация",
+        template: "Шаблон",
+        liveUrl: "Ссылка",
+        datePending: "Дата не указана",
+        locationPending: "Адрес не указан",
+        controls: "Управление",
+        editOpen: "Ред.",
+        editClose: "Закрыть",
+        rsvpsOpen: "Ответы",
+        rsvpsClose: "Скрыть ответы",
+        copy: "Копировать",
+        copied: "Скопировано",
+        open: "Открыть",
+        delete: "Удалить",
+        deleting: "Удаление...",
+        rsvpTitle: "Ответы гостей",
+        rsvpDesc: "Ответы по этому приглашению собраны здесь.",
+        noRsvps: "Ответов пока нет",
+        responses: "ответ(ов)",
+        attending: "Придет",
+        declined: "Не придет",
+        share: "Поделиться",
+        cancel: "Отмена",
+        yesDelete: "Да, удалить",
+        deleteConfirmTitle: "Удалить приглашение?",
+        deleteConfirmDesc: "Это действие переместит приглашение в архив удаленных."
       }
     }
   },
@@ -1105,7 +1143,12 @@ export const translations = {
         noRsvps: "Hozircha javoblar yo‘q",
         responses: "javob",
         attending: "Qatnashadi",
-        declined: "Rad etdi"
+        declined: "Rad etdi",
+        share: "Ulashish",
+        cancel: "Bekor qilish",
+        yesDelete: "Ha, o‘chirish",
+        deleteConfirmTitle: "Taklifnomani o‘chirish?",
+        deleteConfirmDesc: "Bu taklifnomani o‘chirilganlar arxiviga ko‘chiradi."
       },
       editor: {
         groom: "Kuyov ismi",
@@ -1388,7 +1431,12 @@ export const translations = {
         noRsvps: "Hozircha javoblar yo‘q",
         responses: "javob",
         attending: "Qatnashadi",
-        declined: "Rad etdi"
+        declined: "Rad etdi",
+        share: "Ulashish",
+        cancel: "Bekor qilish",
+        yesDelete: "Ha, o‘chirish",
+        deleteConfirmTitle: "Taklifnomani o‘chirish?",
+        deleteConfirmDesc: "Bu taklifnomani o‘chirilganlar arxiviga ko‘chiradi."
       },
       editor: {
         groom: "Kuyov ismi",
@@ -1739,7 +1787,12 @@ export const translations = {
         noRsvps: "Ҳоло ҷавобе нест",
         responses: "ҷавоб",
         attending: "Меояд",
-        declined: "Рад кард"
+        declined: "Рад кард",
+        share: "Фиристодан",
+        cancel: "Интихобро бекор кардан",
+        yesDelete: "Ҳа, пок кардан",
+        deleteConfirmTitle: "Даъватнома пок карда шавад?",
+        deleteConfirmDesc: "Ин даъватномаро ба бойгонии покшудаҳо интиқол медиҳад."
       },
       editor: {
         groom: "Номи домод",
