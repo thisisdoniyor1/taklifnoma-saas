@@ -374,47 +374,47 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[300] flex items-center justify-center bg-emerald-950/40 backdrop-blur-md px-4"
+              className="fixed inset-0 z-[300] flex items-center justify-center bg-emerald-950/60 backdrop-blur-md px-4"
             >
               <motion.div
-                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                initial={{ scale: 0.95, opacity: 0, y: 15 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="relative w-full max-w-[340px] overflow-hidden rounded-[32px] bg-white p-8 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] text-center border border-emerald-900/10"
+                exit={{ scale: 0.95, opacity: 0, y: 15 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                className="relative w-full max-w-[360px] overflow-hidden rounded-[32px] bg-white p-8 shadow-[0_30px_70px_-15px_rgba(4,47,38,0.35)] text-center border border-emerald-900/10"
               >
-                {/* Decorative background glow inside modal */}
+                {/* Gold/emerald decorative radial glows */}
                 <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-red-400/10 blur-[40px] pointer-events-none" />
-                <div className="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-emerald-400/10 blur-[40px] pointer-events-none" />
+                <div className="absolute -bottom-24 -left-24 w-48 h-48 rounded-full bg-gold-400/10 blur-[40px] pointer-events-none" />
 
-                <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-red-100 opacity-60 duration-1000" />
-                  <div className="absolute inset-2 rounded-full bg-red-50 border border-red-100 shadow-inner" />
-                  <Trash2 size={28} className="relative z-10 text-red-500" strokeWidth={2.5} />
+                {/* Animated trash container icon */}
+                <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50/80 border border-red-100 shadow-[inset_0_2px_4px_rgba(239,68,68,0.06)]">
+                  <div className="absolute inset-0 animate-ping rounded-full bg-red-100/40 opacity-75 duration-[1500ms]" />
+                  <Trash2 size={30} className="relative z-10 text-red-500" strokeWidth={2} />
                 </div>
 
-                <h3 className="relative z-10 text-[1.3rem] font-black tracking-tight text-emerald-950 mb-3">
+                <h3 className="text-xl font-extrabold tracking-tight text-emerald-950 mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {t('dashboard.row.deleteConfirmTitle')}
                 </h3>
-                <p className="relative z-10 text-[0.85rem] font-semibold leading-relaxed text-emerald-900/50 mb-8 px-2">
+                <p className="text-[13px] font-medium leading-relaxed text-emerald-900/60 mb-8 px-2">
                   {t('dashboard.row.deleteConfirmDesc')}
                 </p>
 
-                <div className="relative z-10 flex flex-col gap-3">
+                <div className="flex flex-col gap-3">
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleDelete}
                     disabled={deleting}
-                    className="w-full h-[3.25rem] rounded-[20px] bg-gradient-to-r from-red-500 to-red-600 text-[11px] font-black uppercase tracking-[2px] text-white shadow-lg shadow-red-500/25 transition-all disabled:opacity-60 disabled:cursor-not-allowed border border-red-500/50"
+                    className="w-full h-12 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 text-[10px] font-black uppercase tracking-[2.5px] text-white shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/25 transition-all disabled:opacity-60 disabled:cursor-not-allowed border border-red-500/20"
                   >
                     {deleting ? t('dashboard.row.deleting') : t('dashboard.row.yesDelete')}
                   </motion.button>
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setConfirmDelete(false)}
-                    className="w-full h-[3.25rem] rounded-[20px] bg-emerald-50/50 border border-emerald-900/10 text-[11px] font-black uppercase tracking-[2px] text-emerald-900 hover:bg-emerald-50 transition-all"
+                    className="w-full h-12 rounded-2xl bg-[#f4faf6] border border-emerald-900/10 text-[10px] font-black uppercase tracking-[2.5px] text-emerald-900 hover:bg-[#eaf5ee] hover:text-emerald-950 transition-all"
                   >
                     {t('dashboard.row.cancel')}
                   </motion.button>
