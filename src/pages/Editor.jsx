@@ -943,6 +943,17 @@ const Editor = () => {
                 />
               </div>
 
+              <div>
+                <EditorInput
+                  label={copyText('editor.fields.locationUrl', 'Map Link')}
+                  name="locationUrl"
+                  value={invitationData.locationUrl}
+                  onChange={handleInputChange}
+                  placeholder={copyText('editor.placeholders.locationUrl', 'Paste Google/Yandex Maps Share Link')}
+                  icon={<Link2 size={16} strokeWidth={3} />}
+                />
+              </div>
+
               <div className="block">
                 <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
                   {copyText('editor.fields.photoMusicSection', 'Music')}

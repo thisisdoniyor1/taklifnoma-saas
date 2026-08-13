@@ -613,6 +613,12 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                   value={editForm.location_name}
                   onChange={(value) => handleFieldChange('location_name', value)}
                 />
+                <EditorField
+                  label={t('dashboard.editor.locationUrl') || 'Map Link'}
+                  value={editForm.location_url}
+                  placeholder="https://maps.google.com/..."
+                  onChange={(value) => handleFieldChange('location_url', value)}
+                />
                 <div className="md:col-span-2 lg:col-span-3">
                   <EditorArea
                     label={t('dashboard.editor.welcome')}
