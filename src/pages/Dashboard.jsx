@@ -462,7 +462,7 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                   </h3>
                   {invite.created_at && (
                     <p className="mt-0.5 text-[6.5px] font-semibold text-white/40 uppercase tracking-[1.5px]">
-                      {new Date(invite.created_at).toLocaleDateString()}
+                      {formatLocalizedDateLabel(invite.created_at, language, '')}
                     </p>
                   )}
                 </div>

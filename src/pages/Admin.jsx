@@ -671,7 +671,7 @@ const InviteRow = ({ invite, onRefresh, onDeleteOptimistic }) => {
                   {invite.created_at && (
                     <div className="mt-0.5 flex items-center gap-1.5">
                       <p className="text-[6.5px] font-semibold text-white/40 uppercase tracking-[1.5px]">
-                        {new Date(invite.created_at).toLocaleDateString()}
+                        {formatLocalizedDateLabel(invite.created_at, language, '')}
                       </p>
                       <span className={`px-1.5 py-0.5 rounded-full text-[6.5px] font-black uppercase tracking-wider ${isDeactivated ? 'bg-amber-400/25 text-amber-300 border border-amber-400/40' : 'bg-emerald-400/25 text-emerald-300 border border-emerald-400/40'}`}>
                         {isDeactivated ? 'Deactivated' : 'Active'}
