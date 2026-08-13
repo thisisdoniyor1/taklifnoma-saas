@@ -118,10 +118,22 @@ const Editor = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [orderId, setOrderId] = useState(null);
-  const [orderSlug, setOrderSlug] = useState(null);
+  const [orderId, setOrderId] = useState(() => {
+    try { return sessionStorage.getItem('editor_orderId') || null; } catch { return null; }
+  });
+  const [orderSlug, setOrderSlug] = useState(() => {
+    try { return sessionStorage.getItem('editor_orderSlug') || null; } catch { return null; }
+  });
   const [copiedBankId, setCopiedBankId] = useState(null);
   const [hasSentReceipt, setHasSentReceipt] = useState(false);
+
+  // Persist orderId/orderSlug to sessionStorage so payment page survives refresh
+  useEffect(() => {
+    try {
+      if (orderId) sessionStorage.setItem('editor_orderId', orderId);
+      if (orderSlug) sessionStorage.setItem('editor_orderSlug', orderSlug);
+    } catch {}
+  }, [orderId, orderSlug]);
 
   useEffect(() => {
     if (orderId && typeof window !== 'undefined') {
@@ -440,6 +452,10 @@ const Editor = () => {
 
       setOrderId(data.invite_uuid);
       setOrderSlug(data.slug || data.invite_uuid);
+      try {
+        sessionStorage.setItem('editor_groomName', invitationData.groomName || '');
+        sessionStorage.setItem('editor_brideName', invitationData.brideName || '');
+      } catch {}
       setActiveStep(5);
     } catch (error) {
       console.error(error);
@@ -479,8 +495,8 @@ const Editor = () => {
   };
 
   const handleWhatsAppSend = () => {
-    const groom = invitationData.groomName || 'Groom';
-    const bride = invitationData.brideName || 'Bride';
+    const groom = invitationData.groomName || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('editor_groomName')) || 'Groom';
+    const bride = invitationData.brideName || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('editor_brideName')) || 'Bride';
     const templateMsg = copyText('editor.payment.whatsappMessage', `Assalomu alaykum! Men bu taklifnoma uchun to'lov qildim ({groom} & {bride}):\n{link}\n\nMana to'lov skrinshotim.`);
     const text = templateMsg.replace('{groom}', groom).replace('{bride}', bride).replace('{link}', shareUrl);
     const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
@@ -532,9 +548,9 @@ const Editor = () => {
               transition={{ delay: 0.25, duration: 0.6 }}
               className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-2 font-sans"
             >
-              {invitationData.groomName || 'Groom'}
+              {invitationData.groomName || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('editor_groomName')) || 'Groom'}
               <span className="text-gold-400 font-serif italic mx-2.5 font-normal">&</span>
-              {invitationData.brideName || 'Bride'}
+              {invitationData.brideName || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('editor_brideName')) || 'Bride'}
             </motion.h1>
 
             <motion.p
