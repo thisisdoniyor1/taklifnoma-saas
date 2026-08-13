@@ -511,17 +511,19 @@ const Editor = () => {
             </div>
 
             {/* Status label pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-400/30 backdrop-blur-md mb-4 shadow-sm"
-            >
-              <span className={`w-2 h-2 rounded-full ${hasSentReceipt ? 'bg-emerald-400' : 'bg-gold-400 animate-pulse'}`} />
-              <span className="text-[10px] font-black uppercase tracking-[3px] text-emerald-100">
-                {hasSentReceipt ? copyText('editor.payment.ready', 'Ready!') : copyText('editor.payment.stepPayment', 'Step: Payment Verification')}
-              </span>
-            </motion.div>
+            {hasSentReceipt && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-400/30 backdrop-blur-md mb-4 shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="text-[10px] font-black uppercase tracking-[3px] text-emerald-100">
+                  {copyText('editor.payment.ready', 'Ready!')}
+                </span>
+              </motion.div>
+            )}
 
             {/* Couple names — clean, high-contrast, beautiful typography */}
             <motion.h1
