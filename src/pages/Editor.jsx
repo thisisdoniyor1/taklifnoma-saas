@@ -156,8 +156,65 @@ const Editor = () => {
 
   const imageInputRef = useRef(null);
   const audioInputRef = useRef(null);
-  const hiddenDateInputRef = useRef(null);
-  const hiddenTimeInputRef = useRef(null);
+
+  const isValidDate = (dateStr) => {
+    const regex = /^\d{2}\.\d{2}\.\d{4}$/;
+    if (!regex.test(dateStr)) return false;
+    const [dStr, mStr, yStr] = dateStr.split('.');
+    const day = parseInt(dStr, 10);
+    const month = parseInt(mStr, 10);
+    const year = parseInt(yStr, 10);
+    if (month < 1 || month > 12) return false;
+    if (year < 1000 || year > 9999) return false;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    if (day < 1 || day > daysInMonth) return false;
+    return true;
+  };
+
+  const isValidTime = (timeStr) => {
+    const regex = /^\d{2}:\d{2}$/;
+    if (!regex.test(timeStr)) return false;
+    const [hStr, mStr] = timeStr.split(':');
+    const hour = parseInt(hStr, 10);
+    const minute = parseInt(mStr, 10);
+    if (hour < 0 || hour > 23) return false;
+    if (minute < 0 || minute > 59) return false;
+    return true;
+  };
+
+  const getInputValueDate = (dateStr) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('.');
+    if (parts.length === 3) {
+      const [d, m, y] = parts;
+      if (y && m && d && y.length === 4) {
+        return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+      }
+    }
+    return '';
+  };
+
+  const handleDateChangeNative = (e) => {
+    const val = e.target.value;
+    if (val) {
+      const [y, m, d] = val.split('-');
+      const formatted = `${d}.${m}.${y}`;
+      updateInvitation({ date: formatted });
+      clearInvalidField('date');
+    } else {
+      updateInvitation({ date: '' });
+    }
+  };
+
+  const handleTimeChangeNative = (e) => {
+    const val = e.target.value;
+    if (val) {
+      updateInvitation({ time: val });
+      clearInvalidField('time');
+    } else {
+      updateInvitation({ time: '' });
+    }
+  };
 
   const copyText = useCallback((key, fallback) => resolveText(t, key, fallback), [t]);
   const shareUrl = useMemo(() => buildInvitationUrl(orderSlug || orderId), [orderId, orderSlug]);
@@ -370,14 +427,12 @@ const Editor = () => {
     }
 
     const dateStr = String(invitationData.date || '').trim();
-    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (!dateStr || !dateRegex.test(dateStr)) {
+    if (!isValidDate(dateStr)) {
       invalids.push('date');
     }
 
     const timeStr = String(invitationData.time || '').trim();
-    const timeRegex = /^\d{2}:\d{2}$/;
-    if (!timeStr || !timeRegex.test(timeStr)) {
+    if (!isValidTime(timeStr)) {
       invalids.push('time');
     }
 
@@ -393,10 +448,12 @@ const Editor = () => {
     setInvalidFields(invalids);
     
     // Check if format error exists
-    const isDateInvalid = !dateStr || !dateRegex.test(dateStr);
-    const isTimeInvalid = !timeStr || !timeRegex.test(timeStr);
-    if (isDateInvalid || isTimeInvalid) {
-      setErrorMsg('Please input the date (DD.MM.YYYY) and time (HH:MM) correctly.');
+    const isDateInvalid = !isValidDate(dateStr);
+    const isTimeInvalid = !isValidTime(timeStr);
+    if (isDateInvalid) {
+      setErrorMsg(copyText('editor.errors.invalidDate', 'Iltimos, haqiqiy sanani kiriting (masalan: 26.02.2027)!'));
+    } else if (isTimeInvalid) {
+      setErrorMsg(copyText('editor.errors.invalidTime', 'Iltimos, haqiqiy vaqtni kiriting (masalan: 18:00)!'));
     } else if (invalids.every((field) => field === 'groomName' || field === 'brideName')) {
       setErrorMsg(copyText('editor.errors.names', 'Please enter both names fully!'));
     } else {
@@ -444,6 +501,7 @@ const Editor = () => {
         image_url: invitationData.image_url,
         phone: invitationData.phone,
         user_id: user.id,
+        default_lang: invitationData.defaultLang || 'uz_cyrl',
       });
 
       if (!data?.invite_uuid) {
@@ -824,49 +882,36 @@ const Editor = () => {
                   placeholder={t('invitation.speech')}
                 />
               </div>
+
+              <div className="md:col-span-2">
+                <EditorSelect
+                  label={copyText('editor.fields.defaultLang', 'Default Invitation Language')}
+                  name="defaultLang"
+                  value={invitationData.defaultLang}
+                  onChange={handleInputChange}
+                  options={[
+                    { value: 'uz_cyrl', label: 'O‘zbekcha (Lotin)' },
+                    { value: 'ru', label: 'Русский' },
+                    { value: 'en', label: 'English' },
+                    { value: 'tj', label: 'Тоҷикӣ' },
+                  ]}
+                />
+              </div>
             </div>
           </FormSection>
 
           <FormSection>
             <div className="grid gap-4 md:grid-cols-2">
-              <input
-                type="date"
-                ref={hiddenDateInputRef}
-                style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
-                onChange={(e) => {
-                  const dateVal = e.target.value;
-                  if (dateVal) {
-                    const [y, m, d] = dateVal.split('-');
-                    const formatted = `${d}.${m}.${y}`;
-                    updateInvitation({ date: formatted });
-                    clearInvalidField('date');
-                  }
-                }}
-              />
-              <input
-                type="time"
-                ref={hiddenTimeInputRef}
-                style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
-                onChange={(e) => {
-                  const timeVal = e.target.value;
-                  if (timeVal) {
-                    updateInvitation({ time: timeVal });
-                    clearInvalidField('time');
-                  }
-                }}
-              />
-
               <div className={isErrorShaking && invalidFields.includes('date') ? 'input-shake' : ''}>
                 <EditorInput
                   required
                   label={copyText('editor.fields.date', 'Date')}
                   name="date"
-                  type="text"
-                  value={invitationData.date}
-                  onChange={handleInputChange}
+                  type="date"
+                  value={getInputValueDate(invitationData.date)}
+                  onChange={handleDateChangeNative}
                   placeholder={copyText('editor.placeholders.date', '26.02.2027')}
                   icon={<Calendar size={16} strokeWidth={3} />}
-                  onIconClick={() => hiddenDateInputRef.current && hiddenDateInputRef.current.showPicker()}
                   invalid={invalidFields.includes('date')}
                 />
               </div>
@@ -876,12 +921,11 @@ const Editor = () => {
                   required
                   label={copyText('editor.fields.time', 'Time')}
                   name="time"
-                  type="text"
+                  type="time"
                   value={invitationData.time}
-                  onChange={handleInputChange}
+                  onChange={handleTimeChangeNative}
                   placeholder={copyText('editor.placeholders.time', '18:00')}
                   icon={<Clock size={16} strokeWidth={3} />}
-                  onIconClick={() => hiddenTimeInputRef.current && hiddenTimeInputRef.current.showPicker()}
                   invalid={invalidFields.includes('time')}
                 />
               </div>
@@ -1104,28 +1148,69 @@ const FormSection = ({ title = null, children }) => (
   </div>
 );
 
-const EditorInput = ({ label, name, value, onChange, placeholder, invalid = false, icon = null, onIconClick = null, type = "text", required = false }) => (
+const EditorInput = ({ label, name, value, onChange, placeholder, invalid = false, icon = null, onIconClick = null, type = "text", required = false }) => {
+  const inputRef = React.useRef(null);
+  return (
+    <label className="block">
+      <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
+        {label}{required && <span className="text-red-500 ml-1">*</span>}
+      </span>
+      <div 
+        onClick={() => {
+          if (type === 'date' || type === 'time') {
+            try { inputRef.current?.showPicker(); } catch (e) {}
+          }
+        }}
+        className={`flex min-h-[3.25rem] items-center gap-3 rounded-[18px] border-[1.5px] px-4 ${type === 'date' || type === 'time' ? 'cursor-pointer' : ''} ${invalid ? 'border-red-400 bg-red-50/70' : 'border-emerald-900/30 bg-white'}`}
+      >
+        {icon ? (
+          <span
+            onClick={(e) => {
+              if (onIconClick) {
+                e.stopPropagation();
+                onIconClick();
+              } else if (type === 'date' || type === 'time') {
+                e.stopPropagation();
+                try { inputRef.current?.showPicker(); } catch (err) {}
+              }
+            }}
+            className="text-emerald-800 cursor-pointer hover:scale-110 active:scale-95 transition-transform shrink-0 flex items-center justify-center"
+          >
+            {icon}
+          </span>
+        ) : null}
+        <input
+          ref={inputRef}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className={`h-full w-full bg-transparent text-sm font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40 ${type === 'date' || type === 'time' ? 'cursor-pointer' : ''}`}
+        />
+      </div>
+    </label>
+  );
+};
+
+const EditorSelect = ({ label, name, value, onChange, options, required = false }) => (
   <label className="block">
     <span className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-950">
       {label}{required && <span className="text-red-500 ml-1">*</span>}
     </span>
-    <div className={`flex min-h-[3.25rem] items-center gap-3 rounded-[18px] border-[1.5px] px-4 ${invalid ? 'border-red-400 bg-red-50/70' : 'border-emerald-900/30 bg-white'}`}>
-      {icon ? (
-        <span
-          onClick={onIconClick}
-          className={onIconClick ? "text-emerald-800 cursor-pointer hover:scale-110 active:scale-95 transition-transform shrink-0 flex items-center justify-center" : "text-emerald-800 shrink-0 flex items-center justify-center"}
-        >
-          {icon}
-        </span>
-      ) : null}
-      <input
-        type={type}
+    <div className="flex min-h-[3.25rem] items-center gap-3 rounded-[18px] border-[1.5px] border-emerald-900/30 bg-white px-4">
+      <select
         name={name}
         value={value}
         onChange={onChange}
-        placeholder={placeholder}
-        className="h-full w-full bg-transparent text-sm font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40"
-      />
+        className="h-full w-full bg-transparent text-sm font-semibold text-emerald-950 outline-none cursor-pointer"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
     </div>
   </label>
 );

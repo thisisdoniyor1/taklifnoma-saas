@@ -35,6 +35,7 @@ const buildEditForm = (invite) => ({
   image_url: invite.image_url || '',
   music_url: invite.music_url || '',
   phone: invite.phone || '',
+  default_lang: invite.default_lang || 'uz_cyrl',
 });
 
 const Dashboard = () => {
@@ -620,6 +621,20 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                   />
                 </div>
 
+                <div className="md:col-span-2 lg:col-span-3">
+                  <EditorSelect
+                    label={t('editor.fields.defaultLang') || 'Default Invitation Language'}
+                    value={editForm.default_lang}
+                    onChange={(value) => handleFieldChange('default_lang', value)}
+                    options={[
+                      { value: 'uz_cyrl', label: 'O‘zbekcha' },
+                      { value: 'ru', label: 'Русский' },
+                      { value: 'en', label: 'English' },
+                      { value: 'tj', label: 'Тоҷикӣ' },
+                    ]}
+                  />
+                </div>
+
                 <div className="flex flex-wrap gap-2.5 md:col-span-2 lg:col-span-3">
                   <button
                     onClick={handleSave}
@@ -781,6 +796,25 @@ const EditorArea = ({ label, value, onChange }) => (
       onChange={(event) => onChange(event.target.value)}
       className="w-full rounded-[24px] border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors placeholder:text-emerald-900/25 focus:border-emerald-400"
     />
+  </div>
+);
+
+const EditorSelect = ({ label, value, onChange, options }) => (
+  <div>
+    <label className="mb-2 block text-[10px] font-black uppercase tracking-[2px] text-emerald-900/45">
+      {label}
+    </label>
+    <select
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      className="w-full rounded-2xl border border-emerald-900/10 bg-white px-4 py-3 text-sm font-semibold text-emerald-950 outline-none transition-colors focus:border-emerald-400 cursor-pointer"
+    >
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
   </div>
 );
 

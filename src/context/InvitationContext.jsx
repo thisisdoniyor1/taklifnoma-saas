@@ -27,6 +27,7 @@ export const InvitationProvider = ({ children }) => {
     welcomeText: '',
     rsvpStatus: false,
     phone: '',
+    defaultLang: 'uz_cyrl',
   });
 
   const updateInvitation = useCallback((newData) => {
@@ -49,6 +50,7 @@ export const InvitationProvider = ({ children }) => {
       welcomeText: '',
       rsvpStatus: false,
       phone: '',
+      defaultLang: 'uz_cyrl',
     });
   }, []);
 

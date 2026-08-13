@@ -7,12 +7,36 @@ import { Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useLanguage } from '../context/LanguageContext';
 
+const translateText = async (text, targetLang) => {
+  if (!text || !text.trim()) return '';
+  let tl = 'uz';
+  if (targetLang === 'ru') tl = 'ru';
+  else if (targetLang === 'en') tl = 'en';
+  else if (targetLang === 'tj') tl = 'tg';
+  else if (targetLang === 'uz_cyrl') tl = 'uz';
+
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data && data[0] && data[0][0] && data[0][0][0]) {
+      return data[0].map(x => x[0]).join('');
+    }
+  } catch (e) {
+    console.error('Translation failed:', e);
+  }
+  return text;
+};
+
 const InvitationView = () => {
   const params = useParams();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('Initializing...');
+  const [translatedWelcome, setTranslatedWelcome] = useState({});
+  const [currentWelcomeText, setCurrentWelcomeText] = useState('');
+
   const invitationRef = useMemo(() => {
     const wildcardId = String(params['*'] || '').trim();
     const directId = String(params.id || '').trim();
@@ -71,6 +95,7 @@ const InvitationView = () => {
           musicUrl: backendData.music_url,
           image_url: backendData.image_url,
           status: backendData.status,
+          defaultLang: backendData.default_lang || 'uz_cyrl',
           isRealInvitation: true,
           rsvps
         };
@@ -78,6 +103,10 @@ const InvitationView = () => {
         if (!isMounted) return;
 
         setData(transformedData);
+
+        if (backendData.default_lang) {
+          setLanguage(backendData.default_lang);
+        }
 
         // Background view increment
         db.incrementView(cleanId).catch(() => { });
@@ -111,6 +140,27 @@ const InvitationView = () => {
       clearTimeout(timeoutId);
     };
   }, [invitationRef]);
+
+  useEffect(() => {
+    if (!data?.welcomeText) return;
+    
+    if (translatedWelcome[language]) {
+      setCurrentWelcomeText(translatedWelcome[language]);
+      return;
+    }
+
+    let isMounted = true;
+    const loadTranslation = async () => {
+      const translated = await translateText(data.welcomeText, language);
+      if (isMounted) {
+        setTranslatedWelcome(prev => ({ ...prev, [language]: translated }));
+        setCurrentWelcomeText(translated);
+      }
+    };
+
+    loadTranslation();
+    return () => { isMounted = false; };
+  }, [language, data?.welcomeText, translatedWelcome]);
 
   if (loading) {
     return (
@@ -211,7 +261,13 @@ const InvitationView = () => {
   return (
     <div style={{ width: '100%', minHeight: '100vh', margin: '0 auto', overflowX: 'hidden' }}>
       <ErrorBoundary>
-        <TemplateManager templateId={data.templateId} data={data} />
+        <TemplateManager
+          templateId={data.templateId}
+          data={{
+            ...data,
+            welcomeText: currentWelcomeText || data.welcomeText
+          }}
+        />
       </ErrorBoundary>
     </div>
   );

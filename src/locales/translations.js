@@ -143,13 +143,15 @@ export const translations = {
     },
     editor: {
       steps: { basic: "BASIC", timeLocation: "TIME & VENUE", design: "DESIGN", photo: "PHOTOS", finish: "FINISH" },
-      fields: { groom: "GROOM'S NAME", bride: "BRIDE'S NAME", welcome: "WELCOME TEXT", date: "DATE", time: "TIME", location: "ADDRESS", locationUrl: "LOCATION LINK", changeTemplate: "CHANGE TEMPLATE", music: "MUSIC LINK (YOUTUBE/CLOUD) (OPTIONAL)", photo: "UPLOAD PHOTO (OPTIONAL)", photoLink: "OR PASTE IMAGE URL", coupleSection: "Couple", eventSection: "Event Details", photoMusicSection: "Music" },
+      fields: { groom: "GROOM'S NAME", bride: "BRIDE'S NAME", welcome: "WELCOME TEXT", date: "DATE", time: "TIME", location: "ADDRESS", locationUrl: "LOCATION LINK", changeTemplate: "CHANGE TEMPLATE", music: "MUSIC LINK (YOUTUBE/CLOUD) (OPTIONAL)", photo: "UPLOAD PHOTO (OPTIONAL)", photoLink: "OR PASTE IMAGE URL", coupleSection: "Couple", eventSection: "Event Details", photoMusicSection: "Music", defaultLang: "Default Invitation Language" },
       placeholders: { groom: "", bride: "", welcome: "We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.", date: "26.02.2027", time: "18:00", location: "Enter the address", music: "ENTER MUSIC LINK", photo: "Paste a direct image URL" },
       errors: {
         names: "Please enter both names fully!",
         details: "Please don't forget the date and venue details!",
         photoType: "Please choose an image file.",
-        photoUpload: "Photo upload failed. Please try again."
+        photoUpload: "Photo upload failed. Please try again.",
+        invalidDate: "Please enter a valid date (e.g. 26.02.2027)!",
+        invalidTime: "Please enter a valid time (e.g. 18:00)!"
       },
       nav: { back: "BACK", next: "CONTINUE" },
       preview: { title: "Live Preview" },
@@ -584,13 +586,15 @@ export const translations = {
     },
     editor: {
       steps: { basic: "ОСНОВНОЕ", timeLocation: "ВРЕМЯ И МЕСТО", design: "ДИЗАЙН", photo: "ФОТО", finish: "ЗАВЕРШЕНИЕ" },
-      fields: { groom: "ИМЯ ЖЕНИХА", bride: "ИМЯ НЕВЕСТЫ", welcome: "ПРИВЕТСТВЕННЫЙ ТЕКСТ", date: "ДАТА", time: "ВРЕМЯ", location: "АДРЕС", locationUrl: "ССЫЛКА НА МЕСТО", changeTemplate: "ИЗМЕНИТЬ ШАБЛОН", music: "ССЫЛКА НА МУЗЫКУ", photo: "ЗАГРУЗИТЬ ФОТО (НЕОБЯЗАТЕЛЬНО)", photoLink: "ИЛИ ВСТАВЬТЕ ССЫЛКУ НА ИЗОБРАЖЕНИЕ", coupleSection: "Пара", eventSection: "Детали события", photoMusicSection: "Музыка" },
+      fields: { groom: "ИМЯ ЖЕНИХА", bride: "ИМЯ НЕВЕСТЫ", welcome: "ПРИВЕТСТВЕННЫЙ ТЕКСТ", date: "ДАТА", time: "ВРЕМЯ", location: "АДРЕС", locationUrl: "ССЫЛКА НА МЕСТО", changeTemplate: "ИЗМЕНИТЬ ШАБЛОН", music: "ССЫЛКА НА МУЗЫКУ", photo: "ЗАГРУЗИТЬ ФОТО (НЕОБЯЗАТЕЛЬНО)", photoLink: "ИЛИ ВСТАВЬТЕ ССЫЛКУ НА ИЗОБРАЖЕНИЕ", coupleSection: "Пара", eventSection: "Детали события", photoMusicSection: "Музыка", defaultLang: "Язык приглашения по умолчанию" },
       placeholders: { groom: "", bride: "", welcome: "С радостью приглашаем вас разделить с нами счастье этого особенного дня. Ваше присутствие сделает наш праздник незабываемым.", date: "26.02.2027", time: "18:00", location: "Введите адрес", music: "Ссылка на музыку (опционально)", photo: "Вставьте прямую ссылку на изображение" },
       errors: {
         names: "Пожалуйста, введите оба имени полностью!",
         details: "Пожалуйста, не забудьте указать дату и место проведения!",
         photoType: "Пожалуйста, выберите файл изображения.",
-        photoUpload: "Не удалось загрузить фото. Попробуйте еще раз."
+        photoUpload: "Не удалось загрузить фото. Попробуйте еще раз.",
+        invalidDate: "Пожалуйста, введите корректную дату (например: 26.02.2027)!",
+        invalidTime: "Пожалуйста, введите корректное время (например: 18:00)!"
       },
       nav: { back: "НАЗАД", next: "ПРОДОЛЖИТЬ" },
       preview: { title: "Предпросмотр" },
@@ -941,13 +945,15 @@ export const translations = {
     },
     editor: {
       steps: { basic: "ASOSIY", timeLocation: "VAQT & JOY", design: "DIZAYN", photo: "FOTALAR", finish: "YAKUNLASH" },
-      fields: { groom: "KUYOV ISMI", bride: "KELIN ISMI", welcome: "XUSH KELIBSIZ MATNI", date: "SANA", time: "VAQT", location: "MANZIL", locationUrl: "MANZIL HAVOLASI", changeTemplate: "ANDOZANI O‘ZGARTIRISH", music: "MUSIQA HAVOLASI", photo: "FOTO YUKLASH (IXTIYORIY)", photoLink: "YOKI RASM HAVOLASINI QO‘YING", coupleSection: "Juft", eventSection: "Tadbir tafsilotlari", photoMusicSection: "Musiqa" },
+      fields: { groom: "KUYOV ISMI", bride: "KELIN ISMI", welcome: "XUSH KELIBSIZ MATNI", date: "SANA", time: "VAQT", location: "MANZIL", locationUrl: "MANZIL HAVOLASI", changeTemplate: "ANDOZANI O‘ZGARTIRISH", music: "MUSIQA HAVOLASI", photo: "FOTO YUKLASH (IXTIYORIY)", photoLink: "YOKI RASM HAVOLASINI QO‘YING", coupleSection: "Juft", eventSection: "Tadbir tafsilotlari", photoMusicSection: "Musiqa", defaultLang: "Mehmonlar uchun taklifnoma tili" },
       placeholders: { groom: "Rustam", bride: "Tahmina", welcome: "Qalbimizda cheksiz quvonch bilan sizni nikoh to‘yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.", date: "26.02.2027", time: "18:00", location: "Manzilni kiriting", music: "", photo: "" },
       errors: {
         names: "Iltimos, ismlarni to‘liq kiriting!",
         details: "Iltimos, sana va manzil ma'lumotlarini kiritishni unutmang!",
         photoType: "Iltimos, rasm faylini tanlang.",
-        photoUpload: "Foto yuklanmadi. Yana urinib ko‘ring."
+        photoUpload: "Foto yuklanmadi. Yana urinib ko‘ring.",
+        invalidDate: "Iltimos, haqiqiy sanani kiriting (masalan: 26.02.2027)!",
+        invalidTime: "Iltimos, haqiqiy vaqtni kiriting (masalan: 18:00)!"
       },
       nav: { back: "ORQAGA", next: "DAVOM ETISH" },
       preview: { title: "Jonli Ko‘rinish" },
@@ -1553,13 +1559,15 @@ export const translations = {
     auth: { loginFirst: "Лутфан аввал ворид шавед", logout: "Хуруҷ", welcomeBack: "Хуш омадед", createAccount: "Рӯйхатгирӣ", loginSubtitle: "ба кабинети шахсии худ дохил шавед", signupSubtitle: "даъватномаи тӯи худ созед", fullName: "Номи пурра", emailAddress: "Почтаи электронӣ", password: "Парол", confirmPassword: "Паролро тасдиқ кунед", logIn: "Воридшавӣ", signUp: "Рӯйхатгирӣ", orContinueWith: "ё бо тариқа давом", newToApp: "Бори шумо?", alreadyHaveAccount: "Аллакай ҳисоб доред?", forgotPassword: "Паролро фаромӯш кардед?", agreeTerms: "Ман бо шартҳои", termsOfUse: "Шартҳои истифода", and: "ва", privacyPolicy: "Сиёсати маҳфият", processing: "Ҳолло кароришг...", secureLogin: "Воридшавӣи амн", invalidEmail: "Нишони электронии дурустро ворид кунед", goBack: "Ақиб" },
     editor: {
       steps: { basic: "АСОСӢ", timeLocation: "ВАҚТ ВА ҶОЙ", design: "ТАРҲ", photo: "АКСҲО", finish: "АНҶОМ" },
-      fields: { groom: "НОМИ ДОМОД", bride: "НОМИ АРӮС", welcome: "МАТНИ ХУШОМАДЕД", date: "САНА", time: "ВАҚТ", location: "СУРОҒА", locationUrl: "ИСТИНОДИ МАКОН", changeTemplate: "ТАРҲРО ИВАЗ КУНЕД", music: "ПАЙВАНДИ МУСИҚӢ", photo: "БОРКУНИИ АКС (ИХТИЁРӢ)", photoLink: "Ё ИСТИНОДИ АКСРО ГУЗОРЕД", coupleSection: "Ҷуфт", eventSection: "Тафсилоти тадбир", photoMusicSection: "Мусиқӣ" },
+      fields: { groom: "НОМИ ДОМОД", bride: "НОМИ АРӮС", welcome: "МАТНИ ХУШОМАДЕД", date: "САНА", time: "ВАҚТ", location: "СУРОҒА", locationUrl: "ИСТИНОДИ МАКОН", changeTemplate: "ТАРҲРО ИВАЗ КУНЕД", music: "ПАЙВАНДИ МУСИҚӢ", photo: "БОРКУНИИ АКС (ИХТИЁРӢ)", photoLink: "Ё ИСТИНОДИ АКССРО ГУЗОРЕД", coupleSection: "Ҷуфт", eventSection: "Тафсилоти тадбир", photoMusicSection: "Мусиқӣ", defaultLang: "Забони пешфарзи даъватнома" },
       placeholders: { groom: "", bride: "", welcome: "Бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. Ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад.", date: "26.02.2027", time: "18:00", location: "Суроғаро ворид кунед", music: "Пайванди мусиқии факултативӣ", photo: "Истиноди мустақими аксро гузоред" },
       errors: {
         names: "Лутфан ҳарду номро пурра ворид кунед!",
         details: "Лутфан сана ва тафсилоти макони баргузориро фаромӯш накунед!",
         photoType: "Лутфан файли аксро интихоб кунед.",
-        photoUpload: "Боркунии акс ноком шуд. Боз кӯшиш кунед."
+        photoUpload: "Боркунии акс ноком шуд. Боз кӯшиш кунед.",
+        invalidDate: "Лутфан, санаи дурустро ворид кунед (масалан: 26.02.2027)!",
+        invalidTime: "Лутфан, вақти дурустро ворид кунед (масалан: 18:00)!"
       },
       nav: { back: "АҚИБ", next: "ИДОМА ДИҲЕД" },
       preview: { title: "Пешнамоиш" },

@@ -501,6 +501,7 @@ const buildOrderCreatePayload = (body) => ({
   image_url: normalizeOptionalText(body.image_url),
   phone: normalizeOptionalText(body.phone),
   payment_status: normalizeOptionalText(body.payment_status, 'pending'),
+  default_lang: normalizeOptionalText(body.default_lang, 'uz_cyrl'),
 });
 
 const buildOrderUpdatePayload = (body, { allowAdminFields = false } = {}) => {
@@ -517,6 +518,7 @@ const buildOrderUpdatePayload = (body, { allowAdminFields = false } = {}) => {
     'music_url',
     'image_url',
     'phone',
+    'default_lang',
   ];
 
   if (allowAdminFields) {
