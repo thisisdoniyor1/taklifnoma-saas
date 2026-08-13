@@ -33,13 +33,13 @@ export const PAYMENT_CONFIG = {
       id: 'alif',
       name: 'Alif Mobi',
       accountName: 'Taklifnoma VIP',
-      cardNumber: '5058 0000 0000 0000',
+      cardNumber: '5058 2702 8850 9044',
     },
     {
-      id: 'kortimilli',
-      name: 'Korti Milli',
+      id: 'ekhata',
+      name: 'Ekhata',
       accountName: 'Taklifnoma VIP',
-      cardNumber: '9771 1111 2222 3333',
+      cardNumber: '5058 2704 3661 4407',
     },
   ],
 };
