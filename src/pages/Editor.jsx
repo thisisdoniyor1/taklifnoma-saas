@@ -615,7 +615,8 @@ const Editor = () => {
                 readOnly
                 value={hasSentReceipt ? shareUrl : ''}
                 placeholder=""
-                className={`flex-1 h-14 rounded-2xl border-2 px-4 text-xs sm:text-sm font-semibold outline-none shadow-sm transition-all ${
+                style={{ height: 56, minHeight: 56 }}
+                className={`flex-1 rounded-2xl border-2 px-4 text-xs sm:text-sm font-semibold outline-none shadow-sm transition-all ${
                   hasSentReceipt
                     ? 'border-emerald-900/20 bg-white text-emerald-950'
                     : 'border-gray-200 bg-gray-100 text-gray-400 select-none cursor-not-allowed'
@@ -627,12 +628,12 @@ const Editor = () => {
                 type="button"
                 disabled={!hasSentReceipt}
                 onClick={handleCopy}
-                className={`inline-flex h-14 items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] transition-colors shrink-0 ${
+                className={`inline-flex items-center justify-center gap-2 rounded-2xl px-6 text-[10px] font-black uppercase tracking-[2px] transition-colors shrink-0 ${
                   hasSentReceipt
                     ? 'text-white shadow-md cursor-pointer'
                     : 'text-gray-400 bg-gray-200 cursor-not-allowed shadow-none border border-gray-300/40 opacity-60'
                 }`}
-                style={hasSentReceipt ? { backgroundColor: copied ? '#059669' : '#064e3b' } : {}}
+                style={{ height: 56, minHeight: 56, ...(hasSentReceipt ? { backgroundColor: copied ? '#059669' : '#064e3b' } : {}) }}
               >
                 {hasSentReceipt ? (copied ? <Check size={15} /> : <Copy size={15} />) : <Lock size={15} />}
                 {copied ? copyText('editor.payment.copied', 'Copied!') : copyText('editor.payment.copyBtn', 'Copy link')}
@@ -667,11 +668,12 @@ const Editor = () => {
               onClick={(e) => {
                 if (!hasSentReceipt) e.preventDefault();
               }}
-              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl border-2 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+              className={`flex-1 inline-flex items-center justify-center gap-2.5 rounded-2xl border-2 text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
                 hasSentReceipt
                   ? 'border-emerald-900/30 bg-[#f7fdf9] text-emerald-900 shadow-sm cursor-pointer'
                   : 'border-gray-200 bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed pointer-events-none'
               }`}
+              style={{ height: 56, minHeight: 56 }}
             >
               {hasSentReceipt ? (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -691,12 +693,12 @@ const Editor = () => {
               onClick={() => {
                 if (hasSentReceipt) navigate('/dashboard');
               }}
-              className={`flex-1 inline-flex h-14 items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
+              className={`flex-1 inline-flex items-center justify-center gap-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[2.5px] transition-all ${
                 hasSentReceipt
                   ? 'text-white shadow-lg cursor-pointer'
                   : 'text-gray-400 bg-gray-200 opacity-50 cursor-not-allowed'
               }`}
-              style={hasSentReceipt ? { background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' } : {}}
+              style={{ height: 56, minHeight: 56, ...(hasSentReceipt ? { background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)' } : {}) }}
             >
               {hasSentReceipt ? (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
