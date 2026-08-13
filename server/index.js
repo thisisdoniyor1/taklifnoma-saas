@@ -1597,6 +1597,72 @@ app.post('/api/orders/:idOrSlug/view', async (req, res) => {
   }
 });
 
+const serveSharePreview = async (idOrSlug, res) => {
+  try {
+    const cleanId = String(idOrSlug).trim();
+    
+    // Default site values
+    let title = "Taklifnoma.vip | Professional Wedding Invitations";
+    let description = "Online taklifnomalar yaratish xizmati. O'z baxtli kuningiz taklifnomasini ulashing.";
+    let imageUrl = "https://taklifnoma.vip/share-cover.png";
+    
+    if (cleanId !== '_root' && !['login', 'signup', 'forgot-password', 'reset-password', 'create', 'templates', 'terms', 'privacy', 'dashboard', 'admin', 'DI-2406'].includes(cleanId)) {
+      const data = await getDatabase();
+      const order = findOrder(data.orders, cleanId);
+      
+      if (order && !order.is_deleted) {
+        title = `Taklifnoma | ${order.groom_name} & ${order.bride_name}`;
+        description = order.welcome_text || "Bizning baxtli kunimizga xush kelibsiz! Taklifnomani ko'rish uchun havolani bosing.";
+        
+        if (order.image_url) {
+          if (order.image_url.startsWith('http://') || order.image_url.startsWith('https://')) {
+            imageUrl = order.image_url;
+          } else {
+            const cleanUrlPath = order.image_url.startsWith('/') ? order.image_url : `/${order.image_url}`;
+            imageUrl = `https://taklifnoma.vip${cleanUrlPath}`;
+          }
+        }
+      }
+    }
+    
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>${title}</title>
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:image" content="${imageUrl}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Taklifnoma.vip">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${title}">
+  <meta name="twitter:description" content="${description}">
+  <meta name="twitter:image" content="${imageUrl}">
+</head>
+<body>
+  <h1>${title}</h1>
+  <p>${description}</p>
+</body>
+</html>`);
+  } catch (err) {
+    console.error('Error serving share preview:', err);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.status(500).send(`<!DOCTYPE html><html><head><title>Taklifnoma.vip</title></head><body>Redirecting...</body></html>`);
+  }
+};
+
+app.get('/api/share/:slugPrefix/:slugName', async (req, res) => {
+  const fullSlug = `${req.params.slugPrefix}/${req.params.slugName}`;
+  return serveSharePreview(fullSlug, res);
+});
+
+app.get('/api/share/:idOrSlug', async (req, res) => {
+  return serveSharePreview(req.params.idOrSlug, res);
+});
+
+
 app.listen(PORT, async () => {
   await ensureRuntimeDatabase();
   console.log(`Taklifnoma API running on http://localhost:${PORT}`);

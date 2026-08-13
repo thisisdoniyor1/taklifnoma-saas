@@ -12,6 +12,61 @@
       "destination": "https://taklifnoma-saas-production.up.railway.app/uploads/:path*"
     },
     {
+      "source": "/i/:idOrSlug*",
+      "destination": "https://taklifnoma-saas-production.up.railway.app/api/share/:idOrSlug*",
+      "has": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|Discordbot|LarkBot|Viber|imo|Pinterest).*"
+        }
+      ]
+    },
+    {
+      "source": "/v/:idOrSlug*",
+      "destination": "https://taklifnoma-saas-production.up.railway.app/api/share/:idOrSlug*",
+      "has": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|Discordbot|LarkBot|Viber|imo|Pinterest).*"
+        }
+      ]
+    },
+    {
+      "source": "/:slugPrefix/:slugName",
+      "destination": "https://taklifnoma-saas-production.up.railway.app/api/share/:slugPrefix/:slugName",
+      "has": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|Discordbot|LarkBot|Viber|imo|Pinterest).*"
+        }
+      ]
+    },
+    {
+      "source": "/:idOrSlug",
+      "destination": "https://taklifnoma-saas-production.up.railway.app/api/share/:idOrSlug",
+      "has": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|Discordbot|LarkBot|Viber|imo|Pinterest).*"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "destination": "https://taklifnoma-saas-production.up.railway.app/api/share/_root",
+      "has": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(WhatsApp|TelegramBot|facebookexternalhit|Twitterbot|Slackbot|Discordbot|LarkBot|Viber|imo|Pinterest).*"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
