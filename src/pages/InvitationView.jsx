@@ -5,9 +5,11 @@ import TemplateManager from '../components/TemplateManager';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { useLanguage } from '../context/LanguageContext';
 
 const InvitationView = () => {
   const params = useParams();
+  const { t } = useLanguage();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('Initializing...');
@@ -178,10 +180,10 @@ const InvitationView = () => {
           <Clock size={34} color="#d4af37" />
         </div>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.6rem', color: '#fbe8a6', marginBottom: '12px', fontWeight: 800 }}>
-          Taklifnoma havolasi faollashtirilmoqda
+          {t('payment.activationPendingTitle')}
         </h2>
         <p style={{ color: 'rgba(255,255,255,0.78)', maxWidth: '440px', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '28px' }}>
-          To‘lovni tasdiqlaganimizdan so‘ng taxminan 1 soat ichida havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.
+          {t('payment.activationPendingDesc')}
         </p>
         <button
           onClick={() => window.location.reload()}
@@ -199,7 +201,7 @@ const InvitationView = () => {
             boxShadow: '0 8px 24px rgba(212,175,55,0.3)'
           }}
         >
-          Qayta tekshirish
+          {t('payment.recheckBtn')}
         </button>
       </div>
     );

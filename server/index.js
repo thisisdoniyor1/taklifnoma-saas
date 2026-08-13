@@ -521,6 +521,7 @@ const buildOrderUpdatePayload = (body, { allowAdminFields = false } = {}) => {
 
   if (allowAdminFields) {
     editableFields.push('payment_status');
+    editableFields.push('status');
   }
 
   editableFields.forEach((field) => {
@@ -1309,6 +1310,7 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
         user_id: req.user.id,
         views_count: 0,
         rsvp_count: 0,
+        status: 'deactivated',
         created_at: new Date().toISOString(),
       };
 
