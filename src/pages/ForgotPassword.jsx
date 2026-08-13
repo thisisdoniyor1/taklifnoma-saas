@@ -6,7 +6,7 @@ import { db } from '../lib/db';
 import { useLanguage } from '../context/LanguageContext';
 
 const ForgotPassword = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
