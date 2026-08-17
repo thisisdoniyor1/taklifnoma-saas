@@ -103,13 +103,14 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
       >
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0', pointerEvents: 'none', zIndex: 3 }}>
           <h2 style={{
-            fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
-            fontSize: isThumbnail ? '3rem' : 'clamp(3rem, 11vw, 4.5rem)',
-            fontWeight: 400,
-            fontStyle: 'normal',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: isThumbnail ? '3rem' : 'clamp(2.6rem, 9.5vw, 4rem)',
+            fontWeight: 500,
+            fontStyle: 'italic',
             color: '#ffffff',
             margin: 0,
             lineHeight: 1.15,
+            letterSpacing: '0.03em',
             textShadow: '0 2px 8px rgba(0,0,0,0.3)'
           }}>
             {`${tr.received} ${tr.invite}`}

@@ -60,11 +60,11 @@ const Intro = ({ data, isThumbnail }) => {
           padding: '0 20px',
         }}>
           <p style={{
-            fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
-            fontSize: '3.2rem',
-            fontWeight: 400,
-            fontStyle: 'normal',
-            letterSpacing: '0.02em',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '3rem',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            letterSpacing: '0.03em',
             color: '#1a2b4b',
             textShadow: '0 1px 6px rgba(255,255,255,0.9)',
             margin: 0,
