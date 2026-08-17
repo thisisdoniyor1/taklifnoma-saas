@@ -14,6 +14,7 @@ import {
   Trash2,
   RefreshCcw,
   X,
+  Lock,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../lib/db';
@@ -24,6 +25,7 @@ import BrandLogo from '../components/BrandLogo';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { formatLocalizedDateLabel } from '../utils/localization';
 import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect, CustomVenueInput } from '../components/CustomEditorPickers';
+import { PAYMENT_CONFIG } from '../config';
 
 const buildEditForm = (invite) => ({
   groom_name: invite.groom_name || '',
@@ -265,6 +267,21 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
 
   const shareUrl = `${window.location.origin}/${invite.slug || invite.invite_uuid}`;
 
+  const isDeactivated = invite.status === 'deactivated' || invite.status === 'inactive';
+  const localReceiptSent = localStorage.getItem(`receipt_sent_${invite.invite_uuid}`) === 'true' || localStorage.getItem(`receipt_sent_${invite.id}`) === 'true';
+  const isLocked = isDeactivated && !localReceiptSent;
+
+  const handleWhatsAppActivation = () => {
+    const groom = invite.groom_name || 'Groom';
+    const bride = invite.bride_name || 'Bride';
+    const text = `Assalomu alaykum! Men bu taklifnoma uchun to'lov qildim (${groom} & ${bride}):\n${shareUrl}\n\nMana to'lov skrinshotim.`;
+    const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    localStorage.setItem(`receipt_sent_${invite.invite_uuid}`, 'true');
+    localStorage.setItem(`receipt_sent_${invite.id}`, 'true');
+    window.location.reload();
+  };
+
   const handleCopy = async () => {
     try {
       if (navigator.clipboard && window.isSecureContext) {
@@ -478,14 +495,18 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                 </div>
                 {!invite.is_deleted && (
                   <button
-                    onClick={() => setIsEditing((prev) => !prev)}
-                    className={`flex flex-col items-center justify-center rounded-[10px] border px-2 py-1.5 text-[7px] font-black uppercase tracking-[1px] transition-all gap-0.5 ${isEditing
-                      ? 'border-white/30 bg-white/20 text-white'
-                      : 'border-white/20 bg-white/10 text-white/70 hover:bg-white/20'
+                    disabled={isLocked}
+                    onClick={isLocked ? undefined : () => setIsEditing((prev) => !prev)}
+                    className={`flex flex-col items-center justify-center rounded-[10px] border px-2 py-1.5 text-[7px] font-black uppercase tracking-[1px] transition-all gap-0.5 ${
+                      isLocked
+                        ? 'border-white/10 bg-white/5 text-white/35 cursor-not-allowed opacity-50'
+                        : isEditing
+                        ? 'border-white/30 bg-white/20 text-white'
+                        : 'border-white/20 bg-white/10 text-white/70 hover:bg-white/20'
                     }`}
                   >
-                    <PencilLine size={12} />
-                    <span>{isEditing ? 'Close' : 'Edit'}</span>
+                    {isLocked ? <Lock size={12} /> : <PencilLine size={12} />}
+                    <span>{isLocked ? 'Locked' : (isEditing ? 'Close' : 'Edit')}</span>
                   </button>
                 )}
               </div>
@@ -531,29 +552,49 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                 />
 
                 <ActionButton
-                  as="a"
-                  href={shareUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  icon={<ExternalLink size={14} />}
+                  as={isLocked ? "button" : "a"}
+                  href={isLocked ? undefined : shareUrl}
+                  target={isLocked ? undefined : "_blank"}
+                  rel={isLocked ? undefined : "noreferrer"}
+                  disabled={isLocked}
+                  onClick={(e) => {
+                    if (isLocked) {
+                      e.preventDefault();
+                    }
+                  }}
+                  icon={isLocked ? <Lock size={14} /> : <ExternalLink size={14} />}
                   label={t('dashboard.row.view')}
-                  className="border-transparent bg-emerald-900 text-white shadow-lg shadow-emerald-950/15 hover:bg-emerald-800 xl:min-h-[2.3rem]"
+                  className={
+                    isLocked
+                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed shadow-none opacity-60 xl:min-h-[2.3rem]'
+                      : 'border-transparent bg-emerald-900 text-white shadow-lg shadow-emerald-950/15 hover:bg-emerald-800 xl:min-h-[2.3rem]'
+                  }
                 />
 
                 <ActionButton
-                  onClick={handleCopy}
-                  icon={copied ? <Check size={14} /> : <Copy size={14} />}
+                  disabled={isLocked}
+                  onClick={isLocked ? undefined : handleCopy}
+                  icon={isLocked ? <Lock size={14} /> : (copied ? <Check size={14} /> : <Copy size={14} />)}
                   label={copied ? t('dashboard.row.copied') : t('dashboard.row.copy')}
-                  className={copied
-                    ? 'border-emerald-700 bg-emerald-700 text-white xl:min-h-[2.3rem]'
-                    : 'border-emerald-900/10 bg-white text-emerald-900 hover:bg-emerald-100 xl:min-h-[2.3rem]'}
+                  className={
+                    isLocked
+                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed shadow-none opacity-60 xl:min-h-[2.3rem]'
+                      : copied
+                      ? 'border-emerald-700 bg-emerald-700 text-white xl:min-h-[2.3rem]'
+                      : 'border-emerald-900/10 bg-white text-emerald-900 hover:bg-emerald-100 xl:min-h-[2.3rem]'
+                  }
                 />
 
                 <ActionButton
-                  onClick={handleShare}
-                  icon={<Share2 size={14} />}
+                  disabled={isLocked}
+                  onClick={isLocked ? undefined : handleShare}
+                  icon={isLocked ? <Lock size={14} /> : <Share2 size={14} />}
                   label={t('dashboard.row.share')}
-                  className="border-emerald-900/10 bg-white text-emerald-900 hover:bg-emerald-100 xl:min-h-[2.3rem]"
+                  className={
+                    isLocked
+                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed shadow-none opacity-60 xl:min-h-[2.3rem]'
+                      : 'border-emerald-900/10 bg-white text-emerald-900 hover:bg-emerald-100 xl:min-h-[2.3rem]'
+                  }
                 />
 
                 {/* Delete — mobile only; on laptop it lives in the views-tile slot */}
@@ -575,6 +616,23 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
               />
             )}
           </div>
+          {isLocked && (
+             <div className="mx-1.5 mb-1.5 mt-0.5 px-3 py-2 rounded-xl bg-amber-50 border border-amber-200/80 flex items-center justify-between gap-3 shadow-xs">
+               <div className="flex items-center gap-2">
+                 <Lock size={14} className="text-amber-700 shrink-0" />
+                 <span className="text-[10px] font-bold text-amber-950 uppercase tracking-wide">
+                   Payment confirmation pending. Please send screenshot to WhatsApp to activate!
+                 </span>
+               </div>
+               <button
+                 type="button"
+                 onClick={handleWhatsAppActivation}
+                 className="px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white text-[9px] font-black uppercase tracking-wider shadow-sm transition-all shrink-0 cursor-pointer"
+               >
+                 Send Screenshot
+               </button>
+             </div>
+           )}
         </div>
 
         <AnimatePresence initial={false}>

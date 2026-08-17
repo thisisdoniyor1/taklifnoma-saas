@@ -668,10 +668,7 @@ export const CustomVenueInput = ({
             transition={{ duration: 0.2 }}
             className="absolute left-0 right-0 z-[120] mt-1.5 overflow-hidden rounded-2xl border-2 border-emerald-900/10 bg-white shadow-xl max-h-60 overflow-y-auto"
           >
-            <div className="p-1.5">
-              <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/35 px-3 py-1.5 border-b border-emerald-900/5 mb-1">
-                {currentHeader}
-              </span>
+            <div className="p-1.5 flex flex-col gap-0.5">
               {filteredVenues.map((venue) => {
                 const displayName = venue.nameLocalized[language] || venue.nameLocalized.en || venue.name;
                 return (
@@ -679,10 +676,9 @@ export const CustomVenueInput = ({
                     key={venue.name}
                     type="button"
                     onClick={() => handleSelect(venue)}
-                    className="flex w-full flex-col text-left px-3 py-2 rounded-xl transition-colors hover:bg-emerald-50/50 text-emerald-950"
+                    className="flex w-full text-left px-3 py-2.5 rounded-xl transition-colors hover:bg-emerald-50/50 text-emerald-950 font-bold text-sm"
                   >
-                    <span className="text-sm font-bold text-left">{displayName}</span>
-                    <span className="text-[10px] font-semibold text-emerald-900/40 mt-0.5 text-left">{currentSub}</span>
+                    {displayName}
                   </button>
                 );
               })}
