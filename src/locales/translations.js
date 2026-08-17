@@ -1085,7 +1085,11 @@ export const translations = {
         deleting: 'O‘chirilmoqda...',
         restore: 'Tiklash',
         restoring: 'Tiklanmoqda...',
-        edit: 'Tahrirlash'
+        edit: 'Tahrirlash',
+        cancel: "Bekor qilish",
+        yesDelete: "Ha, o‘chirish",
+        deleteConfirmTitle: "Taklifnomani o‘chirish?",
+        deleteConfirmDesc: "Ushbu taklifnoma o‘chirilganlar ro‘yxatiga o‘tkaziladi. Uni keyinchalik tiklashingiz mumkin."
       },
       editor: {
         groom: "Kuyov ismi",
@@ -1732,7 +1736,11 @@ export const translations = {
         deleting: 'Нест мешавад',
         delete: 'Нест кардан',
         restore: 'Барқарор',
-        restoring: 'Барқарор...'
+        restoring: 'Барқарор...',
+        cancel: "Лоғв кардан",
+        yesDelete: "Бале, ҳазф кардан",
+        deleteConfirmTitle: "Даъватнома пок карда шавад?",
+        deleteConfirmDesc: "Ин даъватнома ба рӯйхати ҳазфшудаҳо интиқол дода мешавад. Шумо метавонед онро дертар барқарор кунед."
       },
       editor: {
         groom: "Номи домод",
