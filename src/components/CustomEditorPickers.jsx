@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Clock, ChevronDown, Check, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 /* ─── 1. CUSTOM LANGUAGE SELECT ─── */
 export const CustomLanguageSelect = ({ label, value, onChange, options, required = false, isDashboard = false }) => {
@@ -98,6 +99,7 @@ export const CustomLanguageSelect = ({ label, value, onChange, options, required
 export const CustomDatePicker = ({ label, value, onChange, placeholder, invalid = false, required = false, isDashboard = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
+  const { language } = useLanguage();
 
   const parseCurrentDate = (val) => {
     const parts = (val || '').split('.');
@@ -167,10 +169,24 @@ export const CustomDatePicker = ({ label, value, onChange, placeholder, invalid 
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
   const calendarCells = [...blanks, ...days];
 
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  const MONTH_NAMES = {
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    uz: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+    uz_cyrl: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+    tj: ['Январ', 'Феврал', 'Март', 'Апрел', 'Май', 'Июн', 'Июл', 'Август', 'Сентябр', 'Октябр', 'Ноябр', 'Декабр']
+  };
+
+  const WEEKDAYS = {
+    en: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+    ru: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+    uz: ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sha', 'Ya'],
+    uz_cyrl: ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sha', 'Ya'],
+    tj: ['Дш', 'Сш', 'Чш', 'Пш', 'Ҷм', 'Шн', 'Яш']
+  };
+
+  const monthNames = MONTH_NAMES[language] || MONTH_NAMES.en;
+  const weekdayNames = WEEKDAYS[language] || WEEKDAYS.en;
 
   const currentYear = today.getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear - 2 + i);
@@ -251,7 +267,7 @@ export const CustomDatePicker = ({ label, value, onChange, placeholder, invalid 
             </div>
 
             <div className="grid grid-cols-7 gap-1 text-center mb-1">
-              {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((wd, i) => (
+              {weekdayNames.map((wd, i) => (
                 <span key={wd} className={`text-[9px] font-black uppercase tracking-wider ${i >= 5 ? 'text-[#C5A017]' : 'text-emerald-900/40'}`}>
                   {wd}
                 </span>
@@ -303,6 +319,7 @@ export const CustomDatePicker = ({ label, value, onChange, placeholder, invalid 
 export const CustomTimePicker = ({ label, value, onChange, placeholder, invalid = false, required = false, isDashboard = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
+  const { language } = useLanguage();
 
   const [selectedHour, setSelectedHour] = useState('18');
   const [selectedMinute, setSelectedMinute] = useState('00');
@@ -376,89 +393,127 @@ export const CustomTimePicker = ({ label, value, onChange, placeholder, invalid 
             transition={{ duration: 0.2 }}
             className="absolute left-0 right-0 md:left-auto md:w-[320px] z-[120] mt-2 rounded-[24px] border-2 border-emerald-900/10 bg-white p-4 shadow-2xl"
           >
-            <div className="mb-3">
-              <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5">
-                Quick Select
-              </span>
-              <div className="grid grid-cols-4 gap-1.5">
-                {quickTimes.map(t => (
+            {(() => {
+              const dict = {
+                quickSelect: {
+                  en: 'Quick Select',
+                  ru: 'Быстрый выбор',
+                  uz: 'Tezkor tanlash',
+                  uz_cyrl: 'Тезкор танлаш',
+                  tj: 'Интихоби зуд'
+                },
+                hours: {
+                  en: 'Hours',
+                  ru: 'Часы',
+                  uz: 'Soat',
+                  uz_cyrl: 'Соат',
+                  tj: 'Соат'
+                },
+                minutes: {
+                  en: 'Minutes',
+                  ru: 'Минуты',
+                  uz: 'Daqiqa',
+                  uz_cyrl: 'Дақиқа',
+                  tj: 'Дақиқа'
+                },
+                done: {
+                  en: 'Done',
+                  ru: 'Готово',
+                  uz: 'Tayyor',
+                  uz_cyrl: 'Тайёр',
+                  tj: 'Тайёр'
+                }
+              };
+              const tVal = (key) => (dict[key][language] || dict[key].en);
+
+              return (
+                <>
+                  <div className="mb-3">
+                    <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5">
+                      {tVal('quickSelect')}
+                    </span>
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {quickTimes.map(t => (
+                        <button
+                          key={t}
+                          type="button"
+                          onClick={() => handleQuickSelect(t)}
+                          className="py-1.5 rounded-lg border border-emerald-900/10 hover:border-emerald-700 bg-emerald-50/20 hover:bg-emerald-50 text-xs font-black text-emerald-950 transition-all"
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 border-t border-emerald-900/5 pt-3">
+                    <div>
+                      <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5 text-center">
+                        {tVal('hours')}
+                      </span>
+                      <div className="h-40 overflow-y-auto pr-1 flex flex-col gap-1 scrollbar-thin">
+                        {hours.map(h => {
+                          const isSelected = selectedHour === h;
+                          return (
+                            <button
+                              key={`h-${h}`}
+                              type="button"
+                              onClick={() => {
+                                setSelectedHour(h);
+                                handleSelectTime(h, selectedMinute);
+                              }}
+                              className={`py-1.5 rounded-lg text-xs font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-emerald-900 text-white font-black'
+                                  : 'text-emerald-950 hover:bg-emerald-50'
+                              }`}
+                            >
+                              {h}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5 text-center">
+                        {tVal('minutes')}
+                      </span>
+                      <div className="h-40 overflow-y-auto pr-1 flex flex-col gap-1 scrollbar-thin">
+                        {minutes.map(m => {
+                          const isSelected = selectedMinute === m;
+                          return (
+                            <button
+                              key={`m-${m}`}
+                              type="button"
+                              onClick={() => {
+                                setSelectedMinute(m);
+                                handleSelectTime(selectedHour, m);
+                              }}
+                              className={`py-1.5 rounded-lg text-xs font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-emerald-900 text-white font-black'
+                                  : 'text-emerald-950 hover:bg-emerald-50'
+                              }`}
+                            >
+                              {m}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
                   <button
-                    key={t}
                     type="button"
-                    onClick={() => handleQuickSelect(t)}
-                    className="py-1.5 rounded-lg border border-emerald-900/10 hover:border-emerald-700 bg-emerald-50/20 hover:bg-emerald-50 text-xs font-black text-emerald-950 transition-all"
+                    onClick={() => setIsOpen(false)}
+                    className="mt-3.5 w-full py-2 bg-emerald-950 text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-emerald-900 transition-colors"
                   >
-                    {t}
+                    {tVal('done')}
                   </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 border-t border-emerald-900/5 pt-3">
-              <div>
-                <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5 text-center">
-                  Hours
-                </span>
-                <div className="h-40 overflow-y-auto pr-1 flex flex-col gap-1 scrollbar-thin">
-                  {hours.map(h => {
-                    const isSelected = selectedHour === h;
-                    return (
-                      <button
-                        key={`h-${h}`}
-                        type="button"
-                        onClick={() => {
-                          setSelectedHour(h);
-                          handleSelectTime(h, selectedMinute);
-                        }}
-                        className={`py-1.5 rounded-lg text-xs font-bold transition-all ${
-                          isSelected
-                            ? 'bg-emerald-900 text-white font-black'
-                            : 'text-emerald-950 hover:bg-emerald-50'
-                        }`}
-                      >
-                        {h}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div>
-                <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/40 mb-1.5 text-center">
-                  Minutes
-                </span>
-                <div className="h-40 overflow-y-auto pr-1 flex flex-col gap-1 scrollbar-thin">
-                  {minutes.map(m => {
-                    const isSelected = selectedMinute === m;
-                    return (
-                      <button
-                        key={`m-${m}`}
-                        type="button"
-                        onClick={() => {
-                          setSelectedMinute(m);
-                          handleSelectTime(selectedHour, m);
-                        }}
-                        className={`py-1.5 rounded-lg text-xs font-bold transition-all ${
-                          isSelected
-                            ? 'bg-emerald-900 text-white font-black'
-                            : 'text-emerald-950 hover:bg-emerald-50'
-                        }`}
-                      >
-                        {m}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="mt-3.5 w-full py-2 bg-emerald-950 text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-emerald-900 transition-colors"
-            >
-              Done
-            </button>
+                </>
+              );
+            })()}
           </motion.div>
         )}
       </AnimatePresence>

@@ -914,7 +914,7 @@ const Editor = () => {
                   value={invitationData.defaultLang}
                   onChange={handleInputChange}
                   options={[
-                    { value: 'uz_cyrl', label: 'O‘zbekcha (Lotin)' },
+                    { value: 'uz_cyrl', label: 'O‘zbekcha' },
                     { value: 'ru', label: 'Русский' },
                     { value: 'en', label: 'English' },
                     { value: 'tj', label: 'Тоҷикӣ' },
@@ -982,7 +982,7 @@ const Editor = () => {
                   name="locationUrl"
                   value={invitationData.locationUrl}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.locationUrl', 'Paste Google/Yandex Maps Share Link')}
+                  placeholder={copyText('editor.placeholders.locationUrl', 'Paste Google/Apple Maps Share Link')}
                   icon={<Link2 size={16} strokeWidth={3} />}
                 />
               </div>

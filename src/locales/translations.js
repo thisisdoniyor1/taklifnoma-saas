@@ -144,7 +144,7 @@ export const translations = {
     editor: {
       steps: { basic: "BASIC", timeLocation: "TIME & VENUE", design: "DESIGN", photo: "PHOTOS", finish: "FINISH" },
       fields: { groom: "GROOM'S NAME", bride: "BRIDE'S NAME", welcome: "WELCOME TEXT", date: "DATE", time: "TIME", location: "ADDRESS", locationUrl: "LOCATION LINK", changeTemplate: "CHANGE TEMPLATE", music: "MUSIC LINK (YOUTUBE/CLOUD) (OPTIONAL)", photo: "UPLOAD PHOTO (OPTIONAL)", photoLink: "OR PASTE IMAGE URL", coupleSection: "Couple", eventSection: "Event Details", photoMusicSection: "Music", defaultLang: "Default Invitation Language" },
-      placeholders: { groom: "", bride: "", welcome: "We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.", date: "26.02.2027", time: "18:00", location: "Enter the address", locationUrl: "Paste Google/Yandex Maps Share Link", music: "ENTER MUSIC LINK", photo: "Paste a direct image URL" },
+      placeholders: { groom: "", bride: "", welcome: "We invite you to share in the joy of our wedding day. Your presence will make our celebration complete as we begin our new life together.", date: "26.02.2027", time: "18:00", location: "Enter the address", locationUrl: "Paste Google/Apple Maps Share Link", music: "ENTER MUSIC LINK", photo: "Paste a direct image URL" },
       errors: {
         names: "Please enter both names fully!",
         details: "Please don't forget the date and venue details!",
@@ -587,7 +587,7 @@ export const translations = {
     editor: {
       steps: { basic: "ОСНОВНОЕ", timeLocation: "ВРЕМЯ И МЕСТО", design: "ДИЗАЙН", photo: "ФОТО", finish: "ЗАВЕРШЕНИЕ" },
       fields: { groom: "ИМЯ ЖЕНИХА", bride: "ИМЯ НЕВЕСТЫ", welcome: "ПРИВЕТСТВЕННЫЙ ТЕКСТ", date: "ДАТА", time: "ВРЕМЯ", location: "АДРЕС", locationUrl: "ССЫЛКА НА МЕСТО", changeTemplate: "ИЗМЕНИТЬ ШАБЛОН", music: "ССЫЛКА НА МУЗЫКУ", photo: "ЗАГРУЗИТЬ ФОТО (НЕОБЯЗАТЕЛЬНО)", photoLink: "ИЛИ ВСТАВЬТЕ ССЫЛКУ НА ИЗОБРАЖЕНИЕ", coupleSection: "Пара", eventSection: "Детали события", photoMusicSection: "Музыка", defaultLang: "Язык приглашения по умолчанию" },
-      placeholders: { groom: "", bride: "", welcome: "С радостью приглашаем вас разделить с нами счастье этого особенного дня. Ваше присутствие сделает наш праздник незабываемым.", date: "26.02.2027", time: "18:00", location: "Введите адрес", locationUrl: "Вставьте ссылку «Поделиться» из Google/Яндекс Карт", music: "Ссылка на музыку (опционально)", photo: "Вставьте прямую ссылку на изображение" },
+      placeholders: { groom: "", bride: "", welcome: "С радостью приглашаем вас разделить с нами счастье этого особенного дня. Ваше присутствие сделает наш праздник незабываемым.", date: "26.02.2027", time: "18:00", location: "Введите адрес", locationUrl: "Вставьте ссылку «Поделиться» из Google/Apple Maps", music: "Ссылка на музыку (опционально)", photo: "Вставьте прямую ссылку на изображение" },
       errors: {
         names: "Пожалуйста, введите оба имени полностью!",
         details: "Пожалуйста, не забудьте указать дату и место проведения!",
@@ -946,7 +946,7 @@ export const translations = {
     editor: {
       steps: { basic: "ASOSIY", timeLocation: "VAQT & JOY", design: "DIZAYN", photo: "FOTALAR", finish: "YAKUNLASH" },
       fields: { groom: "KUYOV ISMI", bride: "KELIN ISMI", welcome: "XUSH KELIBSIZ MATNI", date: "SANA", time: "VAQT", location: "MANZIL", locationUrl: "MANZIL HAVOLASI", changeTemplate: "ANDOZANI O‘ZGARTIRISH", music: "MUSIQA HAVOLASI", photo: "FOTO YUKLASH (IXTIYORIY)", photoLink: "YOKI RASM HAVOLASINI QO‘YING", coupleSection: "Juft", eventSection: "Tadbir tafsilotlari", photoMusicSection: "Musiqa", defaultLang: "Mehmonlar uchun taklifnoma tili" },
-      placeholders: { groom: "Rustam", bride: "Madina", welcome: "Qalbimizda cheksiz quvonch bilan sizni nikoh to‘yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.", date: "26.02.2027", time: "18:00", location: "Manzilni kiriting", locationUrl: "Google/Yandex xaritadan ulashish havolasini kiriting", music: "", photo: "" },
+      placeholders: { groom: "Rustam", bride: "Madina", welcome: "Qalbimizda cheksiz quvonch bilan sizni nikoh to‘yimiz tantanasiga taklif etamiz. Sizning tashrifingiz ushbu kunni biz uchun yanada ahamiyatli qiladi.", date: "26.02.2027", time: "18:00", location: "Manzilni kiriting", locationUrl: "Google/Apple xaritadan ulashish havolasini kiriting", music: "", photo: "" },
       errors: {
         names: "Iltimos, ismlarni to‘liq kiriting!",
         details: "Iltimos, sana va manzil ma'lumotlarini kiritishni unutmang!",
@@ -1560,7 +1560,7 @@ export const translations = {
     editor: {
       steps: { basic: "АСОСӢ", timeLocation: "ВАҚТ ВА ҶОЙ", design: "ТАРҲ", photo: "АКСҲО", finish: "АНҶОМ" },
       fields: { groom: "НОМИ ДОМОД", bride: "НОМИ АРӮС", welcome: "МАТНИ ХУШОМАДЕД", date: "САНА", time: "ВАҚТ", location: "СУРОҒА", locationUrl: "ИСТИНОДИ МАКОН", changeTemplate: "ТАРҲРО ИВАЗ КУНЕД", music: "ПАЙВАНДИ МУСИҚӢ", photo: "БОРКУНИИ АКС (ИХТИЁРӢ)", photoLink: "Ё ИСТИНОДИ АКССРО ГУЗОРЕД", coupleSection: "Ҷуфт", eventSection: "Тафсилоти тадбир", photoMusicSection: "Мусиқӣ", defaultLang: "Забони пешфарзи даъватнома" },
-      placeholders: { groom: "", bride: "", welcome: "Бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. Ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад.", date: "26.02.2027", time: "18:00", location: "Суроғаро ворид кунед", locationUrl: "Истиноди Google/Yandex харитаро гузоред", music: "Пайванди мусиқии факултативӣ", photo: "Истиноди мустақими аксро гузоред" },
+      placeholders: { groom: "", bride: "", welcome: "Бо шодмонӣ дар қалб мо шуморо ба ҷашни тӯйи никоҳи худ даъват менамоем. Ҳузури шумо ин рӯзи махсусро барои мо фаромӯшнашаванда мегардонад.", date: "26.02.2027", time: "18:00", location: "Суроғаро ворид кунед", locationUrl: "Истиноди Google/Apple харитаро гузоред", music: "Пайванди мусиқии факултативӣ", photo: "Истиноди мустақими аксро гузоред" },
       errors: {
         names: "Лутфан ҳарду номро пурра ворид кунед!",
         details: "Лутфан сана ва тафсилоти макони баргузориро фаромӯш накунед!",
