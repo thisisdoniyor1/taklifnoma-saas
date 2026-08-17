@@ -47,7 +47,7 @@ export default function MainInvitation({ data, templateId }) {
   };
 
   const groomName = data?.groomName || 'Rustam';
-  const brideName = data?.brideName || 'Tahmina';
+  const brideName = data?.brideName || 'Madina';
   const welcomeText = t('invitation.speech');
 
   return (

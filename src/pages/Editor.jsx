@@ -893,7 +893,7 @@ const Editor = () => {
                   name="brideName"
                   value={invitationData.brideName}
                   onChange={handleInputChange}
-                  placeholder={copyText('editor.placeholders.bride', 'Tahmina')}
+                  placeholder={copyText('editor.placeholders.bride', 'Madina')}
                   invalid={invalidFields.includes('brideName')}
                 />
               </div>

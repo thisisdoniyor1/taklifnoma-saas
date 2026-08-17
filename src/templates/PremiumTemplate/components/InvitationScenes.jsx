@@ -1203,7 +1203,7 @@ export default function InvitationScenes({ data, templateId }) {
 
   const content = useMemo(() => {
     const groomName = data?.groomName || 'Rustam';
-    const brideName = data?.brideName || 'Tahmina';
+    const brideName = data?.brideName || 'Madina';
     const imageUrl = data?.image_url || '';
     const wishes = Array.isArray(data?.rsvps)
       ? data.rsvps.filter((item) => item?.wish)

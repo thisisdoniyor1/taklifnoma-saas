@@ -38,7 +38,7 @@ const LuxuryGoldTemplate = ({ data }) => {
               <div className="text-cyan-500 font-extrabold text-2xl">&</div>
               <div className="w-8 h-[1px] bg-slate-200" />
            </div>
-           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-[-0.03em]">{brideName || 'Tahmina'}</h1>
+           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-[-0.03em]">{brideName || 'Madina'}</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">

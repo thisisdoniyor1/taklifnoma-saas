@@ -491,13 +491,13 @@ const PRESET_VENUES = [
     url: 'https://www.google.com/maps/place/Kasri+Inoyat+Gulakandoz/@40.1617,69.4678,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a4574971c26b:0xab9533859377de31!8m2!3d40.1617!4d69.4678'
   },
   {
-    name: 'Rakhimi Garmi',
+    name: 'Rakhimi',
     nameLocalized: {
-      uz: '«Raximi Garmi» Restorani',
-      uz_cyrl: '«Raximi Garmi» Restorani',
-      ru: 'Ресторан «Рахими Гарми»',
-      tj: 'Ресторани «Раҳими Гармӣ»',
-      en: 'Rakhimi Garmi Restaurant'
+      uz: '«Raximi» Restorani',
+      uz_cyrl: '«Raximi» Restorani',
+      ru: 'Ресторан «Рахими»',
+      tj: 'Ресторани «Раҳимӣ»',
+      en: 'Rakhimi Restaurant'
     },
     url: 'https://www.google.com/maps/place/Rakhimi+Garmi/@40.1492184,69.4780269,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a56bd40c05f9:0x5e82f4069ef96891!8m2!3d40.1492184!4d69.4780269!16s%2Fg%2F11fj31t4pl!18m1!1e1?entry=ttu'
   },
@@ -558,6 +558,25 @@ export const CustomVenueInput = ({
     return matchesDefault || matchesLocalized;
   });
 
+  const headerTexts = {
+    en: "Popular Local Venues (Auto-fills map link)",
+    ru: "Популярные залы торжеств (заполняет карту автоматически)",
+    uz: "Ommabop to'yxonalar (xarita havolasini avtomatik to'ldiradi)",
+    uz_cyrl: "Ommabop to'yxonalar (xarita havolasini avtomatik to'ldiradi)",
+    tj: "Тӯйхонаҳои маъруф (пайванди харитаро худкор пур мекунад)"
+  };
+
+  const subTexts = {
+    en: "Click to auto-fill location & map link",
+    ru: "Нажмите, чтобы заполнить адрес и карту",
+    uz: "Manzil va xarita havolasini to'ldirish uchun bosing",
+    uz_cyrl: "Manzil va xarita havolasini to'ldirish uchun bosing",
+    tj: "Барои пур кардани суроға ва харита пахш кунед"
+  };
+
+  const currentHeader = headerTexts[language] || headerTexts.en;
+  const currentSub = subTexts[language] || subTexts.en;
+
   return (
     <div className="relative block" ref={containerRef}>
       <span className={`mb-2 block text-[10px] font-black uppercase tracking-[2px] ${isDashboard ? 'text-emerald-900/45' : 'text-emerald-950'}`}>
@@ -596,7 +615,7 @@ export const CustomVenueInput = ({
           >
             <div className="p-1.5">
               <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/35 px-3 py-1.5 border-b border-emerald-900/5 mb-1">
-                Popular Local Venues (Auto-fills map link)
+                {currentHeader}
               </span>
               {filteredVenues.map((venue) => {
                 const displayName = venue.nameLocalized[language] || venue.nameLocalized.en || venue.name;
@@ -608,7 +627,7 @@ export const CustomVenueInput = ({
                     className="flex w-full flex-col text-left px-3 py-2 rounded-xl transition-colors hover:bg-emerald-50/50 text-emerald-950"
                   >
                     <span className="text-sm font-bold text-left">{displayName}</span>
-                    <span className="text-[10px] font-semibold text-emerald-900/40 mt-0.5 text-left">Click to auto-fill location & map link</span>
+                    <span className="text-[10px] font-semibold text-emerald-900/40 mt-0.5 text-left">{currentSub}</span>
                   </button>
                 );
               })}
