@@ -116,10 +116,10 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
             {tr.received}
           </span>
           <h2 style={{
-            fontFamily: "'Playfair Display', 'Cormorant Garamond', Georgia, serif",
-            fontSize: isThumbnail ? '2.4rem' : 'clamp(2.4rem, 9vw, 3.4rem)',
+            fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
+            fontSize: isThumbnail ? '2.8rem' : 'clamp(2.8rem, 10vw, 4rem)',
             fontWeight: 400,
-            fontStyle: 'italic',
+            fontStyle: 'normal',
             color: '#ffffff',
             margin: 0,
             lineHeight: 1.1,

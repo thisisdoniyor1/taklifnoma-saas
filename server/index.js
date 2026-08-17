@@ -1707,6 +1707,18 @@ app.post('/api/orders/:idOrSlug/view', async (req, res) => {
   }
 });
 
+// Map template_id → cover image filename in /public/covers/
+const TEMPLATE_COVER_MAP = {
+  'envelope-classic':  'envelope-classic.png',
+  'classic-gold-white': 'classic-gold-white.png',
+  'royal-navy-shield':  'royal-navy-shield.png',
+  'tuscany-finca':      'tuscany-finca.png',
+  'chandelier-palm':    'chandelier-palm.png',
+  'emerald-elegance':   'emerald-elegance.png',
+  'jeweled-mandala':    'jeweled-mandala.png',
+  'classic-minimalist': 'classic-gold-white.png',
+};
+
 const serveSharePreview = async (idOrSlug, res) => {
   try {
     const cleanId = String(idOrSlug).trim();
@@ -1725,11 +1737,18 @@ const serveSharePreview = async (idOrSlug, res) => {
         description = order.welcome_text || "Bizning baxtli kunimizga xush kelibsiz! Taklifnomani ko'rish uchun havolani bosing.";
         
         if (order.image_url) {
+          // Couple uploaded their own photo — use it
           if (order.image_url.startsWith('http://') || order.image_url.startsWith('https://')) {
             imageUrl = order.image_url;
           } else {
             const cleanUrlPath = order.image_url.startsWith('/') ? order.image_url : `/${order.image_url}`;
             imageUrl = `https://taklifnoma.vip${cleanUrlPath}`;
+          }
+        } else {
+          // No couple photo → show the opening page of their chosen template
+          const coverFile = TEMPLATE_COVER_MAP[order.template_id];
+          if (coverFile) {
+            imageUrl = `https://taklifnoma.vip/covers/${coverFile}`;
           }
         }
       }

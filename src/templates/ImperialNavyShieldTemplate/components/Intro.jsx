@@ -60,15 +60,15 @@ const Intro = ({ data, isThumbnail }) => {
           padding: '0 20px',
         }}>
           <p style={{
-            fontFamily: getFontFamily(language),
-            fontSize: '2.5rem',
-            fontWeight: 600,
-            fontStyle: 'italic',
-            letterSpacing: '0.08em',
+            fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
+            fontSize: '3.2rem',
+            fontWeight: 400,
+            fontStyle: 'normal',
+            letterSpacing: '0.02em',
             color: '#1a2b4b',
             textShadow: '0 1px 6px rgba(255,255,255,0.9)',
             margin: 0,
-            lineHeight: 1.3,
+            lineHeight: 1.25,
           }}>
             {language === 'en' ? <>You have an<br />invitation</>
               : language === 'ru' ? <>У вас есть<br />приглашение</>
