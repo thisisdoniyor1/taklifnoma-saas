@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, ChevronDown, Check } from 'lucide-react';
+import { Calendar, Clock, ChevronDown, Check, MapPin } from 'lucide-react';
 
 /* ─── 1. CUSTOM LANGUAGE SELECT ─── */
 export const CustomLanguageSelect = ({ label, value, onChange, options, required = false, isDashboard = false }) => {
@@ -459,6 +459,160 @@ export const CustomTimePicker = ({ label, value, onChange, placeholder, invalid 
             >
               Done
             </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+/* ─── 4. PRESET VENUES AND AUTOCOMPLETE INPUT ─── */
+const PRESET_VENUES = [
+  {
+    name: 'Zuhal Restaurant',
+    nameLocalized: {
+      uz: '«Zuhal» Restorani',
+      uz_cyrl: '«Zuhal» Restorani',
+      ru: 'Ресторан «Зухал»',
+      tj: 'Ресторани «Зуҳал»',
+      en: 'Zuhal Restaurant'
+    },
+    url: 'https://www.google.com/maps/place/Restaurant+%22Zuhal%22/@40.1443543,69.4619849,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a5e5eb20a74f:0xac9533859377de11!8m2!3d40.1443543!4d69.4619849!16s%2Fg%2F1hm2ktj_r!18m1!1e1?entry=ttu'
+  },
+  {
+    name: 'Inoyat Restaurant',
+    nameLocalized: {
+      uz: '«Inoyat» To‘yxonasi',
+      uz_cyrl: '«Inoyat» To‘yxonasi',
+      ru: 'Банкетный зал «Иноят»',
+      tj: 'Тӯйхонаи «Иноят»',
+      en: 'Inoyat Banquet Hall'
+    },
+    url: 'https://www.google.com/maps/place/Kasri+Inoyat+Gulakandoz/@40.1617,69.4678,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a4574971c26b:0xab9533859377de31!8m2!3d40.1617!4d69.4678'
+  },
+  {
+    name: 'Rakhimi Garmi',
+    nameLocalized: {
+      uz: '«Raximi Garmi» Restorani',
+      uz_cyrl: '«Raximi Garmi» Restorani',
+      ru: 'Ресторан «Рахими Гарми»',
+      tj: 'Ресторани «Раҳими Гармӣ»',
+      en: 'Rakhimi Garmi Restaurant'
+    },
+    url: 'https://www.google.com/maps/place/Rakhimi+Garmi/@40.1492184,69.4780269,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a56bd40c05f9:0x5e82f4069ef96891!8m2!3d40.1492184!4d69.4780269!16s%2Fg%2F11fj31t4pl!18m1!1e1?entry=ttu'
+  },
+  {
+    name: 'Visol Qasri',
+    nameLocalized: {
+      uz: '«Visol Qasri» To‘yxonasi',
+      uz_cyrl: '«Visol Qasri» To‘yxonasi',
+      ru: 'Дворец Торжеств «Висол Қасри»',
+      tj: 'Қасри Висол',
+      en: 'Visol Qasri Banquet Hall'
+    },
+    url: 'https://www.google.com/maps/place/Висол+Қасри/@40.1545919,69.4590104,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a53a909feba1:0x3e2e61f5368c8d5c!8m2!3d40.1545919!4d69.4590104!16s%2Fg%2F11h5r_tqgj!18m1!1e1?entry=ttu'
+  }
+];
+
+export const CustomVenueInput = ({
+  label,
+  value,
+  onChange,
+  onSelectVenue,
+  placeholder,
+  invalid = false,
+  required = false,
+  language = 'en',
+  isDashboard = false
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
+  const handleFocus = () => {
+    setIsOpen(true);
+  };
+
+  const handleSelect = (venue) => {
+    const selectedName = venue.nameLocalized[language] || venue.nameLocalized.en || venue.name;
+    onSelectVenue(selectedName, venue.url);
+    setIsOpen(false);
+  };
+
+  const filteredVenues = PRESET_VENUES.filter(venue => {
+    if (!value) return true;
+    const normalizedVal = value.toLowerCase();
+    const matchesDefault = venue.name.toLowerCase().includes(normalizedVal);
+    const matchesLocalized = Object.values(venue.nameLocalized).some(locName => 
+      locName.toLowerCase().includes(normalizedVal)
+    );
+    return matchesDefault || matchesLocalized;
+  });
+
+  return (
+    <div className="relative block" ref={containerRef}>
+      <span className={`mb-2 block text-[10px] font-black uppercase tracking-[2px] ${isDashboard ? 'text-emerald-900/45' : 'text-emerald-950'}`}>
+        {label}{required && <span className="text-red-500 ml-1">*</span>}
+      </span>
+
+      <div
+        className={`flex min-h-[3.25rem] items-center gap-3 rounded-[18px] border-[1.5px] px-4 shadow-xs transition-all ${
+          isOpen ? 'border-emerald-800' : ''
+        } ${invalid ? 'border-red-400 bg-red-50/70' : 'border-emerald-900/30 bg-white'}`}
+      >
+        <span className="text-emerald-800 shrink-0">
+          <MapPin size={16} strokeWidth={3} />
+        </span>
+        <input
+          type="text"
+          value={value}
+          onFocus={handleFocus}
+          onChange={(e) => {
+            onChange(e.target.value);
+            setIsOpen(true);
+          }}
+          placeholder={placeholder}
+          className="h-full w-full bg-transparent text-base font-semibold text-emerald-950 outline-none placeholder:text-emerald-900/40"
+        />
+      </div>
+
+      <AnimatePresence>
+        {isOpen && filteredVenues.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute left-0 right-0 z-[120] mt-1.5 overflow-hidden rounded-2xl border-2 border-emerald-900/10 bg-white shadow-xl max-h-60 overflow-y-auto"
+          >
+            <div className="p-1.5">
+              <span className="block text-[8px] font-black uppercase tracking-wider text-emerald-900/35 px-3 py-1.5 border-b border-emerald-900/5 mb-1">
+                Popular Local Venues (Auto-fills map link)
+              </span>
+              {filteredVenues.map((venue) => {
+                const displayName = venue.nameLocalized[language] || venue.nameLocalized.en || venue.name;
+                return (
+                  <button
+                    key={venue.name}
+                    type="button"
+                    onClick={() => handleSelect(venue)}
+                    className="flex w-full flex-col text-left px-3 py-2 rounded-xl transition-colors hover:bg-emerald-50/50 text-emerald-950"
+                  >
+                    <span className="text-sm font-bold text-left">{displayName}</span>
+                    <span className="text-[10px] font-semibold text-emerald-900/40 mt-0.5 text-left">Click to auto-fill location & map link</span>
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

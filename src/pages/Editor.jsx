@@ -25,7 +25,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../lib/db';
 import { getTemplateName } from '../lib/templates';
-import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect } from '../components/CustomEditorPickers';
+import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect, CustomVenueInput } from '../components/CustomEditorPickers';
 
 import m1 from '../music/AUDIO-2026-06-03-19-11-34.mp3';
 import m2 from '../music/AUDIO-2026-06-03-19-18-12.mp3';
@@ -955,14 +955,23 @@ const Editor = () => {
               </div>
 
               <div className={isErrorShaking && invalidFields.includes('location') ? 'input-shake' : ''}>
-                <EditorInput
+                <CustomVenueInput
                   required
                   label={copyText('editor.fields.location', 'Venue')}
-                  name="location"
                   value={invitationData.location}
-                  onChange={handleInputChange}
+                  language={language}
+                  onChange={(newVal) => {
+                    updateInvitation({ location: newVal });
+                    clearInvalidField('location');
+                  }}
+                  onSelectVenue={(venueName, venueUrl) => {
+                    updateInvitation({
+                      location: venueName,
+                      locationUrl: venueUrl
+                    });
+                    clearInvalidField('location');
+                  }}
                   placeholder={copyText('editor.placeholders.location', 'Wedding hall')}
-                  icon={<MapPin size={16} strokeWidth={3} />}
                   invalid={invalidFields.includes('location')}
                 />
               </div>

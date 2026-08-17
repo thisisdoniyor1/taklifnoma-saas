@@ -23,7 +23,7 @@ import AccountMenu from '../components/AccountMenu';
 import BrandLogo from '../components/BrandLogo';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { formatLocalizedDateLabel } from '../utils/localization';
-import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect } from '../components/CustomEditorPickers';
+import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect, CustomVenueInput } from '../components/CustomEditorPickers';
 
 const buildEditForm = (invite) => ({
   groom_name: invite.groom_name || '',
@@ -611,10 +611,17 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                   placeholder="18:00"
                   onChange={(value) => handleFieldChange('wedding_time', value)}
                 />
-                <EditorField
+                <CustomVenueInput
+                  isDashboard
                   label={t('dashboard.editor.locationName')}
                   value={editForm.location_name}
+                  language={language}
                   onChange={(value) => handleFieldChange('location_name', value)}
+                  onSelectVenue={(venueName, venueUrl) => {
+                    handleFieldChange('location_name', venueName);
+                    handleFieldChange('location_url', venueUrl);
+                  }}
+                  placeholder="Wedding hall"
                 />
                 <EditorField
                   label={t('dashboard.editor.locationUrl') || 'Map Link'}
