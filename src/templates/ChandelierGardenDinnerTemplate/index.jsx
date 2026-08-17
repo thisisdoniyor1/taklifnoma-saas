@@ -129,7 +129,7 @@ const COPY = {
     wishes: 'Таманниёти меҳмонон',
     noWishes: 'Аввалин шуда таманно нависед.',
     rsvp: 'Тасдиқи иштирок',
-    rsvpSub: 'Иштироки худро тасдиқ кунед',
+    rsvpSub: 'Таманно нависед',
     name: 'Номи шумо',
     wish: 'Таманно нависед',
     confirm: 'Тасдиқ кунед',
@@ -787,7 +787,7 @@ function WishesAndRsvp({ data, isThumbnail }) {
   const tr = COPY[language] || COPY.en;
   const invitationRef = params['*'] || params.id || '';
   const [wishes, setWishes] = useState(
-    !invitationRef || isThumbnail
+    (!invitationRef && !data?.isRealInvitation) || isThumbnail
       ? DUMMY_WISHES
       : Array.isArray(data?.rsvps) ? data.rsvps.filter((item) => item.wish).slice(0, 8) : []
   );
