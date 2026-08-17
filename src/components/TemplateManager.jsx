@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { getTemplateConfig } from '../lib/templates';
 import { useLanguage } from '../context/LanguageContext';
-import { getWelcomeText } from '../templates/WatercolorTuscanVillaTemplate/utils/transliterate';
+import { getWelcomeText, translateLocation } from '../templates/WatercolorTuscanVillaTemplate/utils/transliterate';
 
 const templateLoaders = {
   'envelope-classic': () => import('../templates/RoyalIvoryGatesTemplate'),
@@ -53,6 +53,7 @@ const TemplateManager = ({ templateId, data, fallback, isThumbnail = false }) =>
 
   const processedData = data ? {
     ...data,
+    location: translateLocation(data.location, language),
     welcomeText: getWelcomeText(data.welcomeText, language, t)
   } : data;
 

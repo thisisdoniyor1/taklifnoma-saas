@@ -96,6 +96,52 @@ export function localizedName(name, language) {
 export function translateLocation(location, language) {
   if (!location) return location;
   const loc = location.trim();
+  const locLower = loc.toLowerCase();
+
+  // Preset Venues translations mapping
+  if (locLower.includes('zuhal') || locLower.includes('зухал')) {
+    const translations = {
+      uz: '«Zuhal» Restorani',
+      uz_cyrl: '«Zuhal» Restorani',
+      ru: 'Ресторан «Зухал»',
+      tj: 'Ресторани «Зуҳал»',
+      en: 'Zuhal Restaurant'
+    };
+    return translations[language] || translations.en;
+  }
+
+  if (locLower.includes('inoyat') || locLower.includes('иноят')) {
+    const translations = {
+      uz: '«Inoyat» To‘yxonasi',
+      uz_cyrl: '«Inoyat» To‘yxonasi',
+      ru: 'Банкетный зал «Иноят»',
+      tj: 'Тӯйхонаи «Иноят»',
+      en: 'Inoyat Banquet Hall'
+    };
+    return translations[language] || translations.en;
+  }
+
+  if (locLower.includes('rahimi') || locLower.includes('рахими') || locLower.includes('раҳимӣ') || locLower.includes('raximi')) {
+    const translations = {
+      uz: '«Raximi» Restorani',
+      uz_cyrl: '«Raximi» Restorani',
+      ru: 'Ресторан «Рахими»',
+      tj: 'Ресторани «Раҳимӣ»',
+      en: 'Rakhimi Restaurant'
+    };
+    return translations[language] || translations.en;
+  }
+
+  if (locLower.includes('visol') || locLower.includes('висол')) {
+    const translations = {
+      uz: '«Visol Qasri» To‘yxonasi',
+      uz_cyrl: '«Visol Qasri» To‘yxonasi',
+      ru: 'Дворец Торжеств «Висол Қасри»',
+      tj: 'Қасри Висол',
+      en: 'Visol Qasri Banquet Hall'
+    };
+    return translations[language] || translations.en;
+  }
 
   // Map known English venue phrases → localized
   const knownMaps = {
