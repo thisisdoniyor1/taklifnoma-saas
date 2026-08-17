@@ -483,7 +483,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
               >
                 <p style={{
                   fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-                  fontSize: 'clamp(1.5rem, 6.5vw, 2.3rem)',
+                  fontSize: 'clamp(2rem, 8.5vw, 3.2rem)',
                   fontWeight: 600,
                   fontStyle: 'italic',
                   color: '#ffffff',
@@ -602,9 +602,9 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
         style={{ position: 'relative', zIndex: 10, padding: '2rem' }}
       >
         <motion.div key={language} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-          <h1 className="chandelier-script" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 4px 12px rgba(255,255,255,0.9)' }}>{bride}</h1>
-          <p style={{ margin: '0.2rem 0', color: GOLD, fontSize: '1.8rem', fontStyle: 'italic', textShadow: '0 2px 8px rgba(255,255,255,0.8)' }}>&amp;</p>
           <h1 className="chandelier-script" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 4px 12px rgba(255,255,255,0.9)' }}>{groom}</h1>
+          <p style={{ margin: '0.2rem 0', color: GOLD, fontSize: '1.8rem', fontStyle: 'italic', textShadow: '0 2px 8px rgba(255,255,255,0.8)' }}>&amp;</p>
+          <h1 className="chandelier-script" style={{ fontFamily: "'Playfair Display', serif", textShadow: '0 4px 12px rgba(255,255,255,0.9)' }}>{bride}</h1>
         </motion.div>
       </motion.div>
 
