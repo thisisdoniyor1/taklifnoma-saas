@@ -23,6 +23,7 @@ import AccountMenu from '../components/AccountMenu';
 import BrandLogo from '../components/BrandLogo';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { formatLocalizedDateLabel } from '../utils/localization';
+import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect } from '../components/CustomEditorPickers';
 
 const buildEditForm = (invite) => ({
   groom_name: invite.groom_name || '',
@@ -596,13 +597,15 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                   value={editForm.bride_name}
                   onChange={(value) => handleFieldChange('bride_name', value)}
                 />
-                <EditorField
+                <CustomDatePicker
+                  isDashboard
                   label={t('dashboard.editor.date')}
                   value={editForm.wedding_date}
                   placeholder="26.02.2027"
                   onChange={(value) => handleFieldChange('wedding_date', value)}
                 />
-                <EditorField
+                <CustomTimePicker
+                  isDashboard
                   label={t('dashboard.editor.time')}
                   value={editForm.wedding_time}
                   placeholder="18:00"
@@ -628,7 +631,8 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                 </div>
 
                 <div className="md:col-span-2 lg:col-span-3">
-                  <EditorSelect
+                  <CustomLanguageSelect
+                    isDashboard
                     label={t('editor.fields.defaultLang') || 'Default Invitation Language'}
                     value={editForm.default_lang}
                     onChange={(value) => handleFieldChange('default_lang', value)}

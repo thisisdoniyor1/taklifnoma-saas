@@ -25,6 +25,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { db } from '../lib/db';
 import { getTemplateName } from '../lib/templates';
+import { CustomDatePicker, CustomTimePicker, CustomLanguageSelect } from '../components/CustomEditorPickers';
 
 import m1 from '../music/AUDIO-2026-06-03-19-11-34.mp3';
 import m2 from '../music/AUDIO-2026-06-03-19-18-12.mp3';
@@ -908,9 +909,8 @@ const Editor = () => {
               </div>
 
               <div className="md:col-span-2">
-                <EditorSelect
+                <CustomLanguageSelect
                   label={copyText('editor.fields.defaultLang', 'Default Invitation Language')}
-                  name="defaultLang"
                   value={invitationData.defaultLang}
                   onChange={handleInputChange}
                   options={[
@@ -927,29 +927,29 @@ const Editor = () => {
           <FormSection>
             <div className="grid gap-4 md:grid-cols-2">
               <div className={isErrorShaking && invalidFields.includes('date') ? 'input-shake' : ''}>
-                <EditorInput
+                <CustomDatePicker
                   required
                   label={copyText('editor.fields.date', 'Date')}
-                  name="date"
-                  type="date"
-                  value={getInputValueDate(invitationData.date)}
-                  onChange={handleDateChangeNative}
+                  value={invitationData.date}
+                  onChange={(newVal) => {
+                    updateInvitation({ date: newVal });
+                    clearInvalidField('date');
+                  }}
                   placeholder={copyText('editor.placeholders.date', '26.02.2027')}
-                  icon={<Calendar size={16} strokeWidth={3} />}
                   invalid={invalidFields.includes('date')}
                 />
               </div>
 
               <div className={isErrorShaking && invalidFields.includes('time') ? 'input-shake' : ''}>
-                <EditorInput
+                <CustomTimePicker
                   required
                   label={copyText('editor.fields.time', 'Time')}
-                  name="time"
-                  type="time"
                   value={invitationData.time}
-                  onChange={handleTimeChangeNative}
+                  onChange={(newVal) => {
+                    updateInvitation({ time: newVal });
+                    clearInvalidField('time');
+                  }}
                   placeholder={copyText('editor.placeholders.time', '18:00')}
-                  icon={<Clock size={16} strokeWidth={3} />}
                   invalid={invalidFields.includes('time')}
                 />
               </div>
