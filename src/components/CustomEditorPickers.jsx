@@ -21,13 +21,20 @@ export const CustomLanguageSelect = ({ label, value, onChange, options, required
   const selectedOption = options.find(opt => opt.value === value) || options[0];
 
   const getFlag = (val) => {
-    switch (val) {
-      case 'uz_cyrl': return '🇺🇿';
-      case 'ru': return '🇷🇺';
-      case 'en': return '🇬🇧';
-      case 'tj': return '🇹🇯';
-      default: return '🌐';
-    }
+    let code = 'uz';
+    if (val === 'uz_cyrl') code = 'uz';
+    else if (val === 'ru') code = 'ru';
+    else if (val === 'en') code = 'gb';
+    else if (val === 'tj') code = 'tj';
+    else return <span className="text-xl shrink-0">🌐</span>;
+
+    return (
+      <img
+        src={`https://flagcdn.com/w40/${code}.png`}
+        alt=""
+        className="w-[18px] h-[12px] object-cover rounded-[2px] border border-emerald-900/10 shrink-0 inline-block align-middle"
+      />
+    );
   };
 
   return (
@@ -42,7 +49,7 @@ export const CustomLanguageSelect = ({ label, value, onChange, options, required
         className="flex min-h-[3.25rem] w-full items-center justify-between rounded-[18px] border-[1.5px] border-emerald-900/30 bg-white px-4 text-base font-semibold text-emerald-950 shadow-xs transition-all hover:border-emerald-800 focus:outline-none"
       >
         <div className="flex items-center gap-2.5">
-          <span className="text-xl shrink-0">{getFlag(selectedOption.value)}</span>
+          <span className="flex items-center shrink-0">{getFlag(selectedOption.value)}</span>
           <span>{selectedOption.label}</span>
         </div>
         <ChevronDown size={18} className={`text-emerald-900/40 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
@@ -79,7 +86,7 @@ export const CustomLanguageSelect = ({ label, value, onChange, options, required
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="text-lg shrink-0">{getFlag(opt.value)}</span>
+                      <span className="flex items-center shrink-0">{getFlag(opt.value)}</span>
                       <span>{opt.label}</span>
                     </div>
                     {isSelected && <Check size={16} className="text-[#C5A017] stroke-[3]" />}

@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const LANGUAGE_OPTIONS = [
-  { code: 'en', name: 'English', flag: '🇬🇧', label: 'EN' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺', label: 'RU' },
-  { code: 'uz_cyrl', name: 'O‘zbekcha', flag: '🇺🇿', label: 'UZ' },
-  { code: 'tj', name: 'Тоҷикӣ', flag: '🇹🇯', label: 'ТО' },
+  { code: 'en', name: 'English', flagUrl: 'https://flagcdn.com/w40/gb.png', label: 'EN' },
+  { code: 'ru', name: 'Русский', flagUrl: 'https://flagcdn.com/w40/ru.png', label: 'RU' },
+  { code: 'uz_cyrl', name: 'O‘zbekcha', flagUrl: 'https://flagcdn.com/w40/uz.png', label: 'UZ' },
+  { code: 'tj', name: 'Тоҷикӣ', flagUrl: 'https://flagcdn.com/w40/tj.png', label: 'ТО' },
 ];
 
 const LanguageSwitcher = ({
@@ -68,7 +68,11 @@ const LanguageSwitcher = ({
                 className={`relative flex w-full items-center justify-between px-5 py-3 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 hover:z-10 hover:scale-[1.02] border-b border-emerald-900/5 last:border-b-0 ${language === item.code ? 'bg-emerald-50/70 text-gold-500' : 'text-emerald-950/60 hover:bg-emerald-50'} ${itemClassName}`}
               >
                 <span>{item.name}</span>
-                <span className="text-sm">{item.flag}</span>
+                <img 
+                  src={item.flagUrl} 
+                  alt="" 
+                  className="w-[18px] h-[12px] object-cover rounded-[2px] border border-emerald-900/10 shrink-0" 
+                />
               </button>
             ))}
           </motion.div>

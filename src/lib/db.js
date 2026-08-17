@@ -137,6 +137,10 @@ export const db = {
     return res;
   },
 
+  deleteRSVP: async (rsvpId) => request(`/rsvps/${encodeURIComponent(String(rsvpId).trim())}`, {
+    method: 'DELETE',
+  }),
+
   incrementView: async (idOrSlug) => request(`/orders/lookup/view?ref=${encodeURIComponent(String(idOrSlug).trim())}`, {
     method: 'POST',
     auth: false,

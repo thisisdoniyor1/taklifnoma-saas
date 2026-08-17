@@ -8,10 +8,10 @@ import defaultMusicFile from '../music/AUDIO-2026-06-03-19-11-34.mp3';
 const DEFAULT_MUSIC = defaultMusicFile;
 
 const LANGUAGES = [
-  { code: 'uz_cyrl', label: 'UZ', name: 'O‘zbekcha 🇺🇿' },
-  { code: 'tj',      label: 'TJ', name: 'Тоҷикӣ 🇹🇯'  },
-  { code: 'ru',      label: 'RU', name: 'Русский 🇷🇺'  },
-  { code: 'en',      label: 'EN', name: 'English 🇬🇧'  },
+  { code: 'uz_cyrl', label: 'UZ', name: 'O‘zbekcha', flagUrl: 'https://flagcdn.com/w40/uz.png' },
+  { code: 'tj',      label: 'TJ', name: 'Тоҷикӣ',   flagUrl: 'https://flagcdn.com/w40/tj.png' },
+  { code: 'ru',      label: 'RU', name: 'Русский',   flagUrl: 'https://flagcdn.com/w40/ru.png' },
+  { code: 'en',      label: 'EN', name: 'English',   flagUrl: 'https://flagcdn.com/w40/gb.png' },
 ];
 
 /**
@@ -125,7 +125,24 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
             whileTap={{ scale: 0.93 }}
             style={btnStyle}
           >
-            {LANGUAGES.find(l => l.code === language)?.label ?? 'UZ'}
+            {(() => {
+              const activeLang = LANGUAGES.find(l => l.code === language);
+              return activeLang ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <img 
+                    src={activeLang.flagUrl} 
+                    alt="" 
+                    style={{ 
+                      width: '18px', 
+                      height: '12px', 
+                      objectFit: 'cover', 
+                      borderRadius: '1.5px', 
+                      border: '0.5px solid rgba(255,255,255,0.25)'
+                    }} 
+                  />
+                </div>
+              ) : 'UZ';
+            })()}
           </motion.button>
 
           <AnimatePresence>
@@ -138,29 +155,27 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
                 style={{
                   position: 'absolute',
                   top: 52, right: 0,
-                  backgroundColor: 'rgba(30,30,30,0.94)',
-                  backdropFilter: 'blur(14px)',
-                  WebkitBackdropFilter: 'blur(14px)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid rgba(0,0,0,0.08)',
                   borderRadius: 12,
                   padding: 6,
                   display: 'flex', flexDirection: 'column', gap: 3,
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.28)',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.12)',
                   zIndex: 10000,
                   minWidth: 148,
                 }}
               >
-                {LANGUAGES.map(({ code, name }, i, arr) => (
+                {LANGUAGES.map(({ code, name, flagUrl }, i, arr) => (
                   <button
                     key={code}
                     onClick={() => { setLanguage(code); setDropOpen(false); }}
                     style={{
                       padding: '9px 14px',
-                      backgroundColor: language === code ? 'rgba(255,255,255,0.14)' : 'transparent',
+                      backgroundColor: language === code ? 'rgba(0,0,0,0.06)' : 'transparent',
                       border: 'none',
                       borderRadius: i === 0 ? '8px 8px 2px 2px' : i === arr.length - 1 ? '2px 2px 8px 8px' : 2,
-                      borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                      color: '#fff',
+                      borderBottom: i < arr.length - 1 ? '1px solid rgba(0,0,0,0.05)' : 'none',
+                      color: '#1a1a1a',
                       fontFamily: "'Cormorant Garamond', serif",
                       fontSize: '0.88rem',
                       fontWeight: language === code ? 700 : 400,
@@ -170,7 +185,21 @@ const FloatingControls = ({ musicUrl, accentColor = 'rgba(60,60,60,0.82)' }) => 
                       transition: 'background 0.15s',
                     }}
                   >
-                    {name}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <img 
+                        src={flagUrl} 
+                        alt="" 
+                        style={{ 
+                          width: '18px', 
+                          height: '12px', 
+                          objectFit: 'cover', 
+                          borderRadius: '1.5px', 
+                          border: '0.5px solid rgba(0,0,0,0.15)',
+                          flexShrink: 0
+                        }} 
+                      />
+                      <span>{name}</span>
+                    </div>
                   </button>
                 ))}
               </motion.div>

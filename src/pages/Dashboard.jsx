@@ -308,6 +308,17 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
     }
   };
 
+  const handleDeleteRSVP = async (rsvpId) => {
+    if (!window.confirm(t('dashboard.row.deleteConfirmTitle') || 'Haqiqatan ham o‘chirmoqchimisiz?')) return;
+    try {
+      await db.deleteRSVP(rsvpId);
+      setRsvps(prev => prev.filter(r => r.id !== rsvpId));
+      if (onRefresh) onRefresh();
+    } catch (err) {
+      window.alert(err.message || 'Failed to delete response');
+    }
+  };
+
   const toggleExpand = async () => {
     if (!isExpanded && rsvps.length === 0) {
       setLoadingRSVPs(true);
@@ -779,12 +790,14 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                           <p className="text-[1rem] font-black tracking-tight text-emerald-950">
                             {rsvp.name}
                           </p>
-                          <span className={`rounded-full border px-3 py-1 text-[9px] font-black uppercase tracking-[2px] ${rsvp.status === 'attending'
-                            ? 'border-emerald-100 bg-emerald-50 text-emerald-700'
-                            : 'border-red-100 bg-red-50 text-red-600'
-                            }`}>
-                            {rsvp.status === 'attending' ? t('dashboard.row.attending') : t('dashboard.row.declined')}
-                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteRSVP(rsvp.id)}
+                            className="p-1.5 rounded-lg border border-red-100 bg-red-50/50 hover:bg-red-50 hover:border-red-200 text-red-500 transition-all cursor-pointer flex items-center justify-center"
+                            title="Delete wish"
+                          >
+                            <Trash2 size={13} strokeWidth={2.5} />
+                          </button>
                         </div>
 
                         {rsvp.wish ? (

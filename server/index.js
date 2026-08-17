@@ -1572,6 +1572,42 @@ app.delete('/api/orders/:uuid', authenticateToken, async (req, res) => {
   }
 });
 
+app.delete('/api/rsvps/:id', authenticateToken, async (req, res) => {
+  try {
+    const rsvpId = parseInt(req.params.id, 10);
+    if (isNaN(rsvpId)) {
+      return res.status(400).json({ error: 'Invalid RSVP ID' });
+    }
+
+    await updateDatabase(async (data) => {
+      const rsvpIndex = data.rsvps.findIndex((r) => r.id === rsvpId);
+      if (rsvpIndex === -1) {
+        throw httpError(404, 'RSVP not found');
+      }
+
+      const rsvp = data.rsvps[rsvpIndex];
+      const order = data.orders.find((o) => o.invite_uuid === rsvp.order_uuid);
+      if (!order) {
+        throw httpError(404, 'Associated invitation not found');
+      }
+
+      if (!req.user?.isAdmin && Number(order.user_id) !== Number(req.user?.id)) {
+        throw httpError(403, 'You do not have permission to delete this RSVP');
+      }
+
+      data.rsvps.splice(rsvpIndex, 1);
+
+      if (order.rsvp_count > 0) {
+        order.rsvp_count -= 1;
+      }
+    });
+
+    return res.json({ success: true });
+  } catch (error) {
+    return res.status(error.status || 500).json({ error: error.message || 'Failed to delete RSVP' });
+  }
+});
+
 app.post('/api/orders/:uuid/restore', authenticateToken, async (req, res) => {
   try {
     await updateDatabase(async (data) => {
