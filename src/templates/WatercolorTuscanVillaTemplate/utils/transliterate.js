@@ -207,6 +207,66 @@ export function getWelcomeText(welcomeText, language, t) {
 
   const trimmedLower = welcomeText.trim().toLowerCase();
   
+  // Try custom semantic matching and accurate translations
+  const normalizePhrase = (str) => {
+    return str.toLowerCase()
+      .replace(/\s+/g, '')
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?’‘']/g, "")
+      .replace(/[oў]/g, 'o')
+      .replace(/[uӯ]/g, 'o')
+      .replace(/[gғ]/g, 'g')
+      .replace(/[yй]/g, 'i')
+      .replace(/[hҳ]/g, 'h');
+  };
+
+  const hasCyr = /[\u0400-\u04FF]/.test(welcomeText);
+  const latinText = hasCyr ? transliterate(welcomeText, CYRILLIC_TO_LATIN) : welcomeText;
+  const normalized = normalizePhrase(latinText);
+
+  const customPhrases = [
+    {
+      keys: ['hammangiznitoyimizgataklifetamiz', 'hammangiznikohtoyimizgataklifetamiz'],
+      translations: {
+        en: "We invite you all to our wedding.",
+        ru: "Приглашаем всех вас на нашу свадьбу.",
+        uz_cyrl: "Ҳаммангизни тўйимизга таклиф этамиз.",
+        tj: "Ҳамаи шуморо ба тӯйи худ даъват менамоем.",
+        uz: "Hammangizni to'yimizga taklif etamiz."
+      }
+    },
+    {
+      keys: [
+        'sizlarnitoyimizgataklifetamiz', 'sizlarnikohtoyimizgataklifetamiz', 
+        'siznitoyimizgataklifetamiz', 'siznikohtoyimizgataklifetamiz'
+      ],
+      translations: {
+        en: "We invite you to our wedding.",
+        ru: "Приглашаем вас на нашу свадьбу.",
+        uz_cyrl: "Сизларни тўйимизга таклиф этамиз.",
+        tj: "Шуморо ба тӯйи худ даъват менамоем.",
+        uz: "Sizlarni to'yimizga taklif etamiz."
+      }
+    },
+    {
+      keys: ['toyimizgaxushkelibsiz'],
+      translations: {
+        en: "Welcome to our wedding!",
+        ru: "Добро пожаловать на нашу свадьбу!",
+        uz_cyrl: "Тўйимизга хуш келибсиз!",
+        tj: "Ба тӯйи мо хуш омадед!",
+        uz: "To'yimizga xush kelibsiz!"
+      }
+    }
+  ];
+
+  const matchedPhrase = customPhrases.find(p => p.keys.some(k => normalized.includes(k)));
+  if (matchedPhrase) {
+    if (language === 'uz' || language === 'uz_cyrl') {
+      return language === 'uz_cyrl' ? matchedPhrase.translations.uz_cyrl : matchedPhrase.translations.uz;
+    }
+    return matchedPhrase.translations[language] || matchedPhrase.translations.en;
+  }
+
   // Check if it matches any of the default texts
   const isDefault = defaultTexts.some(def => trimmedLower === def || trimmedLower.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") === def.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")) ||
     trimmedLower.includes("quvonch bilan") ||
