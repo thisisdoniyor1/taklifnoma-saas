@@ -108,8 +108,20 @@ const InvitationView = () => {
           setLanguage(backendData.default_lang);
         }
 
-        // Background view increment
-        db.incrementView(cleanId).catch(() => { });
+        // Background view increment - only once per device
+        try {
+          const viewKey = `viewed_invite_${cleanId}`;
+          if (!localStorage.getItem(viewKey)) {
+            db.incrementView(cleanId)
+              .then(() => {
+                try { localStorage.setItem(viewKey, 'true'); } catch (err) {}
+              })
+              .catch(() => { });
+          }
+        } catch (e) {
+          // Fallback if localStorage is disabled/blocked (e.g. private mode)
+          db.incrementView(cleanId).catch(() => { });
+        }
 
         setLoading(false);
         clearTimeout(timeoutId);
