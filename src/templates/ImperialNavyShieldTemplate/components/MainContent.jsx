@@ -175,7 +175,7 @@ const MainContent = ({ data }) => {
   };
 
   let displayWishes = wishes;
-  if (!invRef && wishes.length === 0) {
+  if (!invRef && !data?.isRealInvitation && wishes.length === 0) {
     displayWishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;
   }
 

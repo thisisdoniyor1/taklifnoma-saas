@@ -78,7 +78,7 @@ const MainContent = ({ data }) => {
     setRsvpLoading(false);
   };
 
-  const isPreview = !invRef || data?.isPreview;
+  const isPreview = (!invRef || data?.isPreview) && !data?.isRealInvitation;
   let displayWishes = wishes;
   if (isPreview && wishes.length === 0) {
     displayWishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;

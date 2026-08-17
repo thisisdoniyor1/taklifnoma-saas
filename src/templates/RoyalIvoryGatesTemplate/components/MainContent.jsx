@@ -186,7 +186,7 @@ export default function MainContent({ data }) {
   };
 
   let wishes = localWishes;
-  const isPreview = !invRef || data?.isPreview;
+  const isPreview = (!invRef || data?.isPreview) && !data?.isRealInvitation;
   if (isPreview && wishes.length === 0) {
     wishes = DUMMY_WISHES_BY_LANG[language] || DUMMY_WISHES_BY_LANG.en;
   }

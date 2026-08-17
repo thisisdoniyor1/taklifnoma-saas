@@ -274,11 +274,11 @@ const InvitationView = () => {
               boxShadow: '0 8px 24px rgba(212,175,55,0.3)'
             }}
           >
-            {t('payment.recheckBtn')}
+            {t('editor.payment.recheckBtn')}
           </button>
 
           <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem', marginTop: '12px', marginBottom: '2px', fontWeight: 500 }}>
-            {t('payment.contactHint')}
+            {t('editor.payment.contactHint')}
           </p>
 
           <a
@@ -304,7 +304,7 @@ const InvitationView = () => {
             }}
           >
             <MessageCircle size={18} />
-            {t('payment.contactWhatsAppBtn')}
+            {t('editor.payment.contactWhatsAppBtn')}
           </a>
         </div>
       </div>
