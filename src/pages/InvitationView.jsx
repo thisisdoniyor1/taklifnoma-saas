@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { db } from '../lib/db';
 import TemplateManager from '../components/TemplateManager';
 import { ErrorBoundary } from '../components/ErrorBoundary';
-import { Clock } from 'lucide-react';
+import { Clock, MessageCircle } from 'lucide-react';
+import { PAYMENT_CONFIG } from '../config';
 import confetti from 'canvas-confetti';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -237,6 +238,12 @@ const InvitationView = () => {
   const isDeactivated = (data.status === 'deactivated' || data.status === 'inactive') && !isPreviewMode;
 
   if (isDeactivated) {
+    const groom = data.groomName || 'Groom';
+    const bride = data.brideName || 'Bride';
+    const link = window.location.href;
+    const text = `Assalomu alaykum! Men taklifnoma faollashtirish holati bo'yicha yozmoqdaman (${groom} & ${bride}):\n${link}`;
+    const whatsappUrl = `https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#0a1a14', color: '#fff', padding: '24px', textAlign: 'center' }}>
         <div style={{ width: '72px', height: '72px', borderRadius: '50%', backgroundColor: 'rgba(212,175,55,0.15)', border: '1.5px solid #d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', boxShadow: '0 0 30px rgba(212,175,55,0.2)' }}>
@@ -248,24 +255,58 @@ const InvitationView = () => {
         <p style={{ color: 'rgba(255,255,255,0.78)', maxWidth: '440px', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '28px' }}>
           {t('payment.activationPendingDesc')}
         </p>
-        <button
-          onClick={() => window.location.reload()}
-          style={{
-            padding: '13px 30px',
-            backgroundColor: '#d4af37',
-            color: '#0a1a14',
-            border: 'none',
-            borderRadius: '24px',
-            fontWeight: 800,
-            cursor: 'pointer',
-            fontSize: '0.8rem',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase',
-            boxShadow: '0 8px 24px rgba(212,175,55,0.3)'
-          }}
-        >
-          {t('payment.recheckBtn')}
-        </button>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center', width: '100%', maxWidth: '340px' }}>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              width: '100%',
+              padding: '14px 28px',
+              backgroundColor: '#d4af37',
+              color: '#0a1a14',
+              border: 'none',
+              borderRadius: '24px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              fontSize: '0.8rem',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              boxShadow: '0 8px 24px rgba(212,175,55,0.3)'
+            }}
+          >
+            {t('payment.recheckBtn')}
+          </button>
+
+          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem', marginTop: '12px', marginBottom: '2px', fontWeight: 500 }}>
+            {t('payment.contactHint')}
+          </p>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              width: '100%',
+              padding: '14px 28px',
+              backgroundColor: '#25D366',
+              color: '#ffffff',
+              borderRadius: '24px',
+              fontWeight: 800,
+              fontSize: '0.8rem',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              boxShadow: '0 8px 24px rgba(37,211,102,0.35)'
+            }}
+          >
+            <MessageCircle size={18} />
+            {t('payment.contactWhatsAppBtn')}
+          </a>
+        </div>
       </div>
     );
   }

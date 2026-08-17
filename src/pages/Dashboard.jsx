@@ -257,6 +257,8 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmDeleteWishId, setConfirmDeleteWishId] = useState(null);
+  const [deletingWish, setDeletingWish] = useState(false);
   const [restoring, setRestoring] = useState(false);
   const [copied, setCopied] = useState(false);
   const [editForm, setEditForm] = useState(buildEditForm(invite));
@@ -308,14 +310,18 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
     }
   };
 
-  const handleDeleteRSVP = async (rsvpId) => {
-    if (!window.confirm(t('dashboard.row.deleteConfirmTitle') || 'Haqiqatan ham o‘chirmoqchimisiz?')) return;
+  const handleConfirmDeleteWish = async (rsvpId) => {
+    if (!rsvpId) return;
+    setDeletingWish(true);
     try {
       await db.deleteRSVP(rsvpId);
       setRsvps(prev => prev.filter(r => r.id !== rsvpId));
+      setConfirmDeleteWishId(null);
       if (onRefresh) onRefresh();
     } catch (err) {
       window.alert(err.message || 'Failed to delete response');
+    } finally {
+      setDeletingWish(false);
     }
   };
 
@@ -455,6 +461,59 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                     className="w-full h-12 rounded-2xl bg-[#f4faf6] border border-emerald-900/10 text-[10px] font-black uppercase tracking-[2.5px] text-emerald-900 hover:bg-[#eaf5ee] hover:text-emerald-950 transition-all"
                   >
                     {t('dashboard.row.cancel')}
+                  </motion.button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {confirmDeleteWishId && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[10000] flex items-center justify-center bg-emerald-950/60 p-4 backdrop-blur-md"
+              onClick={() => setConfirmDeleteWishId(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.92, opacity: 0, y: 15 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-[340px] overflow-hidden rounded-[28px] bg-white p-7 shadow-2xl text-center border border-emerald-900/10"
+              >
+                <div className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-red-50 border border-red-100 shadow-sm">
+                  <Trash2 size={26} className="text-red-500" strokeWidth={2} />
+                </div>
+
+                <h3 className="text-base font-extrabold text-emerald-950 mb-6 px-2 leading-snug">
+                  {t('dashboard.row.deleteWishTitle')}
+                </h3>
+
+                <div className="flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleConfirmDeleteWish(confirmDeleteWishId)}
+                    disabled={deletingWish}
+                    className="flex-1 h-11 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 text-xs font-extrabold uppercase tracking-wider text-white shadow-md shadow-red-500/20 hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer"
+                  >
+                    {deletingWish ? '...' : t('dashboard.row.yes')}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setConfirmDeleteWishId(null)}
+                    disabled={deletingWish}
+                    className="flex-1 h-11 rounded-2xl bg-emerald-50 border border-emerald-900/10 text-xs font-extrabold uppercase tracking-wider text-emerald-900 hover:bg-emerald-100/60 transition-all cursor-pointer"
+                  >
+                    {t('dashboard.row.no')}
                   </motion.button>
                 </div>
               </motion.div>
@@ -792,7 +851,7 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                           </p>
                           <button
                             type="button"
-                            onClick={() => handleDeleteRSVP(rsvp.id)}
+                            onClick={() => setConfirmDeleteWishId(rsvp.id)}
                             className="p-1.5 rounded-lg border border-red-100 bg-red-50/50 hover:bg-red-50 hover:border-red-200 text-red-500 transition-all cursor-pointer flex items-center justify-center"
                             title="Delete wish"
                           >

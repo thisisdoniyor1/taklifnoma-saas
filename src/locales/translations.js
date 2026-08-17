@@ -155,7 +155,7 @@ export const translations = {
       },
       nav: { back: "BACK", next: "CONTINUE" },
       preview: { title: "Live Preview" },
-      payment: { simulate: "PAYMENT SIMULATION", ready: "READY!", readyTitle: "Are you ready?", readyDesc: "Have you filled all details? Save your invitation and proceed to the payment page.", saving: "SAVING...", saveBtn: "SAVE AND CONTINUE", simulateHeader: "Payment System Simulation", invoiceItem: "Invitation Template:", total: "Total Amount:", processing: "PROCESSING...", payBtn: "PAY NOW (SIMULATION)", successTitle: "Payment is accepted!", successDesc: "Your invitation is created! Complete payment below to activate.", copyBtn: "COPY", copied: "COPIED!", viewInv: "View Invitation", couple: "Couple", formTitle: "Invitation Form", formSubtitle: "Fill everything on one page", formDesc: "Add the names, event details, and optional music here. When it is ready, create the invitation at the bottom.", templateLabel: "Template", finalStep: "Final Step", finalStepDesc: "Fill the required fields above, then create the invitation.", bankTitle: "Payment & Activation", bankDesc: "Transfer payment to any bank card below, then send your payment screenshot via WhatsApp to activate your invitation.", copyCard: "Copy Card Number", sendWhatsApp: "Send Screenshot via WhatsApp", lockedTitle: "Link & Actions Locked", lockedDesc: "Send your payment screenshot to WhatsApp using the button above to unlock your invitation link.", unlockedTitle: "Receipt Sent — Link Unlocked!", unlockedDesc: "Your invitation link and buttons are now fully active.", unlockHint: "Click 'Send Screenshot via WhatsApp' above to unlock the link below", activationPendingTitle: "Invitation link is being activated", activationPendingDesc: "Your link will be activated after we confirm the payment. You will be notified about confirmation on WhatsApp.", recheckBtn: "Check again", stepPayment: "Step: Payment Verification", pendingDesc: "Complete payment to activate your invitation link.", whatsappMessage: "Hello! I have made the payment for this invitation ({groom} & {bride}):\n{link}\n\nHere is my payment screenshot." },
+      payment: { simulate: "PAYMENT SIMULATION", ready: "READY!", readyTitle: "Are you ready?", readyDesc: "Have you filled all details? Save your invitation and proceed to the payment page.", saving: "SAVING...", saveBtn: "SAVE AND CONTINUE", simulateHeader: "Payment System Simulation", invoiceItem: "Invitation Template:", total: "Total Amount:", processing: "PROCESSING...", payBtn: "PAY NOW (SIMULATION)", successTitle: "Payment is accepted!", successDesc: "Your invitation is created! Complete payment below to activate.", copyBtn: "COPY", copied: "COPIED!", viewInv: "View Invitation", couple: "Couple", formTitle: "Invitation Form", formSubtitle: "Fill everything on one page", formDesc: "Add the names, event details, and optional music here. When it is ready, create the invitation at the bottom.", templateLabel: "Template", finalStep: "Final Step", finalStepDesc: "Fill the required fields above, then create the invitation.", bankTitle: "Payment & Activation", bankDesc: "Transfer payment to any bank card below, then send your payment screenshot via WhatsApp to activate your invitation.", copyCard: "Copy Card Number", sendWhatsApp: "Send Screenshot via WhatsApp", lockedTitle: "Link & Actions Locked", lockedDesc: "Send your payment screenshot to WhatsApp using the button above to unlock your invitation link.", unlockedTitle: "Receipt Sent — Link Unlocked!", unlockedDesc: "Your invitation link and buttons are now fully active.", unlockHint: "Click 'Send Screenshot via WhatsApp' above to unlock the link below", activationPendingTitle: "Invitation link is being activated", activationPendingDesc: "Your link will be activated after we confirm the payment. You will be notified about confirmation on WhatsApp.", recheckBtn: "Check again", contactHint: "Or you can contact us via WhatsApp for updates:", contactWhatsAppBtn: "Contact on WhatsApp", stepPayment: "Step: Payment Verification", pendingDesc: "Complete payment to activate your invitation link.", whatsappMessage: "Hello! I have made the payment for this invitation ({groom} & {bride}):\n{link}\n\nHere is my payment screenshot." },
       upload: {
         cta: "Click to upload a photo",
         dragActive: "Drop your photo here",
@@ -284,7 +284,10 @@ export const translations = {
         cancel: "Cancel",
         yesDelete: "Yes, Delete",
         deleteConfirmTitle: "Delete Invitation?",
-        deleteConfirmDesc: "This will move the invitation to your deleted list. You can restore it later."
+        deleteConfirmDesc: "This will move the invitation to your deleted list. You can restore it later.",
+        deleteWishTitle: "Do you want to delete the wish?",
+        yes: "Yes",
+        no: "No"
       },
       editor: {
         groom: "Groom Name",
@@ -411,7 +414,7 @@ export const translations = {
       label: "Design Preview",
       cta: "Create Your Invitation",
       desc: "Every love story is unique. Choose this design and personalize it in minutes for a truly magical experience.",
-      liveDemo: "Click to view · Live Demo"
+      liveDemo: "Click to view\u00A0· Live Demo"
     },
     templates_catalog: {
       'envelope-classic': {
@@ -598,7 +601,7 @@ export const translations = {
       },
       nav: { back: "НАЗАД", next: "ПРОДОЛЖИТЬ" },
       preview: { title: "Предпросмотр" },
-      payment: { simulate: "ОПЛАТА", ready: "ГОТОВО!", readyTitle: "Вы готовы?", readyDesc: "Заполнили все данные? Сохраните приглашение и перейдите к оплате.", saving: "СОХРАНЕНИЕ...", saveBtn: "СОХРАНИТЬ И ПРОДОЛЖИТЬ", simulateHeader: "Симуляция Платежной Системы", invoiceItem: "Шаблон:", total: "Итого:", processing: "ОПЛАТА...", payBtn: "ОПЛАТИТЬ (СИМУЛЯЦИЯ)", successTitle: "Оплата принята!", successDesc: "Вот ваша ссылка на онлайн-приглашение. Спасибо, что выбрали нас.", copyBtn: "СКОПИРОВАТЬ", copied: "СКОПИРОВАНО!", viewInv: "Посмотреть приглашение", couple: "Пара", formTitle: "Форма приглашения", formSubtitle: "Заполните всё на одной странице", formDesc: "Добавьте имена, детали события и музыку. Когда будет готово, создайте приглашение внизу.", templateLabel: "Шаблон", finalStep: "Финальный шаг", finalStepDesc: "Заполните обязательные поля выше, затем создайте приглашение.", bankTitle: "Оплата и Активация", bankDesc: "Переведите оплату на любую из карт ниже, затем отправьте скриншот оплаты в WhatsApp для активации.", copyCard: "Скопировать номер", sendWhatsApp: "Отправить скриншот в WhatsApp", lockedTitle: "Ссылка и Кнопки Заблокированы", lockedDesc: "Отправьте скриншот оплаты в WhatsApp с помощью кнопки выше, чтобы разблокировать ссылку на приглашение.", unlockedTitle: "Чек Отправлен — Ссылка Разблокирована!", unlockedDesc: "Ваша ссылка и действия теперь полностью доступны.", unlockHint: "Нажмите 'Отправить скриншот в WhatsApp' выше, чтобы открыть доступ", activationPendingTitle: "Ссылка на приглашение активируется", activationPendingDesc: "Ваша ссылка будет активирована после подтверждения оплаты. Мы уведомим вас о подтверждении через WhatsApp.", recheckBtn: "Проверить снова", stepPayment: "Шаг: Проверка Оплаты", pendingDesc: "Завершите оплату для активации ссылки на приглашение.", whatsappMessage: "Здравствуйте! Я оплатил это приглашение ({groom} & {bride}):\n{link}\n\nВот скриншот моей оплаты." },
+      payment: { simulate: "ОПЛАТА", ready: "ГОТОВО!", readyTitle: "Вы готовы?", readyDesc: "Заполнили все данные? Сохраните приглашение и перейдите к оплате.", saving: "СОХРАНЕНИЕ...", saveBtn: "СОХРАНИТЬ И ПРОДОЛЖИТЬ", simulateHeader: "Симуляция Платежной Системы", invoiceItem: "Шаблон:", total: "Итого:", processing: "ОПЛАТА...", payBtn: "ОПЛАТИТЬ (СИМУЛЯЦИЯ)", successTitle: "Оплата принята!", successDesc: "Вот ваша ссылка на онлайн-приглашение. Спасибо, что выбрали нас.", copyBtn: "СКОПИРОВАТЬ", copied: "СКОПИРОВАНО!", viewInv: "Посмотреть приглашение", couple: "Пара", formTitle: "Форма приглашения", formSubtitle: "Заполните всё на одной странице", formDesc: "Добавьте имена, детали события и музыку. Когда будет готово, создайте приглашение внизу.", templateLabel: "Шаблон", finalStep: "Финальный шаг", finalStepDesc: "Заполните обязательные поля выше, затем создайте приглашение.", bankTitle: "Оплата и Активация", bankDesc: "Переведите оплату на любую из карт ниже, затем отправьте скриншот оплаты в WhatsApp для активации.", copyCard: "Скопировать номер", sendWhatsApp: "Отправить скриншот в WhatsApp", lockedTitle: "Ссылка и Кнопки Заблокированы", lockedDesc: "Отправьте скриншот оплаты в WhatsApp с помощью кнопки выше, чтобы разблокировать ссылку на приглашение.", unlockedTitle: "Чек Отправлен — Ссылка Разблокирована!", unlockedDesc: "Ваша ссылка и действия теперь полностью доступны.", unlockHint: "Нажмите 'Отправить скриншот в WhatsApp' выше, чтобы открыть доступ", activationPendingTitle: "Ссылка на приглашение активируется", activationPendingDesc: "Ваша ссылка будет активирована после подтверждения оплаты. Мы уведомим вас о подтверждении через WhatsApp.", recheckBtn: "Проверить снова", contactHint: "Или вы можете связаться с нами в WhatsApp для уточнения:", contactWhatsAppBtn: "Написать в WhatsApp", stepPayment: "Шаг: Проверка Оплаты", pendingDesc: "Завершите оплату для активации ссылки на приглашение.", whatsappMessage: "Здравствуйте! Я оплатил это приглашение ({groom} & {bride}):\n{link}\n\nВот скриншот моей оплаты." },
       upload: {
         cta: "Нажмите, чтобы загрузить фото",
         dragActive: "Перетащите фото сюда",
@@ -731,7 +734,10 @@ export const translations = {
         cancel: "Отмена",
         yesDelete: "Да, удалить",
         deleteConfirmTitle: "Удалить приглашение?",
-        deleteConfirmDesc: "Приглашение будет перемещено в список удаленных. Вы сможете восстановить его позже."
+        deleteConfirmDesc: "Приглашение будет перемещено в список удаленных. Вы сможете восстановить его позже.",
+        deleteWishTitle: "Вы хотите удалить пожелание?",
+        yes: "Да",
+        no: "Нет"
       },
       editor: {
         groom: "Имя жениха",
@@ -809,6 +815,13 @@ export const translations = {
         deleteConfirmTitle: "Удалить приглашение?",
         deleteConfirmDesc: "Это действие переместит приглашение в архив удаленных."
       }
+    },
+    templates_modal: {
+      back: "На главную",
+      label: "Предпросмотр дизайна",
+      cta: "Создать приглашение",
+      desc: "Выберите этот дизайн и персонализируйте его за пару минут.",
+      liveDemo: "Нажмите для просмотра\u00A0· Живая демо-версия"
     }
   },
   uz_cyrl: {
@@ -957,7 +970,7 @@ export const translations = {
       },
       nav: { back: "ORQAGA", next: "DAVOM ETISH" },
       preview: { title: "Jonli Ko‘rinish" },
-      payment: { simulate: "TO‘LOVNI AMALGA OSHIRISH", ready: "TAYYOR!", readyTitle: "Tayyor bo‘ldingizmi?", readyDesc: "Barcha ma'lumotlar kiritildimi? Taklifnomangizni saqlang va to‘lov sahifasiga o‘ting.", saving: "SAQLANMOQDA...", saveBtn: "SAQLASH VA DAVOM ETISH", simulateHeader: "To‘lov Tizimi Simulyatsiyasi", invoiceItem: "Taklifnoma:", total: "Jami to‘lov:", processing: "TO‘LOV QILINMOQDA...", payBtn: "TO‘LOV QILING (SIMULYATSIYA)", successTitle: "To‘lov qabul qilindi!", successDesc: "Bu sizning online taklifnomangiz havolasi. Bizni tanlaganingiz uchun tashakkur.", copyBtn: "NUSXA OLISH", copied: "NUSXALANDI!", viewInv: "Taklifnomani ko‘rish", couple: "Juft", formTitle: "Taklifnoma formasi", formSubtitle: "Barchasini bitta sahifada to‘ldiring", formDesc: "Ismlar, tadbir tafsilotlari va musiqani qo‘shing. Tayyor bo‘lganda taklifnoma yarating.", templateLabel: "Andoza", finalStep: "So‘nggi qadam", finalStepDesc: "Ustidagi majburiy maydonlarni to‘ldiring, keyin taklifnoma yarating.", bankTitle: "To‘lov va faollashtirish", bankDesc: "Quyidagi bank kartalaridan biriga to‘lovni o‘tkazing va faollashtirish uchun to‘lov skrinshotini WhatsApp orqali yuboring.", copyCard: "Karta raqamini nusxalash", sendWhatsApp: "Skrinshotni WhatsApp orqali yuborish", lockedTitle: "Havola va tugmalar bloklangan", lockedDesc: "Taklifnoma havolasini ochish uchun yuqoridagi tugma orqali to‘lov skrinshotini WhatsApp'ga yuboring.", unlockedTitle: "Chek yuborildi — Havola ochildi!", unlockedDesc: "Taklifnoma havolangiz va tugmalar endi to‘liq faol.", unlockHint: "Havolani ochish uchun yuqoridagi 'Skrinshotni WhatsApp orqali yuborish' tugmasini bosing", activationPendingTitle: "Taklifnoma havolasi faollashtirilmoqda", activationPendingDesc: "To‘lovni tasdiqlaganimizdan so‘ng havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.", recheckBtn: "Qayta tekshirish", stepPayment: "Qadam: To'lov Tekshirish", pendingDesc: "Taklifnoma havolasini faollashtirish uchun to'lovni amalga oshiring.", whatsappMessage: "Assalomu alaykum! Men bu taklifnoma uchun to'lov qildim ({groom} & {bride}):\n{link}\n\nMana to'lov skrinshotim." },
+      payment: { simulate: "TO‘LOVNI AMALGA OSHIRISH", ready: "TAYYOR!", readyTitle: "Tayyor bo‘ldingizmi?", readyDesc: "Barcha ma'lumotlar kiritildimi? Taklifnomangizni saqlang va to‘lov sahifasiga o‘ting.", saving: "SAQLANMOQDA...", saveBtn: "SAQLASH VA DAVOM ETISH", simulateHeader: "To‘lov Tizimi Simulyatsiyasi", invoiceItem: "Taklifnoma:", total: "Jami to‘lov:", processing: "TO‘LOV QILINMOQDA...", payBtn: "TO‘LOV QILING (SIMULYATSIYA)", successTitle: "To‘lov qabul qilindi!", successDesc: "Bu sizning online taklifnomangiz havolasi. Bizni tanlaganingiz uchun tashakkur.", copyBtn: "NUSXA OLISH", copied: "NUSXALANDI!", viewInv: "Taklifnomani ko‘rish", couple: "Juft", formTitle: "Taklifnoma formasi", formSubtitle: "Barchasini bitta sahifada to‘ldiring", formDesc: "Ismlar, tadbir tafsilotlari va musiqani qo‘shing. Tayyor bo‘lganda taklifnoma yarating.", templateLabel: "Andoza", finalStep: "So‘nggi qadam", finalStepDesc: "Ustidagi majburiy maydonlarni to‘ldiring, keyin taklifnoma yarating.", bankTitle: "To‘lov va faollashtirish", bankDesc: "Quyidagi bank kartalaridan biriga to‘lovni o‘tkazing va faollashtirish uchun to‘lov skrinshotini WhatsApp orqali yuboring.", copyCard: "Karta raqamini nusxalash", sendWhatsApp: "Skrinshotni WhatsApp orqali yuborish", lockedTitle: "Havola va tugmalar bloklangan", lockedDesc: "Taklifnoma havolasini ochish uchun yuqoridagi tugma orqali to‘lov skrinshotini WhatsApp'ga yuboring.", unlockedTitle: "Chek yuborildi — Havola ochildi!", unlockedDesc: "Taklifnoma havolangiz va tugmalar endi to‘liq faol.", unlockHint: "Havolani ochish uchun yuqoridagi 'Skrinshotni WhatsApp orqali yuborish' tugmasini bosing", activationPendingTitle: "Taklifnoma havolasi faollashtirilmoqda", activationPendingDesc: "To‘lovni tasdiqlaganimizdan so‘ng havolangiz faollashtiriladi. Tasdiqlanganlik haqida sizga WhatsApp orqali xabar beramiz.", recheckBtn: "Qayta tekshirish", contactHint: "Ёки маълумот олиш учун WhatsApp орқали боғланишингиз мумкин:", contactWhatsAppBtn: "WhatsApp орқали боғланиш", stepPayment: "Qadam: To'lov Tekshirish", pendingDesc: "Taklifnoma havolasini faollashtirish uchun to'lovni amalga oshiring.", whatsappMessage: "Assalomu alaykum! Men bu taklifnoma uchun to'lov qildim ({groom} & {bride}):\n{link}\n\nMana to'lov skrinshotim." },
       upload: {
         cta: "Foto yuklash uchun bosing",
         dragActive: "Fotoni shu yerga tashlang",
@@ -1089,7 +1102,10 @@ export const translations = {
         cancel: "Bekor qilish",
         yesDelete: "Ha, o‘chirish",
         deleteConfirmTitle: "Taklifnomani o‘chirish?",
-        deleteConfirmDesc: "Ushbu taklifnoma o‘chirilganlar ro‘yxatiga o‘tkaziladi. Uni keyinchalik tiklashingiz mumkin."
+        deleteConfirmDesc: "Ushbu taklifnoma o‘chirilganlar ro‘yxatiga o‘tkaziladi. Uni keyinchalik tiklashingiz mumkin.",
+        deleteWishTitle: "Tilakni o‘chirmoqchimisiz?",
+        yes: "Ha",
+        no: "Yo‘q"
       },
       editor: {
         groom: "Kuyov ismi",
@@ -1217,7 +1233,7 @@ export const translations = {
       label: "Dizayn ko‘rinishi",
       cta: "Taklifnoma yaratish",
       desc: "Ushbu dizaynni tanlang va bir necha daqiqa ichida shaxsiylashtiring.",
-      liveDemo: "Ko‘rish uchun bosing · Jonli demo"
+      liveDemo: "Ko‘rish uchun bosing\u00A0· Jonli demo"
     },
     templates_catalog: {
       'envelope-classic': {
@@ -1575,7 +1591,7 @@ export const translations = {
       },
       nav: { back: "АҚИБ", next: "ИДОМА ДИҲЕД" },
       preview: { title: "Пешнамоиш" },
-      payment: { simulate: "ПАРДОХТ", ready: "ТАЙЁР!", readyTitle: "Оё шумо омодаед?", readyDesc: "Ҳама маълумотро пур кардед? Даъватномаро сабт кунед ва ба пардохт гузаред.", saving: "САБТ МЕШАВАД...", saveBtn: "САБТ ВА ИДОМА", simulateHeader: "Симулятсияи Системаи Пардохт", invoiceItem: "Тарҳи Даъватнома:", total: "Маблағи умумӣ:", processing: "ПАРДОХТ...", payBtn: "ПАРДОХТ НАМОЕД (СИМУЛЯТСИЯ)", successTitle: "Пардохт қабул шуд!", successDesc: "Ин истиноди даъватномаи онлайнии шумост. Ташаккур барои интихоб карданатон.", copyBtn: "НУСХА БАРДОШТАН", copied: "НУСХА БАРДОШТА ШУД!", viewInv: "Тамошо кардани даъватнома", couple: "Ҷуфт", formTitle: "Формаи даъватнома", formSubtitle: "Ҳамачизро дар як саҳифа пур кунед", formDesc: "Номҳо, тафсилоти тадбир ва мусиқиро илова кунед. Тайёр шуд даъватнома яратед.", templateLabel: "Тарҳ", finalStep: "Қадами охирин", finalStepDesc: "Майдонҳои ҳатмӣи болораро пур кунед, спас даъватнома яратед.", bankTitle: "Пардохт ва фаъолсозӣ", bankDesc: "Маблағро ба яке аз кортҳои бонкии зерин гузаронед ва барои фаъолсозӣ расми чекро тавассути WhatsApp фиристед.", copyCard: "Нусхабардории рақами корт", sendWhatsApp: "Фиристодани чек тавассути WhatsApp", lockedTitle: "Истинод ва тугмаҳо баста шудаанд", lockedDesc: "Барои кушодани истинод тавассути тугмаи боло чеки пардохтро ба WhatsApp фиристед.", unlockedTitle: "Чек фиристода шуд — Истинод кушода шуд!", unlockedDesc: "Истинод ва тугмаҳои шумо акнун комилан фаъоланд.", unlockHint: "Барои кушодани истинод тугмаи 'Фиристодани чек тавассути WhatsApp'-ро пахш кунед", activationPendingTitle: "Истиноди даъватнома фаъол карда мешавад", activationPendingDesc: "Истиноди шумо пас аз тасдиқи пардохт фаъол карда мешавад. Мо ба шумо дар бораи тасдиқ тавассути WhatsApp хабар медиҳем.", recheckBtn: "Аз нав санҷидан", stepPayment: "Қадам: Тасдиқи Пардохт", pendingDesc: "Барои фаъолсозии истиноди даъватнома пардохтро анҷом диҳед.", whatsappMessage: "Салом! Ман барои ин даъватнома пардохт кардам ({groom} & {bride}):\n{link}\n\nИн аст расми чеки пардохти ман." },
+      payment: { simulate: "ПАРДОХТ", ready: "ТАЙЁР!", readyTitle: "Оё шумо омодаед?", readyDesc: "Ҳама маълумотро пур кардед? Даъватномаро сабт кунед ва ба пардохт гузаред.", saving: "САБТ МЕШАВАД...", saveBtn: "САБТ ВА ИДОМА", simulateHeader: "Симулятсияи Системаи Пардохт", invoiceItem: "Тарҳи Даъватнома:", total: "Маблағи умумӣ:", processing: "ПАРДОХТ...", payBtn: "ПАРДОХТ НАМОЕД (СИМУЛЯТСИЯ)", successTitle: "Пардохт қабул шуд!", successDesc: "Ин истиноди даъватномаи онлайнии шумост. Ташаккур барои интихоб карданатон.", copyBtn: "НУСХА БАРДОШТАН", copied: "НУСХА БАРДОШТА ШУД!", viewInv: "Тамошо кардани даъватнома", couple: "Ҷуфт", formTitle: "Формаи даъватнома", formSubtitle: "Ҳамачизро дар як саҳифа пур кунед", formDesc: "Номҳо, тафсилоти тадбир ва мусиқиро илова кунед. Тайёр шуд даъватнома яратед.", templateLabel: "Тарҳ", finalStep: "Қадами охирин", finalStepDesc: "Майдонҳои ҳатмӣи болораро пур кунед, спас даъватнома яратед.", bankTitle: "Пардохт ва фаъолсозӣ", bankDesc: "Маблағро ба яке аз кортҳои бонкии зерин гузаронед ва барои фаъолсозӣ расми чекро тавассути WhatsApp фиристед.", copyCard: "Нусхабардории рақами корт", sendWhatsApp: "Фиристодани чек тавассути WhatsApp", lockedTitle: "Истинод ва тугмаҳо баста шудаанд", lockedDesc: "Барои кушодани истинод тавассути тугмаи боло чеки пардохтро ба WhatsApp фиристед.", unlockedTitle: "Чек фиристода шуд — Истинод кушода шуд!", unlockedDesc: "Истинод ва тугмаҳои шумо акнун комилан фаъоланд.", unlockHint: "Барои кушодани истинод тугмаи 'Фиристодани чек тавассути WhatsApp'-ро пахш кунед", activationPendingTitle: "Истиноди даъватнома фаъол карда мешавад", activationPendingDesc: "Истиноди шумо пас аз тасдиқи пардохт фаъол карда мешавад. Мо ба шумо дар бораи тасдиқ тавассути WhatsApp хабар медиҳем.", recheckBtn: "Аз нав санҷидан", contactHint: "Ё метавонед барои маълумот тавассути WhatsApp бо мо тамос гиред:", contactWhatsAppBtn: "Тамос дар WhatsApp", stepPayment: "Қадам: Тасдиқи Пардохт", pendingDesc: "Барои фаъолсозии истиноди даъватнома пардохтро анҷом диҳед.", whatsappMessage: "Салом! Ман барои ин даъватнома пардохт кардам ({groom} & {bride}):\n{link}\n\nИн аст расми чеки пардохти ман." },
       upload: {
         cta: "Барои боркунии акс пахш кунед",
         dragActive: "Аксро ба ин ҷо партоед",
@@ -1740,7 +1756,10 @@ export const translations = {
         cancel: "Лоғв кардан",
         yesDelete: "Бале, ҳазф кардан",
         deleteConfirmTitle: "Даъватнома пок карда шавад?",
-        deleteConfirmDesc: "Ин даъватнома ба рӯйхати ҳазфшудаҳо интиқол дода мешавад. Шумо метавонед онро дертар барқарор кунед."
+        deleteConfirmDesc: "Ин даъватнома ба рӯйхати ҳазфшудаҳо интиқол дода мешавад. Шумо метавонед онро дертар барқарор кунед.",
+        deleteWishTitle: "Оё мехоҳед таманниётро нест кунед?",
+        yes: "Бале",
+        no: "Не"
       },
       editor: {
         groom: "Номи домод",
@@ -1868,7 +1887,7 @@ export const translations = {
       label: "Пешнамоиши тарҳ",
       cta: "Сохтани даъватнома",
       desc: "Ҳар як қиссаи ишқ бетакрор аст. Ин тарҳро интихоб кунед ва онро дар чанд дақиқа фардӣ кунед.",
-      liveDemo: "Барои дидан зер кунед · Намоиши зинда"
+      liveDemo: "Барои дидан зер кунед\u00A0· Намоиши зинда"
     },
     templates_catalog: {
       'envelope-classic': {
