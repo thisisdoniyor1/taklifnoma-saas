@@ -101,31 +101,18 @@ function NavyBookCover({ data, onOpen, isThumbnail = false }) {
           zIndex: 3
         }}
       >
-        {/* Top Texts exactly like reference image */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0.4rem', pointerEvents: 'none', zIndex: 3 }}>
-          <span style={{
-            fontFamily: "'Outfit', 'Montserrat', sans-serif",
-            fontSize: isThumbnail ? '0.8rem' : '0.85rem',
-            fontWeight: 700,
-            letterSpacing: '0.35em',
-            color: '#ffffff',
-            textTransform: 'uppercase',
-            opacity: 0.85,
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-          }}>
-            {tr.received}
-          </span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0', pointerEvents: 'none', zIndex: 3 }}>
           <h2 style={{
             fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
-            fontSize: isThumbnail ? '2.8rem' : 'clamp(2.8rem, 10vw, 4rem)',
+            fontSize: isThumbnail ? '3rem' : 'clamp(3rem, 11vw, 4.5rem)',
             fontWeight: 400,
             fontStyle: 'normal',
             color: '#ffffff',
             margin: 0,
-            lineHeight: 1.1,
+            lineHeight: 1.15,
             textShadow: '0 2px 8px rgba(0,0,0,0.3)'
           }}>
-            {tr.invite}
+            {`${tr.received} ${tr.invite}`}
           </h2>
         </div>
 

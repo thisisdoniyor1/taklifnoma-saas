@@ -84,23 +84,22 @@ export default function EnvelopeIntro({ onOpen, isThumbnail = false }) {
           transition={{ duration: 0.8 }}
         >
           <p style={{
-            fontFamily: "'Pinyon Script', 'Cormorant Garamond', cursive, serif",
-            fontSize: 'clamp(1.8rem, 7vw, 2.6rem)',
-            letterSpacing: '0.04em',
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(0.9rem, 4.2vw, 1.2rem)',
+            letterSpacing: '0.1em',
             color: '#ffffff',
-            fontWeight: 400,
-            fontStyle: 'normal',
-            lineHeight: 1.3,
-            maxWidth: '240px',
+            fontWeight: 800,
+            lineHeight: 1.4,
+            maxWidth: '220px',
             margin: '0 auto',
             background: 'linear-gradient(135deg, #fbe8a6 0%, #D4AF37 50%, #b8921a 100%)',
             border: '0.8px solid rgba(255, 215, 0, 0.5)',
             boxShadow: '0 6px 16px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.3)',
             textShadow: '0 1.5px 3px rgba(0, 0, 0, 0.45)',
             borderRadius: '12px',
-            padding: '6px 20px',
+            padding: '6px 16px',
             display: 'inline-block',
-            textTransform: 'none',
+            textTransform: 'uppercase',
           }}>
             {tr.title}
           </p>

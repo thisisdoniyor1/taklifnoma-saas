@@ -483,7 +483,7 @@ function Hero({ data, isThumbnail, opened, onOpen }) {
               >
                 <p style={{
                   fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-                  fontSize: 'clamp(2rem, 8.5vw, 3.2rem)',
+                  fontSize: 'clamp(1.4rem, 6vw, 2.2rem)',
                   fontWeight: 600,
                   fontStyle: 'italic',
                   color: '#ffffff',
