@@ -270,8 +270,9 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
   const shareUrl = `${window.location.origin}/${invite.slug || invite.invite_uuid}`;
 
   const isDeactivated = invite.status === 'deactivated' || invite.status === 'inactive';
+  const isPending = invite.status === 'pending';
   const localReceiptSent = localStorage.getItem(`receipt_sent_${invite.invite_uuid}`) === 'true' || localStorage.getItem(`receipt_sent_${invite.id}`) === 'true';
-  const isLocked = isDeactivated && !localReceiptSent;
+  const isLocked = (isDeactivated || isPending) && !localReceiptSent;
 
   const handleWhatsAppActivation = () => {
     const groom = invite.groom_name || 'Groom';
@@ -691,7 +692,7 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                <div className="flex items-center gap-2">
                  <Lock size={14} className="text-amber-700 shrink-0" />
                  <span className="text-[10px] font-bold text-amber-950 uppercase tracking-wide">
-                   Payment confirmation pending. Please send screenshot to WhatsApp to activate!
+                   {t('editor.payment.lockedDesc')}
                  </span>
                </div>
                <button
@@ -699,7 +700,7 @@ const InvitationStudioCard = ({ invite, onRefresh, ownerEmail }) => {
                  onClick={handleWhatsAppActivation}
                  className="px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white text-[9px] font-black uppercase tracking-wider shadow-sm transition-all shrink-0 cursor-pointer"
                >
-                 Send Screenshot
+                 {t('editor.payment.sendWhatsApp')}
                </button>
              </div>
            )}
