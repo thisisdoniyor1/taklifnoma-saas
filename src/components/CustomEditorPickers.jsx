@@ -550,7 +550,7 @@ const PRESET_VENUES = [
       tj: 'Тӯйхонаи «Иноят»',
       en: 'Inoyat Banquet Hall'
     },
-    url: 'https://www.google.com/maps/place/Kasri+Inoyat+Gulakandoz/@40.1617,69.4678,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a4574971c26b:0xab9533859377de31!8m2!3d40.1617!4d69.4678'
+    url: 'https://www.google.com/maps/place/%22Inoyat%22/@40.1489311,69.4570768,17z/data=!3m1!4b1!4m6!3m5!1s0x38b1a5e992343bfd:0xf29ffef7245403aa!8m2!3d40.1489311!4d69.4570768!16s%2Fg%2F1hm3zhxjh!18m1!1e1?entry=ttu'
   },
   {
     name: 'Rakhimi',
